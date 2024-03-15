@@ -1,5 +1,11 @@
-﻿namespace WakaDaikoApp.Data
+﻿using WakaDaikoApp.Models;
+
+namespace WakaDaikoApp.Data
 {
-    public interface IRepository{
+    public interface IRepository
+    {
+        public interface IBlogRepository
+        {
+        }
     }
 }

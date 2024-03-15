@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using WakaDaikoApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WakaDaikoApp.Data
 {
-    public class Repository : IRepository{
+    public class Repository(AppDbContext c) : IRepository
+    {
+        readonly AppDbContext _context = c;
     }
 }
