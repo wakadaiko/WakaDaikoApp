@@ -6,6 +6,10 @@ namespace WakaDaikoApp.Data
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
     {
+        public DbSet<DrumTeam> DrumTeam { get; set; }
+
+        public DbSet<Event> Events { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<ShimeVideos> ShimeVideos { get; set; }

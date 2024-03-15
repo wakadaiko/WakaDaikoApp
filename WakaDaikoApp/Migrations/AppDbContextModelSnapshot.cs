@@ -262,6 +262,61 @@ namespace WakaDaikoApp.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("WakaDaikoApp.Models.DrumTeam", b =>
+                {
+                    b.Property<int>("MemberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("MemberId"));
+
+                    b.Property<int?>("ConvoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TeamLeadId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("MemberId");
+
+                    b.HasIndex("TeamLeadId");
+
+                    b.ToTable("DrumTeam");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ConvoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("EventId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("WakaDaikoApp.Models.ShimeAudio", b =>
                 {
                     b.Property<int>("AudioId")
@@ -362,10 +417,15 @@ namespace WakaDaikoApp.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int?>("DrumTeamMemberId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("varchar(60)");
+
+                    b.HasIndex("DrumTeamMemberId");
 
                     b.HasDiscriminator().HasValue("AppUser");
                 });
@@ -441,6 +501,14 @@ namespace WakaDaikoApp.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("ConvoId");
 
+                    b.HasOne("WakaDaikoApp.Models.Event", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ConvoId");
+
+                    b.HasOne("WakaDaikoApp.Models.DrumTeam", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ConvoId");
+
                     b.HasOne("WakaDaikoApp.Models.ShimeText", null)
                         .WithMany("Comments")
                         .HasForeignKey("ConvoId");
@@ -460,7 +528,48 @@ namespace WakaDaikoApp.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("WakaDaikoApp.Models.DrumTeam", b =>
+                {
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "TeamLead")
+                        .WithMany()
+                        .HasForeignKey("TeamLeadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TeamLead");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
+                {
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
+                {
+                    b.HasOne("WakaDaikoApp.Models.DrumTeam", null)
+                        .WithMany("Members")
+                        .HasForeignKey("DrumTeamMemberId");
+                });
+
             modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.DrumTeam", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
                 {
                     b.Navigation("Comments");
                 });
