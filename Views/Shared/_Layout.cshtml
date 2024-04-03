@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waka Daiko - @ViewBag.Title</title>
+    <link href="~/css/site.css" rel="stylesheet">
+    <script src="~/lib/tailwindcss/tailwindcss_341.js"></script>
+</head>
+
+<body class="bg-white text-black">
+    @* Navbar *@
+    <header class="z-40 sticky top-0 start-0 bg-inherit text-[rgb(50%,50%,50%)] shadow-2xl">
+        <nav id="eMobileBorder" class="lg:border-b-[1px] border-[rgb(25%,25%,25%)]">
+            <div class="lg:h-16 flex flex-col lg:flex-row lg:container lg:mx-auto">
+                @* Navbar - Left *@
+                <div class="flex flex-col lg:flex-row lg:me-auto">
+                    <div class="h-16 flex items-center border-b-[1px] border-[rgb(25%,25%,25%)] lg:border-0">
+                        <div class="h-16 flex items-center ${cssBorder} lg:border-0">
+                            <partial name="~/views/shared/htmllink.cshtml"
+                                model='new HtmlLinkVM { Type="brand", URL="/", Body="WAKA DAIKO" }' />
+                        </div>
+                        <button id="eMobileButton" class="lg:hidden h-full flex items-center ms-auto p-6" type="button"
+                            onclick="toggleMobile();">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
+                                height="16px" width="16px" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0
+                            96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7
+                            0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32
+                            32-32H416c17.7 0 32 14.3 32 32z">
+                                </path>
+                            </svg>
+                            <svg class="hidden" stroke="currentColor" fill="currentColor" stroke-width="0"
+                                viewBox="0 0 384 512" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="eMobiles hidden lg:flex flex-col lg:flex-row">
+                        <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
+                            href="#">
+                            @* Performances *@
+                            <button class="hidden w-full lg:flex p-6 lg:px-4">
+                                Performances
+                                <svg class="hidden lg:block ms-2" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" height="16px" width="16px"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                    </path>
+                                </svg>
+                            </button>
+                            <ul
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[200%] lg:start-[-50%] lg:bg-[rgb(90%,90%,90%)] text-[rgb(50%,50%,50%)] lg:shadow-2xl">
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/forms/events", Body="Events" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/forms/requests", Body="Requests" }' />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
+                            href="#">
+                            @* Resources *@
+                            <button class="hidden w-full lg:flex p-6 lg:px-4">
+                                Resources
+                                <svg class="hidden lg:block ms-2" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" height="16px" width="16px"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                    </path>
+                                </svg>
+                            </button>
+                            <ul
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[200%] lg:start-[-50%] lg:bg-[rgb(90%,90%,90%)] text-[rgb(50%,50%,50%)] lg:shadow-2xl">
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/resources/tutorials", Body="Tutorials" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/resources/soundtracks", Body="Soundtracks" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/resources/metronome", Body="Metronome" }' />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
+                            href="#">
+                            @* Contact *@
+                            <button class="hidden w-full lg:flex p-6 lg:px-4">
+                                Contact
+                                <svg class="hidden lg:block ms-2" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" height="16px" width="16px"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                    </path>
+                                </svg>
+                            </button>
+                            <ul
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[200%] lg:start-[-50%] lg:bg-[rgb(90%,90%,90%)] text-[rgb(50%,50%,50%)] lg:shadow-2xl">
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="abc@gmail.com", Body="Email" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="https://facebook.com/youthtaiko", Body="Facebook" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/forms/signup", Body="Sign Up" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/forms/questions", Body="General Inquiries" }' />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @* Navbar - Right *@
+                @* <div class="flex lg:flex flex-col lg:flex-row flex-col-reverse">
+                <div class="eMobiles hidden lg:flex flex-col lg:flex-row justify-center gap-3">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                <form class="flex items-center justify-center gap-5" action="/account/logout" method="post">
+                <div>Welcome back ( <span class="text-yellow-500">@User.Identity.Name</span> )</div>
+                <button class="flex items-center justify-center text-sm bg-black hover:bg-[rgb(25%,25%,25%)] text-black
+                p-6 lg:px-4" type="submit">Logout</button>
+                </form>
+                }
+                else
+                {
+                <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { Type="navlink", URL="/account/register", Body="Register" }' />
+                <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { Type="navlink", URL="/account/login", Body="Login" }' />
+                }
+                </div>
+                </div> *@
+            </div>
+        </nav>
+    </header>
+    <div class='eMobiles z-30 hidden fixed start-0 left-0 w-screen h-screen bg-[rgba(0,0,0,.75)]'
+        onclick="toggleMobile();"></div>
+    @* Body *@
+    <main role="main">@RenderBody()</main>
+    @* Footer *@
+    <footer class="text-[rgb(50%,50%,50%)] border-t-[1px] border-[rgb(25%,25%,25%)] shadow-hack p-5 pb-96">
+        <div class="container mx-auto flex flex-col items-center justify-center">
+            &copy; 2003-2024, Waka Daiko. All rights reserved.
+            <span class="ms-1">
+                <partial name="~/views/shared/htmllink.cshtml"
+                    model='new HtmlLinkVM { Type="footer", URL="/home/privacy", Body="Privacy" }' />
+            </span>
+        </div>
+    </footer>
+    @* Scroll To Top *@
+    <div id="buttonScrollToTop" class="z-10 invisible fixed bottom-0 right-0 m-5">
+        <button class="bg-black hover:bg-[rgb(25%,25%,25%)] text-white shadow-2xl p-3" onclick="scrollToTop();">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="16px"
+                width="16px" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z">
+                </path>
+            </svg>
+        </button>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

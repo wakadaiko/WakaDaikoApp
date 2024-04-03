@@ -1,0 +1,84 @@
+@{
+    string c = "";
+    const string colorDefault = "text-black hover:text-[rgb(25%,25%,25%)]";
+    const string class1 = $"flex items-center {colorDefault} p-3";
+
+    switch (Model.Type)
+    {
+        case "brand":
+            c = $"flex items-center font-black text-xl text-black hover:text-[rgb(25%,25%,25%)] p-6 lg:px-4";
+            break;
+        case "navlink":
+            c = "flex items-center hover:text-black p-6 lg:px-4";
+            break;
+        case "dropdown":
+            c = "flex items-center hover:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-6 lg:px-4";
+            break;
+        case "dialog":
+            c = $"flex items-center {colorDefault} p-4 -m-3";
+            break;
+        case "btn-solid":
+            c = "font-black p-4";
+            break;
+        case "btn-outline":
+            c = "btn-outline p-4";
+            break;
+        case "blog-1":
+            c = $"{class1}";
+            break;
+        case "blog-2":
+            c = $"w-max flex items-center {colorDefault} -ms-3 p-3";
+            break;
+        case "message-1":
+            c = "text-red-400 hover:text-red-300 ms-auto -m-5 p-5";
+            break;
+        case "message-2":
+            c = "text-red-400 hover:text-red-300 ms-auto -m-5 p-5";
+            break;
+        case "account-1":
+            c = $"w-max flex items-center {colorDefault} -ms-3 p-3";
+            break;
+        case "account-2":
+            c = $"{class1}";
+            break;
+        case "user":
+            c = $"w-max flex items-center {colorDefault} -ms-3 p-3";
+            break;
+        case "footer":
+            c = $"flex items-center {colorDefault} -m-3 p-3";
+            break;
+        default:
+            c = $"{colorDefault} -m-3 p-3";
+            break;
+    }
+}
+
+<a class="@(c ?? c)" href=@Model.URL>
+    @{
+        switch (Model.Type) {
+            case "brand":
+                <a class="flex items-center gap-2 font-black text-2xl ${extraClasses || ''}" href=@Model.URL>
+                @* <div class='grow grayscale invert dark:invert-0 brightness-200'>
+                    <Image src='/favicon.jpg' alt='Waka Daiko logo' width={40} height={40} />
+                </div> *@
+                <div class="shrink ${fjalla_one.class} text-3xl ${cssTextInvert}">
+                    @Model.Body
+                </div>
+            </a>
+            break;
+            case "message-1":
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
+                </svg>
+                break;
+            case "message-2":
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.309 189.836L184.313 37.851C199.719 24.546 224 35.347 224 56.015v80.053c160.629 1.839 288 34.032 288 186.258 0 61.441-39.581 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 45.344-145.012-21.507-183.51-176.59-185.742V360c0 20.7-24.3 31.453-39.687 18.164l-176.004-152c-11.071-9.562-11.086-26.753 0-36.328z"></path>
+                </svg>
+                break;
+            default:
+                @Html.Raw(Model.Body)
+                break;
+        }
+    }
+</a>

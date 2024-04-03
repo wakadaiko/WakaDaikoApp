@@ -1,0 +1,94 @@
+@* @{
+string c = "";
+
+switch (Model.Type)
+{
+case "who-we-are":
+c = $"";
+break;
+}
+} *@
+
+@* <div class="bg-red-600 text-amber-400"> *@
+<div id=@Model.Type
+    class='flex flex-col lg:flex-row@(Model.Flip ? " lg:flex-row-reverse " : " ")container mx-auto lg:py-10'>
+    <div class="w-full z-0 relative flex grow items-center justify-center overflow-hidden text-white my-auto p-10">
+        @* <div
+        class="z-20 w-full h-full min-h-[calc(100vh-64px)] flex flex-col
+        bg-[radial-gradient(transparent,rgba(0,0,0,0.5))]">
+        </div> *@
+        <img class="z-10 w-full h-full object-cover aspect-video rounded-[32px] border-[16px] border-neutral-300 shadow-2xl saturate-[50%]"
+            src="~/assets/@(Model.Type).jpg" />
+    </div>
+    <div class="w-full h-full gap-5 flex my-auto p-10">
+        <div class='min-w-1 bg-neutral-300@(Model.Flip ? " " : " ms-auto ")-my-5'></div>
+        <div class="flex flex-col gap-5 border-neutral-300 my-auto">
+            <h1 class="font-black text-3xl lg:text-5xl">
+                @Model.Heading
+            </h1>
+            @switch (Model.Type)
+            {
+                case "who-we-are":
+                    <ul class="list-disc list-inside text-xs lg:text-base text-[rgb(50%,50%,50%)]">
+                        Waka Daiko is a fun, diverse, Taiko drumming group, that encourages team building and
+                        instructor-student
+                        mentorships.
+                        <li>
+                            All youth, ages 8-22, are welcome.
+                        </li>
+                    </ul>
+                    break;
+                case "performances":
+                    <ul class="list-disc list-inside text-xs lg:text-base text-[rgb(50%,50%,50%)]">
+                        <span class="font-bold text-black">
+                            Waka Daiko has proudly performed live at:
+                        </span>
+                        <li>
+                            Autzen Stadium
+                        </li>
+                        <li>
+                            Hult Center
+                        </li>
+                        <li>
+                            University of Oregon
+                        </li>
+                        <li>
+                            Lane Community College
+                        </li>
+                        <li>
+                            Asian Celebration
+                        </li>
+                        <li>
+                            Obon Festival
+                        </li>
+                        <li>
+                            Kite Festival
+                        </li>
+                        <li>
+                            Many; many, more places...
+                        </li>
+                    </ul>
+                    break;
+                default:
+                    <p class="text-xs lg:text-base text-[rgb(50%,50%,50%)]">
+                        @* Parse HTML entities *@
+                        @Html.Raw(Model.Body)
+                    </p>
+                    break;
+            }
+        </div>
+    </div>
+</div>
+@* </div> *@
+
+@* <a class="@(c ?? c)" href=@Model.URL>
+@{
+switch (Model.Type)
+{
+case "who-we-are":
+break;
+case "message-2":
+break;
+}
+}
+</a> *@
