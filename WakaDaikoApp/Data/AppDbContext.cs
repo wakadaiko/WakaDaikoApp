@@ -1,14 +1,27 @@
+using WakaDaikoApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-namespace WakaDaikoApp.Data 
+
+namespace WakaDaikoApp.Data
 {
-    public class AppDbContext : IdentityDbContext{
-        public AppDbContext(
-           DbContextOptions<AppDbContext> options) : base(options) { }
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
+    {
+        public DbSet<DrumTeam> DrumTeam { get; set; }
 
-        // one DbSet for each domain model class
+        public DbSet<Event> Events { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<ShimeVideos> ShimeVideos { get; set; }
+
+        public DbSet<ShimeText> ShimeText { get; set; }
+
+        public DbSet<ShimeAudio> ShimeAudio { get; set; }
+
+        public DbSet<TaikoVideos> TaikoVideos { get; set; }
+
+        public DbSet<TaikoText> TaikoText { get; set; }
+
+        public DbSet<TaikoAudio> TaikoAudio { get; set; }
     }
 }
