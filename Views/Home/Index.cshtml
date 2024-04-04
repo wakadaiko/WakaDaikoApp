@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Home / Homepage";
+}
+
+<dialog class="z-40 fixed bottom-0 hidden open:flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-0 lg:w-1/2
+bg-white text-[rgb(50%,50%,50%)] border-[1px] border-[rgb(20%,20%,20%)] shadow-2xl container mx-auto lg:mb-5
+p-3" open>
+    <form class="flex flex-col lg:flex-row gap-3" method="dialog">
+        <div class="flex">
+            <div class="my-auto">
+                This site uses analytics. Click
+            </div>
+            <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { Type="dialog", URL="/home/privacy", Body="here" }' />
+            <div class="my-auto">
+                to learn more.
+            </div>
+        </div>
+        <button class="bg-black hover:bg-[rgb(25%,25%,25%)] text-white p-3">Dismiss</button>
+    </form>
+</dialog>
+@*bg-[radial-gradient(transparent,rgba(255,0,0,1))]">*@
+@* Homepage *@
+<div class="z-0 relative flex grow items-center justify-center overflow-hidden text-white">
+    <div
+        class="z-20 w-full h-full min-h-[calc(100vh-64px)] lg:min-h-[calc(75vh-64px)] flex flex-col bg-[linear-gradient(to_right,black,transparent)]">
+        <div
+            class="z-20 w-full h-full min-h-[calc(100vh-64px)] lg:min-h-[calc(75vh-64px)] flex flex-col bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0))]">
+            <div class="flex flex-col gap-4 lg:gap-6 text-center lg:text-start m-auto lg:ms-[12.5vw]">
+                <h1 class="font-black text-5xl lg:text-7xl">
+                    WAKA DAIKO
+                </h1>
+                <h3 class="lg:text-3xl tracking-wider">
+                    Events, Teamwork, Community, Culture
+                </h3>
+                <p class="text-xs lg:text-lg text-[rgb(75%,75%,75%)]">
+                    Youth, taiko drumming group, based in Eugene, Oregon.
+                    <br />
+                    All youth, ages 8-22, are welcome.
+                </p>
+                <div className='flex flex-col lg:flex-row gap-4 mx-auto lg:mx-0'>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="btn-solid", URL="/forms/events", Body="UPCOMING EVENTS" }' />
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="btn-outline", URL="/forms/events", Body="WORKSHOPS" }' />
+                </div>
+            </div>
+        </div>
+    </div>
+    <img class="absolute z-10 w-full h-full object-cover saturate-[50%]" src="~/assets/homepage.jpg" />
+    @* <video class="absolute z-10 w-full h-full object-cover saturate-[25%]"
+    src="~/assets/Color.mp4" playsInline autoPlay muted loop>
+    This browser doesn&#39;t support MP4. Try using a different browser.
+    </video> *@
+</div>
+@* Who We Are *@
+<partial name="~/views/shared/htmlsections.cshtml"
+    model='new HtmlSectionsVM { Type="who-we-are", URL1="/home#who-we-are", Heading="WHO WE ARE" }' />
+@* Performances *@
+<partial name="~/views/shared/htmlsections.cshtml"
+    model='new HtmlSectionsVM { Type="performances", URL1="/home#performances", Heading="PERFORMANCES", Flip=true }' />
+@* Culture *@
+<partial name="~/views/shared/htmlsections.cshtml"
+    model='new HtmlSectionsVM { Type="culture", URL1="/home#culture", Heading="CULTURE", Body="The history of Taiko and its song origins play a key part in making Waka Daiko what it&#39;s to this very day." }' />
+@* Community *@
+<partial name="~/views/shared/htmlsections.cshtml"
+    model='new HtmlSectionsVM { Type="community", URL1="/home#community", Heading="COMMUNITY", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by our community booth at the annual Asian Celebration.", Flip=true }' />
