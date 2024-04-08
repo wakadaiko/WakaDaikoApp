@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Admin Page";
+}
+
+@{
+    if (TempData["Message"] != null)
+    {
+        <div class="col-7">
+            <h2 class="text-start">Console:</h2>
+            <span>@TempData["Message"]</span>
+        </div>
+    }
+}
+<div class="col-7">
+    <h2 class="text-start">Create Team Area</h2>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form class="" method="post" asp-action="CreateTeam">
+        <div class="row mb-2">
+            <label class="col-form-label col-md-4">Team Name:</label>
+            <div class="col-md-6">
+                <input name="name" class="form-control" />
+            </div>
+            <button type="submit" class="">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div class="col-7">
+    <h2 class="text-start">Create User Area</h2>
+
+    <form class="" method="post" asp-action="CreateUser">
+        <div class="row mb-2">
+            <label class="col-form-label col-md-4">User Name:</label>
+            <div class="col-md-6">
+                <input name="name" class="form-control" />
+            </div>
+            <button type="submit" class="">Submit</button>
+        </div>
+    </form>
+</div>
+</div>

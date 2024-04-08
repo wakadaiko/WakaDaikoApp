@@ -12,8 +12,8 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240402210040_Comment")]
-    partial class Comment
+    [Migration("20240408043719_wakaIni")]
+    partial class wakaIni
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
