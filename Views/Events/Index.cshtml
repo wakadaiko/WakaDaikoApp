@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Events / Home";
+}
+@model List<Event>
+
+<div class="container m-auto lg:my-20 p-5">
+    <div class="flex flex-col lg:flex-row gap-5">
+        @* Section - Left *@
+        <div class="flex gap-5">
+            <div class="w-full flex flex-col items-center lg:items-start">
+                <div class="flex p-1 mb-5">
+                    <label class="peer relative">
+                        <input
+                            class="peer w-full rounded-[32px] bg-transparent border-[1px] border-[rgb(50%,50%,50%)] focus:border-black focus:outline-none lg:-ms-5 ps-[28px] pe-2"
+                            type="search" placeholder="Search ..." />
+                        <svg class="absolute top-[50%] left-[8px] lg:left-[-10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)] peer-focus:fill-black"
+                            stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px" height="16px"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                            </path>
+                        </svg>
+                    </label>
+                </div>
+                <div>
+                    @* Section - Filters - Status *@
+                    <div>
+                        <h1 class="font-black">Filter By Status</h1>
+                        <ul>
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="status1", Name="status", Body="All", Checked=true }' />
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="status2", Name="status", Body="Past", Checked=false }' />
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="status3", Name="status", Body="Current", Checked=false }' />
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="status4", Name="status", Body="Upcoming", Checked=false }' />
+                        </ul>
+                    </div>
+                    @* Section - Filters - Alphabet *@
+                    <div class="my-5">
+                        <h1 class="font-black">Filter By Alphabet</h1>
+                        <ul>
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="alphabet1", Name="alphabet", Body="A - Z", Checked=true }' />
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="alphabet2", Name="alphabet", Body="Z - A", Checked=false }' />
+                        </ul>
+                    </div>
+                    @* Section - Filters - Date *@
+                    <div>
+                        <h1 class="font-black">Filter By Date</h1>
+                        <ul>
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="date1", Name="date", Body="Newest", Checked=true }' />
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="date2", Name="date", Body="Oldest", Checked=false }' />
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @* <div class='hidden lg:block min-w-[1px] bg-neutral-300 -my-5'></div> *@
+        </div>
+        @* Section - Right *@
+        <div class="w-full flex flex-col items-center">
+            @* Section - Events *@
+            <ul class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                @if (Model != null)
+                {
+                    foreach (var _event in Model)
+                    {
+                        <partial name="~/views/shared/htmlevent.cshtml"
+                            model='new Event { EventId=_event.EventId, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author }' />
+                    }
+                }
+            </ul>
+            <ul class="flex gap-3 p-6">
+                @* Section - Button - Left *@
+                <li>
+                    <button>
+                        <svg class="fill-red-600 hover:fill-red-500 stroke-1 stroke-red-900 hover:stroke-red-800"
+                            stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16"
+                            width="32px" height="32px" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 8l7.5 7.5v-4.5h8v-6h-8v-4.5z"></path>
+                        </svg>
+                    </button>
+                </li>
+                @* Section - Links *@
+                <li>
+                    <ul class="grid grid-cols-5 lg:grid-cols-10 gap-3">
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="1", Selected=true }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="2", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="3", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="4", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="5", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="6", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="7", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="8", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="9", Selected=false }' />
+                        <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id="10", Selected=false }' />
+                    </ul>
+                </li>
+                @* Section - Button - Right *@
+                <li>
+                    <button>
+                        <svg class="fill-red-600 hover:fill-red-500 stroke-1 stroke-red-900 hover:stroke-red-800"
+                            stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16"
+                            width="32px" height="32px" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 8l-7.5-7.5v4.5h-8v6h8v4.5z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

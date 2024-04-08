@@ -5,9 +5,6 @@
 
     switch (Model.Type)
     {
-        case "brand":
-            c = $"flex items-center font-black text-xl text-black hover:text-[rgb(25%,25%,25%)] p-6 lg:px-4";
-            break;
         case "navlink":
             c = "flex items-center hover:text-black p-6 lg:px-4";
             break;
@@ -18,7 +15,7 @@
             c = $"flex items-center {colorDefault} p-4 -m-3";
             break;
         case "btn-solid":
-            c = "font-black p-4";
+            c = "font-black bg-red-600 hover:bg-red-500 text-white p-4";
             break;
         case "btn-outline":
             c = "btn-outline p-4";
@@ -57,11 +54,11 @@
     @{
         switch (Model.Type) {
             case "brand":
-                <a class="flex items-center gap-2 font-black text-2xl ${extraClasses || ''}" href=@Model.URL>
-                @* <div class='grow grayscale invert dark:invert-0 brightness-200'>
-                    <Image src='/favicon.jpg' alt='Waka Daiko logo' width={40} height={40} />
-                </div> *@
-                <div class="shrink ${fjalla_one.class} text-3xl ${cssTextInvert}">
+                <a class="flex items-center gap-2 font-black text-2xl @class1" href=@Model.URL>
+                <div class='grow grayscale invert brightness-200'>
+                    <img class="grow grayscale" src="~/assets/favicon.jpg" alt='Waka Daiko logo' width="32" height="32" />
+                </div>
+                <div class="shrink text-3xl">
                     @Model.Body
                 </div>
             </a>

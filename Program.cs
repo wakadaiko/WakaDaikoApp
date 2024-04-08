@@ -26,8 +26,8 @@ if (!app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    context.Response.Headers.Append("X-Frame-Options", "DENY");
-    context.Response.Headers.Append("Content-Security-Policy", "form-action 'self'");
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("Content-Security-Policy", "form-action 'self'");
 
     await next();
 });
@@ -43,7 +43,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    _ = AppDbInit.Seed(dbContext, scope.ServiceProvider);
+    AppDbInit.Seed(dbContext, scope.ServiceProvider);
 }
 
 app.Run();

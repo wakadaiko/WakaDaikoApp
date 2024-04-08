@@ -1,0 +1,5 @@
+<li>
+    <input id="@Model.Id" class="accent-red-600 select-none cursor-pointer" type="radio" name=@Model.Name
+        value=@Model.Id @(Model.Checked ? "checked=\"checked\"" : "")>
+    <label class="hover:text-[25%,25%,25%] select-none cursor-pointer" for="@Model.Id">@Model.Body</label>
+</li>
