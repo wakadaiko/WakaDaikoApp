@@ -1,23 +1,34 @@
 ﻿@{
     ViewBag.Title = "Events / Home";
+
+    @* var events = @Html.Raw(Json.Serialize(@Model)); *@
 }
 @model List<Event>
+
+@* <script>
+abc = @events
+</script> *@
 
 <div class="container m-auto lg:my-20 p-5">
     <div class="flex flex-col lg:flex-row gap-5">
         @* Section - Left *@
-        <div class="flex gap-5">
+        @* onsubmit="return (function(event){console.log(event.currentTarget); return false;})(event);"> *@
+        @* <form class="flex gap-5" method="post" onchange="this.submit();"> *@
+        <form class="flex gap-5" method="post">
             <div class="w-full flex flex-col items-center lg:items-start">
+                <button class="rounded-lg bg-red-600 hover:bg-red-500 text-white m-5 p-5" type="submit">Submit</button>
                 <div class="flex p-1 mb-5">
-                    <label class="peer relative">
+                    <label class="peer relative" for="search">
                         <input
                             class="peer w-full rounded-[32px] bg-transparent border-[1px] border-[rgb(50%,50%,50%)] focus:border-black focus:outline-none lg:-ms-5 ps-[28px] pe-2"
-                            type="search" placeholder="Search ..." />
-                        <svg class="absolute top-[50%] left-[8px] lg:left-[-10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)] peer-focus:fill-black"
-                            stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px" height="16px"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                            for="search" name="search" type="search" placeholder="Search ..." />
+                        <svg class="absolute top-[50%] left-[8px] lg:left-[-10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)]
+                    peer-focus:fill-black" stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px"
+                            height="16px" xmlns="http://www.w3.org/2000/svg">
+                            using NuGet.Protocol;
+                            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7
+                    376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144
+                    144 0 1 0 0-288 144 144 0 1 0 0 288z">
                             </path>
                         </svg>
                     </label>
@@ -60,7 +71,7 @@
                 </div>
             </div>
             @* <div class='hidden lg:block min-w-[1px] bg-neutral-300 -my-5'></div> *@
-        </div>
+        </form>
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
             @* Section - Events *@

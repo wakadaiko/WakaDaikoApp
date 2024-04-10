@@ -10,20 +10,20 @@ function resetMobile() {
     Array.from(eMobiles).forEach(e => window.matchMedia('(min-width: 1024px)') ? (eMobileBorder.classList.remove('border-b-[1px]'), e.classList.add('hidden'), eMobileButton.children[0].classList.remove('hidden'), eMobileButton.children[1].classList.add('hidden')) : {});
 }
 
-function rememberFormValues() {
-    const eRegisterName = document.getElementById('eRegisterName')
-    const eRegisterUsername = document.getElementById('eRegisterUsername')
-    const sRegisterName = sessionStorage.getItem('register-name');
-    const sRegisterUsername = sessionStorage.getItem('register-username');
+// function rememberFormValues() {
+//     const eRegisterName = document.getElementById('eRegisterName')
+//     const eRegisterUsername = document.getElementById('eRegisterUsername')
+//     const sRegisterName = sessionStorage.getItem('register-name');
+//     const sRegisterUsername = sessionStorage.getItem('register-username');
 
-    if (eRegisterName && sRegisterName) document.forms[0].name.value = sRegisterName;
-    if (eRegisterUsername && sRegisterUsername) document.forms[0].username.value = sRegisterUsername;
-}
+//     if (eRegisterName && sRegisterName) document.forms[0].name.value = sRegisterName;
+//     if (eRegisterUsername && sRegisterUsername) document.forms[0].username.value = sRegisterUsername;
+// }
 
-function storeFormValues() {
-    sessionStorage.setItem('register-name', document.forms[0].name.value);
-    sessionStorage.setItem('register-username', document.forms[0].username.value);
-}
+// function storeFormValues() {
+//     sessionStorage.setItem('register-name', document.forms[0].name.value);
+//     sessionStorage.setItem('register-username', document.forms[0].username.value);
+// }
 
 function checkScroll() {
     const eBtn = document.getElementById('buttonScrollToTop');
@@ -48,8 +48,23 @@ function scrollToTop() {
 }
 
 window.addEventListener('load', () => {
-    rememberFormValues();
+    // rememberFormValues();
     checkScroll();
+
+    if (window.location.pathname === '/events') {
+        // console.log(Array.from(document.forms[0]).forEach(e => e.checked ? console.log(e) : {}));
+
+        // if (eEvents) console.log('a');
+
+        // console.log(abc);
+
+        // fetch('HtmlEvent.html')
+        //     .then(response => response.text())
+        //     .then(html => {
+        //         if (eEvents) eEvents.innerHTML = html;
+        //     })
+        //     .catch(error => console.error('Error loading partial view:', error));
+    }
 });
 window.addEventListener('resize', resetMobile);
 window.addEventListener('scroll', checkScroll);
