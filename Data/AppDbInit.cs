@@ -34,12 +34,24 @@ namespace WakaDaikoApp
 
                 if (isSuccess)
                 {
-                    var randomTitle = "Lorem ipsum";
+                    Random random = new();
+
+                    // Variable - Text
+                    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                     var randomText = "Lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum";
-                    var currentTime = DateOnly.FromDateTime(DateTime.Now);
 
                     for (var i = 0; i < 18; i++)
                     {
+                        // Variable - Title
+                        var randomTitle = new string(Enumerable.Repeat(chars, 20).Select(s => s[random.Next(s.Length)]).ToArray());
+
+                        // Variable - Date
+                        DateTime start = new(1995, 1, 1);
+
+                        int range = (DateTime.Today - start).Days;
+                        var currentTime = DateOnly.FromDateTime(start.AddDays(random.Next(range)));
+
+                        // Event
                         var event1 = new Event
                         {
                             Title = randomTitle,

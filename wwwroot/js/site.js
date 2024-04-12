@@ -50,21 +50,6 @@ function scrollToTop() {
 window.addEventListener('load', () => {
     // rememberFormValues();
     checkScroll();
-
-    if (window.location.pathname === '/events') {
-        // console.log(Array.from(document.forms[0]).forEach(e => e.checked ? console.log(e) : {}));
-
-        // if (eEvents) console.log('a');
-
-        // console.log(abc);
-
-        // fetch('HtmlEvent.html')
-        //     .then(response => response.text())
-        //     .then(html => {
-        //         if (eEvents) eEvents.innerHTML = html;
-        //     })
-        //     .catch(error => console.error('Error loading partial view:', error));
-    }
 });
 window.addEventListener('resize', resetMobile);
 window.addEventListener('scroll', checkScroll);

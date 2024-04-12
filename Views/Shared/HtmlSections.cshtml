@@ -17,7 +17,7 @@ break;
         class="z-20 w-full h-full min-h-[calc(100vh-64px)] flex flex-col
         bg-[radial-gradient(transparent,rgba(0,0,0,0.5))]">
         </div> *@
-        <img class="z-10 w-full h-full object-cover aspect-video rounded-[32px] border-[16px] border-neutral-300 shadow-2xl saturate-[50%]"
+        <img class="z-10 w-full h-full object-cover aspect-video rounded-[32px] border-[16px] border-neutral-300 shadow-lg saturate-[50%]"
             src="~/assets/@(Model.Type).jpg" />
     </div>
     <div class="w-full h-full gap-5 flex my-auto p-10">
@@ -29,7 +29,7 @@ break;
             @switch (Model.Type)
             {
                 case "who-we-are":
-                    <ul class="list-disc list-inside text-xs lg:text-base text-[rgb(50%,50%,50%)]">
+                    <ul class="list-disc list-inside text-xs lg:text-base text-[rgb(37.5%,37.5%,37.5%)]">
                         Waka Daiko is a fun, diverse, Taiko drumming group, that encourages team building and
                         instructor-student
                         mentorships.
@@ -39,7 +39,7 @@ break;
                     </ul>
                     break;
                 case "performances":
-                    <ul class="list-disc list-inside text-xs lg:text-base text-[rgb(50%,50%,50%)]">
+                    <ul class="list-disc list-inside text-xs lg:text-base text-[rgb(37.5%,37.5%,37.5%)]">
                         <span class="font-bold text-black">
                             Waka Daiko has proudly performed live at:
                         </span>
@@ -70,7 +70,7 @@ break;
                     </ul>
                     break;
                 default:
-                    <p class="text-xs lg:text-base text-[rgb(50%,50%,50%)]">
+                    <p class="text-xs lg:text-base text-[rgb(37.5%,37.5%,37.5%)]">
                         @* Parse HTML entities *@
                         @Html.Raw(Model.Body)
                     </p>

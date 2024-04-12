@@ -12,7 +12,7 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240408024639_Comment")]
+    [Migration("20240412042114_Comment")]
     partial class Comment
     {
         /// <inheritdoc />

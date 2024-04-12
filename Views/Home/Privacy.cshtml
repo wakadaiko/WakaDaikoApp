@@ -1,6 +1,21 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewBag.Title = "Privacy";
+    ViewBag.Link_privacy = "https://smarterasp.net/privacy";
+    ViewBag.Link_cookies = "https://smarterasp.net/cookies";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="flex flex-col items-center container m-auto lg:my-20 p-5">
+    <h1 class="font-black text-3xl lg:text-5xl mb-10">@ViewBag.Title.ToUpper()</h1>
+    <ul class="whitespace-nowrap text-[rgb(37.5%,37.5%,37.5%)]">
+        <li class="mb-3">
+            [1]
+            <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { URL=@ViewBag.Link_privacy.ToString(), Body=@ViewBag.Link_privacy.ToString() }' />
+        </li>
+        <li>
+            [2]
+            <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { URL=@ViewBag.Link_cookies.ToString(), Body=@ViewBag.Link_cookies.ToString() }' />
+        </li>
+    </ul>
+</div>

@@ -1,8 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,20 +12,21 @@
 
 <body class="bg-white text-black">
     @* Navbar *@
-    <header class="z-40 sticky top-0 start-0 bg-inherit text-[rgb(50%,50%,50%)] shadow-lg">
-        <nav id="eMobileBorder" class="lg:border-b-[1px] border-[rgb(90%,90%,90%)]">
+    <header class="z-40 sticky top-0 start-0 flex flex-col bg-inherit text-[rgb(37.5%,37.5%,37.5%)] shadow-lg">
+        <nav id="eMobileBorder" class="lg:border-b-[0px] border-[rgb(90%,90%,90%)]">
             <div class="lg:h-16 flex flex-col lg:flex-row lg:container lg:mx-auto">
                 @* Navbar - Left *@
                 <div class="flex flex-col lg:flex-row lg:me-auto">
-                    <div class="h-16 flex items-center border-b-[1px] border-[rgb(90%,90%,90%)] lg:border-0">
+                    @* Section - Brand + Mobile *@
+                    <div class="h-16 flex items-center border-b-[0px] border-[rgb(90%,90%,90%)] lg:border-0">
                         <div class="h-16 flex items-center ${cssBorder} lg:border-0">
                             <partial name="~/views/shared/htmllink.cshtml"
-                                model='new HtmlLinkVM { Type="brand", URL="/abc", Body="WAKA DAIKO" }' />
+                                model='new HtmlLinkVM { Type="nav-brand", URL="/", Body="WAKA DAIKO" }' />
                         </div>
                         <button id="eMobileButton" class="lg:hidden h-full flex items-center ms-auto p-6" type="button"
                             onclick="toggleMobile();">
                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
-                                height="16px" width="16px" xmlns="http://www.w3.org/2000/svg">
+                                width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0
                             96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7
                             0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32
@@ -37,7 +34,7 @@
                                 </path>
                             </svg>
                             <svg class="hidden" stroke="currentColor" fill="currentColor" stroke-width="0"
-                                viewBox="0 0 384 512" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg">
+                                viewBox="0 0 384 512" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z">
                                 </path>
@@ -45,13 +42,14 @@
                         </button>
                     </div>
                     <div class="eMobiles hidden lg:flex flex-col lg:flex-row">
+                        @* Section - Dropdown - Performances *@
                         <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
                             href="#">
                             @* Performances *@
                             <button class="hidden w-full lg:flex p-6 lg:px-4">
                                 Performances
-                                <svg class="hidden lg:block ms-2" stroke="currentColor" fill="currentColor"
-                                    stroke-width="0" viewBox="0 0 16 16" height="16px" width="16px"
+                                <svg class="hidden lg:block ms-2 my-auto" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" width="12px" height="12px"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
@@ -59,7 +57,7 @@
                                 </svg>
                             </button>
                             <ul
-                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[200%] lg:start-[-50%] lg:bg-[rgb(90%,90%,90%)] text-[rgb(50%,50%,50%)] lg:shadow-lg">
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
                                         model='new HtmlLinkVM { Type="dropdown", URL="/events", Body="Events" }' />
@@ -70,13 +68,14 @@
                                 </li>
                             </ul>
                         </div>
+                        @* Section - Dropdown - Resources *@
                         <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
                             href="#">
                             @* Resources *@
                             <button class="hidden w-full lg:flex p-6 lg:px-4">
                                 Resources
-                                <svg class="hidden lg:block ms-2" stroke="currentColor" fill="currentColor"
-                                    stroke-width="0" viewBox="0 0 16 16" height="16px" width="16px"
+                                <svg class="hidden lg:block ms-2 my-auto" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" width="12px" height="12px"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
@@ -84,7 +83,7 @@
                                 </svg>
                             </button>
                             <ul
-                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[200%] lg:start-[-50%] lg:bg-[rgb(90%,90%,90%)] text-[rgb(50%,50%,50%)] lg:shadow-lg">
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
                                         model='new HtmlLinkVM { Type="dropdown", URL="/resources/tutorials", Body="Tutorials" }' />
@@ -99,13 +98,14 @@
                                 </li>
                             </ul>
                         </div>
+                        @* Section - Dropdown - Contact *@
                         <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
                             href="#">
                             @* Contact *@
                             <button class="hidden w-full lg:flex p-6 lg:px-4">
                                 Contact
-                                <svg class="hidden lg:block ms-2" stroke="currentColor" fill="currentColor"
-                                    stroke-width="0" viewBox="0 0 16 16" height="16px" width="16px"
+                                <svg class="hidden lg:block ms-2 my-auto" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" width="12px" height="12px"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
@@ -113,7 +113,7 @@
                                 </svg>
                             </button>
                             <ul
-                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[200%] lg:start-[-50%] lg:bg-[rgb(90%,90%,90%)] text-[rgb(50%,50%,50%)] lg:shadow-lg">
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
                                         model='new HtmlLinkVM { Type="dropdown", URL="abc@gmail.com", Body="Email" }' />
@@ -135,25 +135,54 @@
                     </div>
                 </div>
                 @* Navbar - Right *@
-                @* <div class="flex lg:flex flex-col lg:flex-row flex-col-reverse">
-                <div class="eMobiles hidden lg:flex flex-col lg:flex-row justify-center gap-3">
-                @if (User.Identity != null && User.Identity.IsAuthenticated)
-                {
-                <form class="flex items-center justify-center gap-5" action="/account/logout" method="post">
-                <div>Welcome back ( <span class="text-yellow-500">@User.Identity.Name</span> )</div>
-                <button class="flex items-center justify-center text-sm bg-black hover:bg-[rgb(25%,25%,25%)] text-black
-                p-6 lg:px-4" type="submit">Logout</button>
-                </form>
-                }
-                else
-                {
-                <partial name="~/views/shared/htmllink.cshtml"
-                model='new HtmlLinkVM { Type="navlink", URL="/account/register", Body="Register" }' />
-                <partial name="~/views/shared/htmllink.cshtml"
-                model='new HtmlLinkVM { Type="navlink", URL="/account/login", Body="Login" }' />
-                }
+                <div class="flex lg:flex flex-col lg:flex-row flex-col-reverse">
+                    <div class="eMobiles hidden lg:flex flex-col lg:flex-row justify-center">
+                        @* @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                        <form class="flex items-center justify-center gap-5" action="/account/logout" method="POST">
+                        <div>Welcome back ( <span class="text-yellow-500">@User.Identity.Name</span> )</div>
+                        <button class="flex items-center justify-center text-sm bg-black hover:bg-[rgb(25%,25%,25%)]
+                        text-black
+                        p-6 lg:px-4" type="submit">Logout</button>
+                        </form>
+                        }
+                        else
+                        {
+                        <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="navlink", URL="/account/register", Body="Register" }' />
+                        <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="navlink", URL="/account/login", Body="Login" }' />
+                        } *@
+                        <partial name="~/views/shared/htmllink.cshtml"
+                            model='new HtmlLinkVM { Type="nav-workshops", URL="/workshops", Body="Taiko Workshops" }' />
+                        @* Section - Dropdown - Account *@
+                        <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
+                            href="#">
+                            @* Account *@
+                            <button class="hidden w-full lg:flex p-6 lg:px-4">
+                                Account
+                                <svg class="hidden lg:block ms-2 my-auto" stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 16 16" width="12px" height="12px"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                    </path>
+                                </svg>
+                            </button>
+                            <ul
+                                class="eMobiles hidden lg:group-focus-within:block lg:group-focus-within:hidden lg:group-hover:block lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/account/register", Body="Register" }' />
+                                </li>
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="dropdown", URL="/account/login", Body="Login" }' />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                </div> *@
             </div>
         </nav>
         <a class='group h-8 flex items-center justify-center bg-blue-500 hover:bg-blue-400 text-center text-xs'
@@ -177,19 +206,21 @@
     @* Body *@
     <main role="main">@RenderBody()</main>
     @* Footer *@
-    <footer class="text-[rgb(50%,50%,50%)] border-t-[1px] border-[rgb(90%,90%,90%)] shadow-hack p-5 pb-96">
-        <div class="container mx-auto flex flex-col items-center justify-center">
+    <footer class="text-[rgb(67.5%,67.5%,67.5%)] border-t-[0px] border-[rgb(90%,90%,90%)] shadow-hack p-5 pb-96">
+        <div class="container mx-auto flex flex-col gap-3 items-center justify-center">
             &copy; 2003-2024, Waka Daiko. All rights reserved.
-            <span class="ms-1">
+            <span class="flex gap-5 ms-1">
                 <partial name="~/views/shared/htmllink.cshtml"
                     model='new HtmlLinkVM { Type="footer", URL="/home/privacy", Body="Privacy" }' />
+                <partial name="~/views/shared/htmllink.cshtml"
+                    model='new HtmlLinkVM { Type="footer", URL="/home/sitemap", Body="Sitemap" }' />
             </span>
         </div>
     </footer>
     @* Scroll To Top *@
     <div id="buttonScrollToTop" class="z-10 invisible fixed bottom-0 right-0 m-5">
         <button class="bg-red-600 hover:bg-red-500 text-white shadow-lg p-3" onclick="scrollToTop();">
-            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="16px"
+            <svg stroke="currentColor" fill="currentColor" stroke-width="2" viewBox="0 0 16 16" height="16px"
                 width="16px" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
                     d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z">

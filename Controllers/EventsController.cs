@@ -1,9 +1,8 @@
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
-using Microsoft.AspNetCore.Authorization;
+// using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Common;
 
 namespace WakaDaikoApp.Controllers
 {
@@ -12,63 +11,74 @@ namespace WakaDaikoApp.Controllers
         // Variables
         readonly IRepository _repository = r;
 
-        readonly UserManager<AppUser> _userManager = u;
+        // readonly UserManager<AppUser> _userManager = u;
 
-        // Routes
+        // Controllers & routes
 
         public IActionResult Index()
         {
-            // Console.WriteLine("\n\n\n\n1\n\n\n\n");
+            string? pagination = Request.Query["pagination"];
+            string? search = Request.Query["search"];
+            string? status = Request.Query["status"];
+            string? alphabet = Request.Query["alphabet"];
+            string? date = Request.Query["date"];
 
-            return View(GetEvents());
+            // Console.WriteLine($"\n\n\n\n{search}\n\n\n\n");
+            // Console.WriteLine($"\n\n\n\n{status}\n\n\n\n");
+            // Console.WriteLine($"\n\n\n\n{alphabet}\n\n\n\n");
+            // Console.WriteLine($"\n\n\n\n{date}\n\n\n\n");
+
+            return View("Index", GetEvents(pagination, 0, search ?? "", status ?? "", alphabet ?? "", date ?? ""));
         }
-        // public IActionResult Index() => View((from e in _repository.GetEvents() select e).ToList());
-
-        // [HttpPost]
-        // public IActionResult Index(string search, string status, string alphabet, string date)
-        // {
-        //     Console.WriteLine("\n\n\n\n2\n\n\n\n");
-
-        //     Console.WriteLine(search);
-        //     Console.WriteLine(status);
-        //     Console.WriteLine(alphabet);
-        //     Console.WriteLine(date);
-
-        //     return View(GetEvents(search, status, alphabet, date));
-        // }
 
         [HttpGet("/events/{id}")]
-        public IActionResult Index(int id)
-        {
-            return View(GetEvents(id));
-        }
+        public IActionResult Index(int id) => View(GetEvents("", id));
 
         // Functions
 
-        public List<Event> GetEvents(int id = 0, string search = "", string status = "", string alphabet = "", string date = "")
+        public List<Event> GetEvents(string pagination = "", int id = 0, string search = "", string status = "", string alphabet = "", string date = "")
         {
-            List<Event> events = (from e in _repository.GetEvents() select e).ToList();
+            // Initial load
 
-            // List<Event> events = (from e in _repository.GetEvents() select e).Reverse().Take(9).ToList();
+            List<Event> events = _repository
+                .GetEvents()
+                .Select(e => e)
+                .OrderByDescending(e => e.Date)
+                .Take(6)
+                .ToList();
 
-            // return (from e in _repository.GetEvents() select e).OrderBy(e => e.EventId).Reverse().Take(9).ToList();
-
-            // if (date != null) events = (from e in _repository.GetEvents() select e).Take(9).ToList();
-
-            // if (date == "date2")
-            // {
-            //     events = (from e in _repository.GetEvents() select e).OrderBy(e => e.EventId).Take(9).ToList();
-
-            //     Console.WriteLine("ABC");
-            // }
+            // ID
 
             if (id > 0)
             {
-                events = (from e in _repository.GetEvents() select e).Where(e => e.EventId == id).ToList();
-                if (events.Count > 0) Console.WriteLine('✅');
-                else Console.WriteLine('❌');
-                // Console.WriteLine(events.Count);
+                events = [.. events.Where(e => id == e.EventId)];
+
+                // if (events.Count < 1) Console.WriteLine("❌");
+                // if (events.Count < 1) return null;
             }
+
+            // Search
+
+            if (search != "") events = [.. events.Where(e => e.Title != null && e.Title.Contains(search))];
+
+            // Alphabet
+
+            switch (alphabet)
+            {
+                case "eAlphabetAZ":
+                    events = [.. events.OrderBy(e => e.Title)];
+                    break;
+
+                case "eAlphabetZA":
+                    events = [.. events.OrderByDescending(e => e.Title)];
+                    break;
+            }
+
+            // Oldest
+
+            if (date == "eDateOldest") events = [.. events.OrderBy(e => e.Date)];
+
+            // Return
 
             return events;
         }

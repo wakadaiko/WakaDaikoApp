@@ -13,19 +13,17 @@ abc = @events
     <div class="flex flex-col lg:flex-row gap-5">
         @* Section - Left *@
         @* onsubmit="return (function(event){console.log(event.currentTarget); return false;})(event);"> *@
-        @* <form class="flex gap-5" method="post" onchange="this.submit();"> *@
-        <form class="flex gap-5" method="post">
+        @* <form class="flex gap-5" method="POST" onchange="this.submit();"> *@
+        <form class="flex gap-5" method="GET">
             <div class="w-full flex flex-col items-center lg:items-start">
-                <button class="rounded-lg bg-red-600 hover:bg-red-500 text-white m-5 p-5" type="submit">Submit</button>
                 <div class="flex p-1 mb-5">
                     <label class="peer relative" for="search">
-                        <input
-                            class="peer w-full rounded-[32px] bg-transparent border-[1px] border-[rgb(50%,50%,50%)] focus:border-black focus:outline-none lg:-ms-5 ps-[28px] pe-2"
+                        <input id="eSearch"
+                            class="peer w-full rounded-[8px] bg-transparent border-[1px] border-[rgb(67.5%,67.5%,67.5%)] focus:border-black focus:outline-none lg:-ms-5 ps-[34px] pe-[12px] py-[6px]"
                             for="search" name="search" type="search" placeholder="Search ..." />
                         <svg class="absolute top-[50%] left-[8px] lg:left-[-10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)]
                     peer-focus:fill-black" stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px"
                             height="16px" xmlns="http://www.w3.org/2000/svg">
-                            using NuGet.Protocol;
                             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7
                     376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144
                     144 0 1 0 0-288 144 144 0 1 0 0 288z">
@@ -33,19 +31,19 @@ abc = @events
                         </svg>
                     </label>
                 </div>
-                <div>
+                <div class="w-full">
                     @* Section - Filters - Status *@
                     <div>
                         <h1 class="font-black">Filter By Status</h1>
                         <ul>
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="status1", Name="status", Body="All", Checked=true }' />
+                                model='new HtmlRadioVM { Id="eStatusAll", Name="status", Body="All", Checked=true }' />
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="status2", Name="status", Body="Past", Checked=false }' />
+                                model='new HtmlRadioVM { Id="eStatusPast", Name="status", Body="Past", Checked=false }' />
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="status3", Name="status", Body="Current", Checked=false }' />
+                                model='new HtmlRadioVM { Id="eStatusCurrent", Name="status", Body="Current", Checked=false }' />
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="status4", Name="status", Body="Upcoming", Checked=false }' />
+                                model='new HtmlRadioVM { Id="eStatusUpcoming", Name="status", Body="Upcoming", Checked=false }' />
                         </ul>
                     </div>
                     @* Section - Filters - Alphabet *@
@@ -53,9 +51,11 @@ abc = @events
                         <h1 class="font-black">Filter By Alphabet</h1>
                         <ul>
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="alphabet1", Name="alphabet", Body="A - Z", Checked=true }' />
+                                model='new HtmlRadioVM { Id="eAlphabetNone", Name="alphabet", Body="None", Checked=true }' />
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="alphabet2", Name="alphabet", Body="Z - A", Checked=false }' />
+                                model='new HtmlRadioVM { Id="eAlphabetAZ", Name="alphabet", Body="A - Z", Checked=false }' />
+                            <partial name="~/views/shared/htmlradio.cshtml"
+                                model='new HtmlRadioVM { Id="eAlphabetZA", Name="alphabet", Body="Z - A", Checked=false }' />
                         </ul>
                     </div>
                     @* Section - Filters - Date *@
@@ -63,10 +63,16 @@ abc = @events
                         <h1 class="font-black">Filter By Date</h1>
                         <ul>
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="date1", Name="date", Body="Newest", Checked=true }' />
+                                model='new HtmlRadioVM { Id="eDateNewest", Name="date", Body="Newest", Checked=true }' />
                             <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="date2", Name="date", Body="Oldest", Checked=false }' />
+                                model='new HtmlRadioVM { Id="eDateOldest", Name="date", Body="Oldest", Checked=false }' />
                         </ul>
+                    </div>
+                    <div class="flex flex-col items-center justify-center gap-5 mt-5 lg:-ms-5">
+                        <button class="w-full bg-red-600 hover:bg-red-500 font-bold text-white p-5"
+                            type="submit">Submit</button>
+                        <partial name="~/views/shared/htmllink.cshtml"
+                            model='new HtmlLinkVM { URL="/events", Body="Reset Filters" }' />
                     </div>
                 </div>
             </div>
@@ -74,17 +80,7 @@ abc = @events
         </form>
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
-            @* Section - Events *@
-            <ul class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                @if (Model != null)
-                {
-                    foreach (var _event in Model)
-                    {
-                        <partial name="~/views/shared/htmlevent.cshtml"
-                            model='new Event { EventId=_event.EventId, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author }' />
-                    }
-                }
-            </ul>
+            @* Section - Pagination *@
             <ul class="flex gap-3 p-6">
                 @* Section - Button - Left *@
                 <li>
@@ -132,6 +128,27 @@ abc = @events
                     </button>
                 </li>
             </ul>
+            @* Section - Events *@
+            @if (Model != null)
+            {
+                if (Model.Count > 0)
+                {
+                    <ul id="eEvent" class="w-full h-full grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        @foreach (var _event in Model)
+                        {
+                            <partial name="~/views/shared/htmlevent.cshtml"
+                                model='new Event { EventId=_event.EventId, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author }' />
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="w-full h-full flex flex-col items-center justify-center text-center">
+                        <h1 class="font-black italic text-5xl lg:text-7xl mb-5">OOPS...</h1>
+                        <div class="text-[rgb(37.5%,37.5%,37.5%)]">We couldn't find any events with the given parameters.</div>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>
