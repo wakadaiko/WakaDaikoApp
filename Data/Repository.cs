@@ -1,5 +1,6 @@
 ﻿using WakaDaikoApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace WakaDaikoApp.Data
 {
@@ -11,9 +12,13 @@ namespace WakaDaikoApp.Data
         {
             var _event = await _context.Events.FindAsync(id);
 
-            _context.Entry(_event).Reference(m => m.Author).Load();
+            if (_event != null)
+            {
+                _context.Entry(_event).Reference(m => m.Author).Load();
 
-            return _event;
+                return _event;
+            }
+            else throw new Exception($"Event with ID [{id}] not found.");
         }
 
         public List<Event> GetEvents()

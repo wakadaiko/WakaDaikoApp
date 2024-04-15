@@ -1,28 +1,29 @@
 <li id="eEvent@(Model.EventId)" class="eEvents">
-    <div class="h-full flex flex-col border-[1px] border-[rgb(90%,90%,90%)] shadow-lg">
-        <div class="flex flex-col border-b-[1px] border-[rgb(90%,90%,90%)]">
-            <img class="h-[192px] object-cover" src="~/assets/@Model.Image" />
-            <h1 class="font-black text-2xl text-center border-[1px] border-[rgb(90%,90%,90%)] p-3">
-                @Model.Title
-            </h1>
-            <div class="text-[rgb(37.5%,37.5%,37.5%)]">
-                <p class="border-x-[1px] border-[rgb(90%,90%,90%)] p-3">
-                    @Model.Text
-                </p>
-                <div class="flex items-center border-[1px] border-[rgb(90%,90%,90%)] p-3">
-                    <partial name="~/views/shared/htmllink.cshtml"
-                        model='new HtmlLinkVM { Type="btn-solid", URL=$"/events/{Model.EventId.ToString()}", Body="View More" }' />
-                    <div class="flex flex-col ms-auto">
-                        @* <small>
-                        <span class="font-black">ID:</span> @Model.EventId
-                        </small> *@
-                        <small>
-                            <span class="font-black">Last modified at:</span> @Model.Date
-                        </small>
-                        @* <small>
-                        <span class="font-black">Authored by:</span> @Model.Author
-                        </small> *@
-                    </div>
+    <div class="flex flex-col border-[1px] border-[rgb(90%,90%,90%)] shadow-lg">
+        <img class="h-[192px] object-cover" src="~/assets/@Model.Image" />
+        <h1 class="break-all font-black text-2xl text-center border-[1px] border-[rgb(90%,90%,90%)] p-3">
+            @Model.Title
+        </h1>
+        <div class="text-[rgb(37.5%,37.5%,37.5%)]">
+            <p class="border-x-[1px] border-[rgb(90%,90%,90%)] p-3">
+                @Model.Text
+            </p>
+            <div class="flex items-center border-[1px] border-[rgb(90%,90%,90%)] p-3">
+                <partial name="~/views/shared/htmllink.cshtml"
+                    model='new HtmlLinkVM { Type="btn-solid", URL=$"/events/{Model.EventId.ToString()}", Body="View More" }' />
+                <div class="flex flex-col ms-auto">
+                    @* <small>
+                    <span class="font-black">ID:</span> @Model.EventId
+                    </small> *@
+                    @* <span class="font-black">Date:</span> @formattedDate *@
+                    <small>
+                        @(Model.Date.Day % 2 == 1 ?
+                            DateTime.Parse(Model.Date.ToString()).ToString("MMMM d\"rd\", yyyy") :
+                            DateTime.Parse(Model.Date.ToString()).ToString("MMMM d\"th\", yyyy"))
+                    </small>
+                    @* <small>
+                    <span class="font-black">Authored by:</span> @Model.Author
+                    </small> *@
                 </div>
             </div>
         </div>

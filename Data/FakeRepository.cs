@@ -14,7 +14,7 @@ namespace WakaDaikoApp.Data
         {
             _event.EventId = _events.Count + 1;
 
-            _events.Add(_event);
+            await Task.Run(() => _events.Add(_event));
 
             return _event.EventId;
         }

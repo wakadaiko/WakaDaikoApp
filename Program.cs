@@ -27,8 +27,8 @@ else app.UseExceptionHandler("/Home/Error");
 
 app.Use(async (context, next) =>
 {
-    context.Response.Headers.Add("X-Frame-Options", "DENY");
-    context.Response.Headers.Add("Content-Security-Policy", "form-action 'self'");
+    context.Response.Headers.Append("X-Frame-Options", "DENY");
+    context.Response.Headers.Append("Content-Security-Policy", "form-action 'self'");
 
     await next();
 

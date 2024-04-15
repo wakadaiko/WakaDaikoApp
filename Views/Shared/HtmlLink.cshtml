@@ -15,10 +15,10 @@
             c = "flex items-center hover:text-black p-6 lg:px-4";
             break;
         case "nav-workshops":
-            c = $"gap-3 {buttonSolid}";
+            c = $"gap-3 {buttonSolid} m-5 lg:m-0";
             break;
         case "dropdown":
-            c = "flex items-center justify-center hover:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-6 lg:px-4";
+            c = "flex items-center hover:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-6 lg:px-4";
             break;
         case "dialog":
             c = $"flex items-center justify-center {colorDefault1} p-4 -m-3";
@@ -28,6 +28,9 @@
             break;
         case "btn-outline":
             c = "flex items-center justify-center font-bold border-2 border-[rgb(75%,75%,75%)] hover:border-white text-white p-4";
+            break;
+        case "fancy-link":
+            c = $"group flex items-center text-xs lg:text-base {colorDefault2} p-4 -m-3";
             break;
         @* case "account-1":
             c = $"w-max flex items-center {colorDefault1} -ms-3 p-3";
@@ -64,7 +67,13 @@
                 </svg>
                 @Html.Raw(Model.Body)
                 break;
-            case "message-1":
+            case "fancy-link":
+                <span class="underline underline-offset-4 decoration-black group-hover:decoration-[rgb(25%,25%,25%)] group-hover:text-[rgb(25%,25%,25%)]">
+                    @Html.Raw(Model.Body)
+                </span>
+                <span class='transition-transform group-hover:translate-x-1 ms-2'>-&gt;</span>
+                break;
+            @* case "message-1":
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
                     <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
                 </svg>
@@ -73,7 +82,7 @@
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.309 189.836L184.313 37.851C199.719 24.546 224 35.347 224 56.015v80.053c160.629 1.839 288 34.032 288 186.258 0 61.441-39.581 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 45.344-145.012-21.507-183.51-176.59-185.742V360c0 20.7-24.3 31.453-39.687 18.164l-176.004-152c-11.071-9.562-11.086-26.753 0-36.328z"></path>
                 </svg>
-                break;
+                break; *@
             default:
                 @Html.Raw(Model.Body)
                 break;

@@ -19,6 +19,7 @@ namespace WakaDaikoApp.Controllers
         public IActionResult HandleError(int code)
         {
             ViewData["ErrorMessage"] = $"Error occurred. The ErrorCode is: {code}";
+
             return View("~/Views/Shared/404.cshtml");
         }
     }

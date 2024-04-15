@@ -40,7 +40,9 @@ namespace WakaDaikoApp
                     const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                     var randomText = "Lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum";
 
-                    for (var i = 0; i < 18; i++)
+                    // Test - Search, Date, and Alphabet
+
+                    for (var i = 0; i < 16; i++)
                     {
                         // Variable - Title
                         var randomTitle = new string(Enumerable.Repeat(chars, 20).Select(s => s[random.Next(s.Length)]).ToArray());
@@ -62,6 +64,27 @@ namespace WakaDaikoApp
 
                         context.Events.Add(event1);
                     }
+
+                    // Test - Status
+
+                    var event2 = new Event
+                    {
+                        Title = "abc",
+                        Text = randomText,
+                        Date = DateOnly.Parse("3/12/2025"),
+                        Author = user2
+                    };
+
+                    var event3 = new Event
+                    {
+                        Title = "xyz",
+                        Text = randomText,
+                        Date = DateOnly.Parse("7/3/2026"),
+                        Author = user2
+                    };
+
+                    context.Events.Add(event2);
+                    context.Events.Add(event3);
 
                     context.SaveChanges();
                 }

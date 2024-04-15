@@ -153,8 +153,6 @@
                         <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="navlink", URL="/account/login", Body="Login" }' />
                         } *@
-                        <partial name="~/views/shared/htmllink.cshtml"
-                            model='new HtmlLinkVM { Type="nav-workshops", URL="/workshops", Body="Taiko Workshops" }' />
                         @* Section - Dropdown - Account *@
                         <div class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm lg:focus-within:text-black lg:hover:text-black"
                             href="#">
@@ -181,6 +179,9 @@
                                 </li>
                             </ul>
                         </div>
+                        @* Section - Button *@
+                        <partial name="~/views/shared/htmllink.cshtml"
+                            model='new HtmlLinkVM { Type="nav-workshops", URL="/workshops", Body="Taiko Workshops" }' />
                     </div>
                 </div>
             </div>
