@@ -10,7 +10,7 @@ namespace WakaDaikoApp.Data
            DbContextOptions<AppDbContext> options) : base(options) { }
 
         // one DbSet for each domain model class
-        DbSet<Team> Teams { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
     }
 }

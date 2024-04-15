@@ -3,6 +3,6 @@
 namespace WakaDaikoApp.Data
 {
     public interface IRepository{
-        public Task<int> CreateTeamAsync(Team team);
+        public Task<int> AddTeamAsync(Team team);
     }
 }
