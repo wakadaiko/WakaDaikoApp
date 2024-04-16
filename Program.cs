@@ -43,7 +43,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    _ = AppDbInit.Seed(dbContext, scope.ServiceProvider);
+    await AppDbInit.Seed(dbContext, scope.ServiceProvider);
 }
 
 app.Run();

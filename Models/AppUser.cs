@@ -6,5 +6,5 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 public class AppUser : IdentityUser {
-
+    public string? Instrument {  get; set; }
 }

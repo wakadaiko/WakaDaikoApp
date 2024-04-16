@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WakaDaikoApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Comment : Migration
+    public partial class wakaIni : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

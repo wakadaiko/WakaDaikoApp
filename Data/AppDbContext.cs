@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using WakaDaikoApp.Models;
 namespace WakaDaikoApp.Data 
 {
     public class AppDbContext : IdentityDbContext{
@@ -9,6 +10,7 @@ namespace WakaDaikoApp.Data
            DbContextOptions<AppDbContext> options) : base(options) { }
 
         // one DbSet for each domain model class
+        public DbSet<Team> Teams { get; set; }
 
     }
 }
