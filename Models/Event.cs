@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Metadata;
-using NuGet.Protocol.Plugins;
 
 namespace WakaDaikoApp.Models
 {
     public class Event
     {
         public int EventId { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Description must be between 1 - 50 characters"), MinLength(1)]
+        public string? Description { get; set; }
 
         public string? Image { get; set; } = "favicon.jpg";
 

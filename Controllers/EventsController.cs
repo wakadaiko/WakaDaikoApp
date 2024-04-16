@@ -1,9 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
 // using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+// using Microsoft.AspNetCore.Identity;
 
 namespace WakaDaikoApp.Controllers
 {
@@ -16,47 +15,75 @@ namespace WakaDaikoApp.Controllers
         // readonly UserManager<AppUser> _userManager = u;
 
         // Controllers & routes
-
         public IActionResult Index()
         {
-            string? pagination = Request.Query["pagination"];
             string? search = Request.Query["search"];
             string? status = Request.Query["status"];
             string? alphabet = Request.Query["alphabet"];
             string? date = Request.Query["date"];
 
-            Console.WriteLine($"\n\n\n\n{pagination}\n\n\n\n");
-            Console.WriteLine($"\n\n\n\n{search}\n\n\n\n");
-            Console.WriteLine($"\n\n\n\n{status}\n\n\n\n");
-            Console.WriteLine($"\n\n\n\n{alphabet}\n\n\n\n");
-            Console.WriteLine($"\n\n\n\n{date}\n\n\n\n");
-
-            return View("Index", GetEvents(0, pagination ?? "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+            return View("Index", GetEvents("", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
         }
 
-        [HttpGet("/events/{id}")]
-        public IActionResult Index(int id) => View(GetEvents(id, "1"));
+        [HttpGet("/events/view/{eventDesc}")]
+        public IActionResult Index(string eventDesc) => View(GetEvents("", eventDesc));
+
+        // Workaround - Extra parameter
+
+        [HttpGet("/events/page/{paginationId}/")]
+        public IActionResult Index(string paginationId, string z)
+        {
+            string? search = Request.Query["search"];
+            string? status = Request.Query["status"];
+            string? alphabet = Request.Query["alphabet"];
+            string? date = Request.Query["date"];
+
+            return View(GetEvents(paginationId, "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+        }
 
         // Functions
 
-        public List<Event> GetEvents(int id = 0, string pagination = "", string search = "", string status = "", string alphabet = "", string date = "")
+        public List<Event> GetEvents(string paginationId = "", string eventDesc = "", string search = "", string status = "", string alphabet = "", string date = "")
         {
             // Variables
 
-            _ = int.TryParse(pagination, out int pagination2);
+            int EVENTS_PER_PAGE = 3;
 
-            // Initial load
+            _ = int.TryParse(paginationId, out int paginationId2);
 
-            List<Event> events = _repository
+            // Load initial events
+
+            List<Event> events = [
+                .. _repository
                 .GetEvents()
                 .OrderByDescending(e => e.Date)
-                // .Skip(pagination2)
-                // .Take(9)
-                .ToList();
+            ];
 
-            // ID
+            // Pagination
 
-            if (id > 0) events = [.. events.Where(e => e.EventId == id)];
+            ViewBag.PaginationCount = events.Count / EVENTS_PER_PAGE;
+            // ViewBag.PaginationId = ViewBag.PaginationCount.ToString();
+
+            if (paginationId != "")
+            {
+                if (paginationId2 < 1 || paginationId2 > ViewBag.PaginationCount) events = [];
+                else
+                {
+                    events.Reverse();
+                    events = events
+                    .Skip((paginationId2 - 1) * EVENTS_PER_PAGE)
+                    .Take(EVENTS_PER_PAGE)
+                    .Reverse()
+                    .ToList();
+
+                    ViewBag.PaginationId = paginationId;
+                }
+            }
+            // else if (paginationId == "" && eventDesc == "") events = events.Take(4).ToList();
+
+            // Description
+
+            if (eventDesc.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == eventDesc)];
 
             // Search
 

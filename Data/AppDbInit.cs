@@ -37,15 +37,15 @@ namespace WakaDaikoApp
                     Random random = new();
 
                     // Variable - Text
-                    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    const string randomLowerAndUpperChars = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
                     var randomText = "Lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum";
 
                     // Test - Search, Date, and Alphabet
 
-                    for (var i = 0; i < 16; i++)
+                    for (var i = 0; i < 14; i++)
                     {
                         // Variable - Title
-                        var randomTitle = new string(Enumerable.Repeat(chars, 20).Select(s => s[random.Next(s.Length)]).ToArray());
+                        var randomTitle = new string(Enumerable.Repeat(randomLowerAndUpperChars, 20).Select(s => s[random.Next(s.Length)]).ToArray());
 
                         // Variable - Date
                         DateTime start = new(1995, 1, 1);
@@ -56,6 +56,7 @@ namespace WakaDaikoApp
                         // Event
                         var event1 = new Event
                         {
+                            Description = randomTitle.ToLower(),
                             Title = randomTitle,
                             Text = randomText,
                             Date = currentTime,
@@ -69,7 +70,8 @@ namespace WakaDaikoApp
 
                     var event2 = new Event
                     {
-                        Title = "abc",
+                        Description = "test-status-abc",
+                        Title = "Test - Status - aBc",
                         Text = randomText,
                         Date = DateOnly.Parse("3/12/2025"),
                         Author = user2
@@ -77,7 +79,28 @@ namespace WakaDaikoApp
 
                     var event3 = new Event
                     {
-                        Title = "xyz",
+                        Description = "test-status-xyz",
+                        Title = "Test - Status - XyZ",
+                        Text = randomText,
+                        Date = DateOnly.Parse("7/3/2026"),
+                        Author = user2
+                    };
+
+                    // Test - View
+
+                    var event4 = new Event
+                    {
+                        Description = "test-view-lorem-ipsum",
+                        Title = "Test - View - lorem ipsum",
+                        Text = randomText,
+                        Date = DateOnly.Parse("3/12/2025"),
+                        Author = user2
+                    };
+
+                    var event5 = new Event
+                    {
+                        Description = "test-view-symbols",
+                        Title = "Test - View - ~!@#$%^&*()",
                         Text = randomText,
                         Date = DateOnly.Parse("7/3/2026"),
                         Author = user2
@@ -85,6 +108,8 @@ namespace WakaDaikoApp
 
                     context.Events.Add(event2);
                     context.Events.Add(event3);
+                    context.Events.Add(event4);
+                    context.Events.Add(event5);
 
                     context.SaveChanges();
                 }

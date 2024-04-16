@@ -288,6 +288,11 @@ namespace WakaDaikoApp.Migrations
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<string>("Image")
                         .HasColumnType("longtext");
 

@@ -4,11 +4,12 @@
 @model List<Event>
 
 <div class="container m-auto lg:my-20 p-5">
-    <div class="flex flex-col lg:flex-row gap-5">
+    <div class="flex flex-col xl:flex-row gap-5">
         @* Section - Left *@
         <form class="flex gap-5">
-            <input id="ePagination" name="pagination" type="hidden" value="9" />
+            @* Section - Pagination *@
             <div class="w-full flex flex-col items-center lg:items-start">
+                @* Section - Filters - Search *@
                 <div class="flex p-1 mb-5">
                     <label class="peer relative" for="search">
                         <input id="eSearch"
@@ -85,27 +86,15 @@
                 </li>
                 @* Section - Links *@
                 <li>
-                    <ul class="grid grid-cols-5 lg:grid-cols-10 gap-3">
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="1", Selected=true }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="2", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="3", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="4", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="5", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="6", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="7", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="8", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="9", Selected=false }' />
-                        <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id="10", Selected=false }' />
+                    <ul
+                        class="grid grid-cols-[repeat(@(ViewBag.PaginationCount / 2),minmax(0,1fr))] lg:grid-cols-[repeat(@ViewBag.PaginationCount,minmax(0,1fr))] gap-3">
+                        @for (var i = @ViewBag.PaginationCount; i > 0; i--)
+                        {
+                            @* model='new HtmlPaginationVM { Id=i.ToString(), Selected=i == ViewBag.PaginationCount ? true :
+                        false }' /> *@
+                            <partial name="~/views/shared/htmlpagination.cshtml"
+                                model='new HtmlPaginationVM { Id=i.ToString(), Selected=i.ToString()==ViewBag.PaginationId }' />
+                        }
                     </ul>
                 </li>
                 @* Section - Button - Right *@
@@ -128,7 +117,7 @@
                         @foreach (var _event in Model)
                         {
                             <partial name="~/views/shared/htmlevent.cshtml"
-                                model='new Event { EventId=_event.EventId, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author }' />
+                                model='new Event { EventId=_event.EventId, Description=_event.Description, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author }' />
                         }
                     </ul>
                 }
