@@ -26,39 +26,43 @@
                     </label>
                 </div>
                 <div class="w-full flex flex-col gap-5">
-                    @* Section - Filters - Status *@
-                    <div>
-                        <h1 class="font-black">Filter By Status</h1>
-                        <ul>
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eStatusAll", Name="status", Body="All", Checked=true }' />
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eStatusUpcoming", Name="status", Body="Upcoming", Checked=false }' />
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eStatusPast", Name="status", Body="Past", Checked=false }' />
-                        </ul>
-                    </div>
-                    @* Section - Filters - Date *@
-                    <div>
-                        <h1 class="font-black">Filter By Date</h1>
-                        <ul>
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eDateNewest", Name="date", Body="Newest", Checked=true }' />
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eDateOldest", Name="date", Body="Oldest", Checked=false }' />
-                        </ul>
-                    </div>
-                    @* Section - Filters - Alphabet *@
-                    <div>
-                        <h1 class="font-black">Filter By Alphabet</h1>
-                        <ul>
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eAlphabetNone", Name="alphabet", Body="None", Checked=true }' />
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eAlphabetAZ", Name="alphabet", Body="A - Z", Checked=false }' />
-                            <partial name="~/views/shared/htmlradio.cshtml"
-                                model='new HtmlRadioVM { Id="eAlphabetZA", Name="alphabet", Body="Z - A", Checked=false }' />
-                        </ul>
+                    <div class="flex flex-col items-center lg:items-start">
+                        <div class="flex flex-col gap-5">
+                            @* Section - Filters - Status *@
+                            <div>
+                                <h1 class="font-black">Filter By Status</h1>
+                                <ul>
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eStatusAll", Name="status", Body="All", Checked=true }' />
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eStatusUpcoming", Name="status", Body="Upcoming", Checked=false }' />
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eStatusPast", Name="status", Body="Past", Checked=false }' />
+                                </ul>
+                            </div>
+                            @* Section - Filters - Date *@
+                            <div>
+                                <h1 class="font-black">Filter By Date</h1>
+                                <ul>
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eDateNewest", Name="date", Body="Newest", Checked=true }' />
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eDateOldest", Name="date", Body="Oldest", Checked=false }' />
+                                </ul>
+                            </div>
+                            @* Section - Filters - Alphabet *@
+                            <div>
+                                <h1 class="font-black">Filter By Alphabet</h1>
+                                <ul>
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eAlphabetNone", Name="alphabet", Body="None", Checked=true }' />
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eAlphabetAZ", Name="alphabet", Body="A - Z", Checked=false }' />
+                                    <partial name="~/views/shared/htmlradio.cshtml"
+                                        model='new HtmlRadioVM { Id="eAlphabetZA", Name="alphabet", Body="Z - A", Checked=false }' />
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex flex-col items-center justify-center gap-5 lg:-ms-10">
                         <button class="w-full bg-red-600 hover:bg-red-500 font-bold text-white p-5"
@@ -68,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            @* <div class='hidden lg:block min-w-[1px] bg-neutral-300 -my-5'></div> *@
+            <div class='hidden lg:block min-w-[1px] bg-neutral-300 -my-5'></div>
         </form>
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
