@@ -8,10 +8,8 @@ using WakaDaikoApp.Models;
 
 public class AppUser : IdentityUser
 {
-    public List<string?> Instruments { get; set; }
-    public List<Team> Teams { get; set; }
-    public List<AppUser?> Dependants { get; set; }
+    public List<string?>? Instruments { get; set; }
     [ForeignKey("FamilyId")]
-    public int FamilyId { get; set; }
+    public List<AppUser?>? Family { get; set; }
 
 }

@@ -72,11 +72,11 @@ namespace WakaDaikoApp.Controllers
                 foreach (var r in _roles){
                     if (await _rm.FindByNameAsync(r)!=null) { validRoleNames.Add(r); }
                 }
-                foreach (var t in teamOBJs){
+                /*foreach (var t in teamOBJs){
                     if (t != null) { appUser.Teams.Add(t); }
-                }
+                }*/
                 foreach (var d in _dependants){
-                    if (await _um.FindByNameAsync(d) != null) { appUser.Dependants.Add(await _um.FindByNameAsync(d)); }
+                    if (await _um.FindByNameAsync(d) != null) { appUser.Family.Add(await _um.FindByNameAsync(d)); }
                 }
                 foreach (var i in _instruments){
                    appUser.Instruments.Add(i);
