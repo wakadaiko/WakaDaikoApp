@@ -3,7 +3,8 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace WakaDaikoApp.Models
 {
-    public class Team{
+    public class Team
+    {
         [Key]
         public int TeamId { get; set; }
         [Required]

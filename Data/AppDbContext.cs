@@ -8,6 +8,8 @@ namespace WakaDaikoApp.Data
     {
         public DbSet<Team> Teams { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         public DbSet<Event> Events { get; set; }
     }
 }
