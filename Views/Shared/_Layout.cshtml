@@ -131,13 +131,14 @@
                                         model='new HtmlLinkVM { Type="dropdown", URL="/forms/questions", Body="General Inquiries" }' />
                                 </li>
                             </ul>
-                            <a class="nav-link text-dark ml-6 mb-5" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
                         </div>
+                        <partial name="~/views/shared/htmllink.cshtml"
+                            model='new HtmlLinkVM { Type="navlink", URL="/admin", Body="Admin" }' />
                     </div>
                 </div>
                 @* Admin *@
-               @*  <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                @* <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
                 </li> *@
 
                 @* Navbar - Right *@

@@ -235,9 +235,6 @@ namespace WakaDaikoApp.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CmntId"));
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ConvoId")
                         .HasColumnType("int");
 

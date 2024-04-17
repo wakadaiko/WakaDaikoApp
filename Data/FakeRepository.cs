@@ -6,9 +6,13 @@ namespace WakaDaikoApp.Data
     {
         readonly List<Event> _events = [];
 
-        public Task<Event> GetEventByIdAsync(int id) => throw new NotImplementedException();
+        public Task<int> AddTeamAsync(Team team) => throw new NotImplementedException();
+
+        public Task<List<Team>> GetTeamsByNameAsync(List<string> teams) => throw new NotImplementedException();
 
         public List<Event> GetEvents() => throw new NotImplementedException();
+
+        public Task<Event> GetEventByIdAsync(int id) => throw new NotImplementedException();
 
         public async Task<int> StoreEventAsync(Event _event)
         {

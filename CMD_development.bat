@@ -5,11 +5,10 @@ CALL ECHO 1 - [ development - run ]
 CALL ECHO 2 - [ development - database and migrations ]
 CALL ECHO 3 - [ development - build ]
 CALL ECHO 4 - [ development - test ]
-CALL ECHO 10 - [ git - sync main branch with Branch1-KG branch ]
-CALL ECHO 11 - [ git - sync main branch with Trung branch ]
-CALL ECHO 12 - [ git - sync Branch1-KG branch with Trung branch ]
-CALL ECHO 13 - [ git - sync Trung branch with Branch1-KG branch ]
-CALL ECHO 14 - [ git - remove last commit ]
+CALL ECHO 10 - [ git - merge branches - main to Branch1-KG ]
+CALL ECHO 11 - [ git - merge branches - main to Branch2-KG ]
+CALL ECHO 12 - [ git - merge branches - main to Trung ]
+CALL ECHO 13 - [ git - remove - last commit ]
 CALL ECHO ----------------
 
 SET /P input="ENTER: "
@@ -39,34 +38,21 @@ IF %input% == 4 (
 )
 
 IF %input% == 10 (
-	CALL git checkout main
-    CALL git pull
-    CALL git checkout Branch1-KG
-    CALL git merge main
-)
-
-IF %input% == 11 (
-	CALL git checkout main
-    CALL git pull
-    CALL git checkout Trung
-    CALL git merge main
-)
-
-IF %input% == 12 (
-	CALL git checkout main
-    CALL git pull
-    CALL git checkout Branch1-KG
-    CALL git merge Trung
-)
-
-IF %input% == 13 (
-	CALL git checkout main
-    CALL git pull
-    CALL git checkout Trung
+    CALL git checkout main
     CALL git merge Branch1-KG
 )
 
-IF %input% == 14 (
+IF %input% == 12 (
+    CALL git checkout Branch2-KG
+    CALL git merge main
+)
+
+IF %input% == 13 (
+    CALL git checkout Trung
+    CALL git merge main
+)
+
+IF %input% == 13 (
 	CALL git reset --soft HEAD~1
 )
 
