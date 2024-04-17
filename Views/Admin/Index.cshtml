@@ -5,18 +5,18 @@
 @{
     if (TempData["Message"] != null)
     {
-                <div id="Console"class="col-7">
-                    <h2 class="text-start">Console:</h2>
-                    <span>@TempData["Message"]</span>
-                </div>
-                <script>setTimeout(() => { document.getElementById("Console").hidden = true; },3000)</script>
+        <div id="Console" class="col-7">
+            <h2 class="text-start">Console:</h2>
+            <span>@TempData["Message"]</span>
+        </div>
+        <script>setTimeout(() => { document.getElementById("Console").hidden = true; }, 3000)</script>
     }
 }
 <div class="col-7 adminCard">
 
-        <h2 class="text-start">Create Team Area</h2>
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @* Team Name *@
+    <h2 class="text-start">Create Team Area</h2>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @* Team Name *@
     <div id="createTeamField" class="">
         <form class="" method="post" asp-action="CreateTeam">
             <div class="row mb-2">
@@ -25,57 +25,51 @@
                     <input name="name" class="form-control" />
                 </div>
             </div>
-        <div class="row mb-2">
-            <label class="col-form-label col-md-4">Team Lead:</label>
-            <div class="col-md-6">
-                <input name="teamLead" class="form-control" />
+            <div class="row mb-2">
+                <label class="col-form-label col-md-4">Team Lead:</label>
+                <div class="col-md-6">
+                    <input name="teamLead" class="form-control" />
+                </div>
             </div>
-        </div>
-        <div class="row mb-2">
-            <label class="col-form-label col-md-4">Description:</label>
-            <div class="col-md-6">
-                <input name="description" class="form-control" />
+            <div class="row mb-2">
+                <label class="col-form-label col-md-4">Description:</label>
+                <div class="col-md-6">
+                    <input name="description" class="form-control" />
+                </div>
             </div>
-        </div>
-        <div class="row mb-2">
+            <div class="row mb-2">
                 <div>Enter the instruments played separated by a comma ( , )</div>
-            <label class="col-form-label col-md-4">Instruments:</label>
-            <div class="col-md-6">
-                <input name="instruments" class="form-control" />
+                <label class="col-form-label col-md-4">Instruments:</label>
+                <div class="col-md-6">
+                    <input name="instruments" class="form-control" />
+                </div>
             </div>
-        </div>
-        <div class="row mb-2">
+            <div class="row mb-2">
                 <div>Enter the member user names separated by a comma ( , )</div>
-            <label class="col-form-label col-md-4">Members:</label>
-            <div class="col-md-6">
-                <input name="members" class="form-control" />
+                <label class="col-form-label col-md-4">Members:</label>
+                <div class="col-md-6">
+                    <input name="members" class="form-control" />
+                </div>
             </div>
-        </div>
-        
-                <button type="submit" class="">Submit</button>
+
+            <button type="submit" class="">Submit</button>
         </form>
     </div>
-    </div>
+</div>
 
 
-    <div class="col-7 adminCard">
-        <h2 class="text-start">Create User Area</h2>
+<div class="col-7 adminCard">
+    <h2 class="text-start">Create User Area</h2>
 
-        <form class="" method="post" asp-action="CreateUser">
+    <form class="" method="post" asp-action="CreateUser">
 
-            <div class="row mb-2">
-                <label class="col-form-label col-md-4">User Name:</label>
-                <div class="col-md-6">
-                    <input name="userName" class="form-control" />
-                </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-md-4">User Name:</label>
+            <div class="col-md-6">
+                <input name="userName" class="form-control" />
             </div>
-            <div class="row mb-2">
-                <label class="col-form-label col-md-4">Email:</label>
-                <div class="col-md-6">
-                    <input name="email" class="form-control" />
-                </div>
-            </div>
-            @* password *@
+        </div>
+        @* password *@
         <div class="row mb-2">
             <label class="col-form-label col-md-4">Password:</label>
             <div class="col-md-6">
@@ -84,7 +78,7 @@
         </div>
         @* instruments *@
         <div class="row mb-2">
-            <div>Enter the instruments played separated by a comma ( , )</div>
+            <div>Enter the instruments played delimenated by a comma ( , )</div>
             <label class="col-form-label col-md-4">Instruments:</label>
             <div class="col-md-6">
                 <input placeholder="Drums,Symbol,Hands" name="instruments" class="form-control" />
@@ -97,30 +91,15 @@
                 <input name="positions" class="form-control" />
             </div>
         </div>
-        <div class="row mb-2">
-            <div>Enter the team names separated by a comma ( , )</div>
-            <label class="col-form-label col-md-4">Teams:</label>
-            <div class="col-md-6">
-                <input name="teams" class="form-control" />
-            </div>
-        </div>
-        <div class="row mb-2">
-            <div>Enter the dependants separated by a comma ( , )</div>
-            <label class="col-form-label col-md-4">Dependants:</label>
-            <div class="col-md-6">
-                <input name="dependants" class="form-control" />
-            </div>
-        </div>
         @* rollnames *@
         <div class="row mb-2">
-            <div>Enter the role names to add user to separated by a comma ( , )</div>
+            <div>Enter the role names to add user to delimenated by a comma ( , )</div>
 
             <label class="col-form-label col-md-4">Roll Names:</label>
             <div class="col-md-6">
                 <input name="rollNames" class="form-control" />
             </div>
         </div>
-
-            <button type="submit" class="">Submit</button>
-        </form>
-    </div>
+        <button type="submit" class="">Submit</button>
+    </form>
+</div>

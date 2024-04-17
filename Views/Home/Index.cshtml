@@ -3,9 +3,9 @@
 }
 
 <dialog class="z-40 fixed bottom-0 hidden open:flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-0 lg:w-1/2
-bg-white text-[rgb(50%,50%,50%)] border-[1px] border-[rgb(20%,20%,20%)] shadow-2xl container mx-auto lg:mb-5
+bg-white text-[rgb(37.5%,37.5%,37.5%)] border-[1px] border-[rgb(20%,20%,20%)] shadow-lg container mx-auto lg:mb-5
 p-3" open>
-    <form class="flex flex-col lg:flex-row gap-3" method="dialog">
+    <form class="flex flex-col lg:flex-row gap-3" method="DIALOG">
         <div class="flex">
             <div class="my-auto">
                 This site uses analytics. Click
@@ -16,17 +16,17 @@ p-3" open>
                 to learn more.
             </div>
         </div>
-        <button class="bg-black hover:bg-[rgb(25%,25%,25%)] text-white p-3">Dismiss</button>
+        <button class="bg-red-600 hover:bg-red-500 font-bold text-white p-3">Dismiss</button>
     </form>
 </dialog>
 @*bg-[radial-gradient(transparent,rgba(255,0,0,1))]">*@
 @* Homepage *@
 <div class="z-0 relative flex grow items-center justify-center overflow-hidden text-white">
     <div
-        class="z-20 w-full h-full min-h-[calc(100vh-64px)] lg:min-h-[calc(75vh-64px)] flex flex-col bg-[linear-gradient(to_right,black,transparent)]">
+        class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col bg-[linear-gradient(to_right,black,transparent)]">
         <div
-            class="z-20 w-full h-full min-h-[calc(100vh-64px)] lg:min-h-[calc(75vh-64px)] flex flex-col bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0))]">
-            <div class="flex flex-col gap-4 lg:gap-6 text-center lg:text-start m-auto lg:ms-[12.5vw]">
+            class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0))]">
+            <div class="flex flex-col gap-4 lg:gap-6 text-center lg:text-start m-auto lg:ms-[12.5vw] p-10">
                 <h1 class="font-black text-5xl lg:text-7xl">
                     WAKA DAIKO
                 </h1>
@@ -38,11 +38,11 @@ p-3" open>
                     <br />
                     All youth, ages 8-22, are welcome.
                 </p>
-                <div className='flex flex-col lg:flex-row gap-4 mx-auto lg:mx-0'>
+                <div class='flex flex-col lg:flex-row gap-4 mx-auto lg:mx-0'>
                     <partial name="~/views/shared/htmllink.cshtml"
-                        model='new HtmlLinkVM { Type="btn-solid", URL="/forms/events", Body="UPCOMING EVENTS" }' />
+                        model='new HtmlLinkVM { Type="btn-solid", URL="/events", Body="UPCOMING EVENTS" }' />
                     <partial name="~/views/shared/htmllink.cshtml"
-                        model='new HtmlLinkVM { Type="btn-outline", URL="/forms/events", Body="WORKSHOPS" }' />
+                        model='new HtmlLinkVM { Type="btn-outline", URL="/workshops", Body="WORKSHOPS" }' />
                 </div>
             </div>
         </div>
@@ -59,9 +59,9 @@ p-3" open>
 @* Performances *@
 <partial name="~/views/shared/htmlsections.cshtml"
     model='new HtmlSectionsVM { Type="performances", URL1="/home#performances", Heading="PERFORMANCES", Flip=true }' />
-@* Culture *@
-<partial name="~/views/shared/htmlsections.cshtml"
-    model='new HtmlSectionsVM { Type="culture", URL1="/home#culture", Heading="CULTURE", Body="The history of Taiko and its song origins play a key part in making Waka Daiko what it&#39;s to this very day." }' />
 @* Community *@
 <partial name="~/views/shared/htmlsections.cshtml"
-    model='new HtmlSectionsVM { Type="community", URL1="/home#community", Heading="COMMUNITY", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by our community booth at the annual Asian Celebration.", Flip=true }' />
+    model='new HtmlSectionsVM { Type="community", URL1="/home#community", Heading="COMMUNITY", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by our community booth at the annual Asian Celebration." }' />
+@* Culture *@
+<partial name="~/views/shared/htmlsections.cshtml"
+    model='new HtmlSectionsVM { Type="culture", URL1="/home#culture", Heading="CULTURE", Body="The history of Taiko and its song origins play a key part in making Waka Daiko what it&#39;s to this very day.", Flip=true }' />

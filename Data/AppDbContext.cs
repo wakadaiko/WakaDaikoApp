@@ -1,17 +1,15 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using WakaDaikoApp.Models;
-namespace WakaDaikoApp.Data 
-{
-    public class AppDbContext : IdentityDbContext{
-        public AppDbContext(
-           DbContextOptions<AppDbContext> options) : base(options) { }
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-        // one DbSet for each domain model class
+namespace WakaDaikoApp.Data
+{
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
+    {
         public DbSet<Team> Teams { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<Event> Events { get; set; }
     }
 }

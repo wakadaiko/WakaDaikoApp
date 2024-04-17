@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using WakaDaikoApp.Models;
-using WakaDaikoApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WakaDaikoApp.Data
 {
-    public class Repository : IRepository
+    public class Repository(AppDbContext c) : IRepository
     {
-        AppDbContext _db;
-        public Repository(AppDbContext db) => _db = db;
+        readonly AppDbContext _context = c;
+
         #region Get Functions
-        public async Task<List<Team>> GetTeamsByNameAsync(List<string> teams) {
-            var _teams = await _db.Teams.Where(t => teams.Contains(t.Name) == true).ToListAsync();
+        public async Task<List<Team>> GetTeamsByNameAsync(List<string> teams)
+        {
+            var _teams = await _context.Teams.Where(t => t.Name != null && teams.Contains(t.Name) == true).ToListAsync();
+
             return _teams;
         }
 
@@ -21,11 +21,57 @@ namespace WakaDaikoApp.Data
 
         public async Task<int> AddTeamAsync(Team team)
         {
-           await _db.Teams.AddAsync(team);
-            return await _db.SaveChangesAsync();
+            await _context.Teams.AddAsync(team);
+
+            return await _context.SaveChangesAsync();
         }
-        public async Task<int> AddResource() { return 0; }
+
+        // public async Task<int> AddResource() => 0;
+        public int AddResource() => 0;
 
         #endregion
+
+        public async Task<Event> GetEventByIdAsync(int id)
+        {
+            var _event = await _context.Events.FindAsync(id);
+
+            if (_event != null)
+            {
+                _context.Entry(_event).Reference(m => m.Author).Load();
+
+                return _event;
+            }
+            else throw new Exception($"Event with ID [{id}] not found.");
+        }
+
+        public List<Event> GetEvents()
+        {
+            return [.. _context.Events
+            .Include(m => m.Author)
+            .OrderBy(m => m.EventId)];
+        }
+
+        public async Task<int> StoreEventAsync(Event _event)
+        {
+            await _context.AddAsync(_event);
+
+            return _context.SaveChanges();
+        }
+
+        public int UpdateEvent(Event _event)
+        {
+            _context.Update(_event);
+
+            return _context.SaveChanges();
+        }
+
+        public int DeleteEvent(int _eventId)
+        {
+            Event _event = GetEventByIdAsync(_eventId).Result;
+
+            _context.Events?.Remove(_event);
+
+            return _context.SaveChanges();
+        }
     }
 }

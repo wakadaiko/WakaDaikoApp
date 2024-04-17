@@ -4,7 +4,7 @@
     {
         public string userName { get; set; }
         public string userPassword { get; set; }
-        public string instruments { get; set;}    
+        public string instruments { get; set; }
         public string positions { get; set; }
         public string rollNames { get; set; }
         public string teams { get; set; }

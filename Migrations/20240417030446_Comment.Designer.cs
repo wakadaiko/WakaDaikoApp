@@ -12,15 +12,15 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240416044317_WakaAzure")]
-    partial class WakaAzure
+    [Migration("20240417030446_Comment")]
+    partial class Comment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -238,7 +238,10 @@ namespace WakaDaikoApp.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CmntId"));
 
-                    b.Property<int?>("ConvoId")
+                    b.Property<int>("ConvoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EventId")
                         .HasColumnType("int");
 
                     b.Property<string>("RcpntId")
@@ -256,13 +259,56 @@ namespace WakaDaikoApp.Migrations
 
                     b.HasKey("CmntId");
 
-                    b.HasIndex("ConvoId");
+                    b.HasIndex("EventId");
 
                     b.HasIndex("RcpntId");
 
                     b.HasIndex("SndrId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("ConvoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("EventId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("WakaDaikoApp.Models.Team", b =>
@@ -283,6 +329,9 @@ namespace WakaDaikoApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Positions")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("TeamLeadId")
                         .HasColumnType("varchar(255)");
 
@@ -293,7 +342,7 @@ namespace WakaDaikoApp.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("AppUser", b =>
+            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -301,6 +350,9 @@ namespace WakaDaikoApp.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Instruments")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("TeamId")
@@ -366,17 +418,17 @@ namespace WakaDaikoApp.Migrations
 
             modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
                 {
-                    b.HasOne("WakaDaikoApp.Models.Comment", null)
+                    b.HasOne("WakaDaikoApp.Models.Event", null)
                         .WithMany("Comments")
-                        .HasForeignKey("ConvoId");
+                        .HasForeignKey("EventId");
 
-                    b.HasOne("AppUser", "Rcpnt")
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "Rcpnt")
                         .WithMany()
                         .HasForeignKey("RcpntId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppUser", "Sndr")
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "Sndr")
                         .WithMany()
                         .HasForeignKey("SndrId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -387,18 +439,29 @@ namespace WakaDaikoApp.Migrations
                     b.Navigation("Sndr");
                 });
 
+            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
+                {
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("WakaDaikoApp.Models.Team", b =>
                 {
-                    b.HasOne("AppUser", "TeamLead")
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "TeamLead")
                         .WithMany()
                         .HasForeignKey("TeamLeadId");
 
                     b.Navigation("TeamLead");
                 });
 
-            modelBuilder.Entity("AppUser", b =>
+            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
                 {
-                    b.HasOne("AppUser", null)
+                    b.HasOne("WakaDaikoApp.Models.AppUser", null)
                         .WithMany("Family")
                         .HasForeignKey("FamilyId");
 
@@ -407,7 +470,7 @@ namespace WakaDaikoApp.Migrations
                         .HasForeignKey("TeamId");
                 });
 
-            modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
+            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
                 {
                     b.Navigation("Comments");
                 });
@@ -417,7 +480,7 @@ namespace WakaDaikoApp.Migrations
                     b.Navigation("Members");
                 });
 
-            modelBuilder.Entity("AppUser", b =>
+            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
                 {
                     b.Navigation("Family");
                 });

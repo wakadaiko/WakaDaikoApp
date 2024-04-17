@@ -1,0 +1,7 @@
+@* value=@Model.Id @(Model.Checked ? "checked=\"checked\"" : "") onchange="console.log(this.value);"> *@
+@* value=@Model.Id @(Model.Checked ? "checked=\"checked\"" : "") onchange="console.log(this.form);"> *@
+<li>
+    <input id="@Model.Id" class="accent-red-600 select-none cursor-pointer" type="radio" for=@Model.Id name=@Model.Name
+        value=@Model.Id @(Model.Checked ? "checked=\"checked\"" : "")>
+    <label class="hover:text-[25%,25%,25%] select-none cursor-pointer" for="@Model.Id">@Model.Body</label>
+</li>

@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "P404";
+}
+
+@* <div class="container" style="text-align: center; color: #888;">
+<h1 style="font-size: 150px; color: #888; margin-bottom: 0px;">404</h1>
+<p style="font-size: 50px; ">Page Not Found</p>
+<p>Whatever you&apos;re looking for doesn&apos;t exist here.</p>
+<p>Please navigate back to zetbit.tech</p>
+</div> *@
+
+<div class="z-0 relative flex grow items-center justify-center overflow-hidden">
+    <div class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col">
+        <div class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col">
+            <div class="flex flex-col gap-4 lg:gap-6 text-center m-auto p-10">
+                <h1 class="font-black text-7xl lg:text-9xl">
+                    404
+                </h1>
+                <h3 class="italic lg:text-3xl tracking-wider">
+                    Page Not Found
+                </h3>
+                <p class="text-xs lg:text-lg text-[rgb(37.5%,37.5%,37.5%)]">
+                    Whatever you&apos;re looking for doesn&apos;t exist here.
+                </p>
+                <div class='flex flex-col lg:flex-row justify-center gap-4 mx-auto lg:mx-0'>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="btn-solid", URL="/events", Body="Return Home" }' />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

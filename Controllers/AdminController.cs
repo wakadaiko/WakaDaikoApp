@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using System.Text.RegularExpressions;
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
 
@@ -13,7 +11,7 @@ namespace WakaDaikoApp.Controllers
         private SignInManager<AppUser> _sm;
         private RoleManager<IdentityRole> _rm;
         private IRepository _db;
-        public AdminController(IRepository db, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) { _db = db;_um = um;_rm = rm;_sm = sm; }
+        public AdminController(IRepository db, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) { _db = db; _um = um; _rm = rm; _sm = sm; }
         public IActionResult Index()
         {
             return View();
@@ -45,9 +43,11 @@ namespace WakaDaikoApp.Controllers
                     TempData["Message"] = "Success";
                     return RedirectToAction("Index");
                 }
-            }else {
+            }
+            else
+            {
                 TempData["Message"] = "Fail";
-                return RedirectToAction("Index");   
+                return RedirectToAction("Index");
             }
             // we should never get here but needed to make the enviorment happy
             return RedirectToAction("Index");
@@ -57,29 +57,32 @@ namespace WakaDaikoApp.Controllers
         public async Task<IActionResult> CreateUser(AdminVM form)
         {
             //userName = $"{userName.FirstOrDefault().ToString().ToUpper()}{userName.Substring(1).Select(s=>s.ToString().ToLower())}";
-            
+
             if (ModelState.IsValid)
             {
                 List<String> validRoleNames = new List<String>();
-                var appUser = new AppUser { UserName= form.userName.Trim(),Email= form.email,};
+                var appUser = new AppUser { UserName = form.userName.Trim(), Email = form.email, };
                 var _dependants = form.dependants.ToUpper().Split(',').Select(r => r.Trim()).ToList();
                 var _teams = form.teams.ToUpper().Split(',').Select(r => r.Trim()).ToList();
-                var _roles = form.rollNames.ToUpper().Split(',').Select(r=>r.Trim()).ToList();
+                var _roles = form.rollNames.ToUpper().Split(',').Select(r => r.Trim()).ToList();
                 var teamOBJs = await _db.GetTeamsByNameAsync(_teams);
-                var _instruments = form.instruments.ToUpper().Split(',').Select(d=>d.Trim()).ToList();
+                var _instruments = form.instruments.ToUpper().Split(',').Select(d => d.Trim()).ToList();
                 // the lambda should work here but it has its drawbacks
                 //_roles.ForEach(async r => { if ( await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
-                foreach (var r in _roles){
-                    if (await _rm.FindByNameAsync(r)!=null) { validRoleNames.Add(r); }
+                foreach (var r in _roles)
+                {
+                    if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
                 }
                 /*foreach (var t in teamOBJs){
                     if (t != null) { appUser.Teams.Add(t); }
                 }*/
-                foreach (var d in _dependants){
+                foreach (var d in _dependants)
+                {
                     if (await _um.FindByNameAsync(d) != null) { appUser.Family.Add(await _um.FindByNameAsync(d)); }
                 }
-                foreach (var i in _instruments){
-                   appUser.Instruments.Add(i);
+                foreach (var i in _instruments)
+                {
+                    appUser.Instruments.Add(i);
                 }
                 await _um.CreateAsync(appUser, form.userPassword);
                 await _um.AddToRolesAsync(appUser, validRoleNames);

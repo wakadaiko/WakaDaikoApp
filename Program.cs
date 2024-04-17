@@ -20,9 +20,10 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseDeveloperExceptionPage();
     app.UseHsts();
 }
+else app.UseExceptionHandler("/Home/Error");
 
 app.Use(async (context, next) =>
 {
@@ -30,10 +31,18 @@ app.Use(async (context, next) =>
     context.Response.Headers.Append("Content-Security-Policy", "form-action 'self'");
 
     await next();
+
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = "/Home";
+        await next();
+    }
 });
 
+app.UseStatusCodePagesWithReExecute("/Home/HandleError/{0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+// app.UseStatusCodePagesWithRedirects("/Home/HandleError/{0}");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -43,7 +52,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    await AppDbInit.Seed(dbContext, scope.ServiceProvider);
+    AppDbInit.Seed(dbContext, scope.ServiceProvider);
 }
 
 app.Run();

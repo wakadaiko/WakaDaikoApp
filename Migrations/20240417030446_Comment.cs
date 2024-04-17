@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WakaDaikoApp.Migrations
 {
     /// <inheritdoc />
-    public partial class WakaAzure : Migration
+    public partial class Comment : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -126,6 +126,8 @@ namespace WakaDaikoApp.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Discriminator = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Instruments = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FamilyId = table.Column<string>(type: "varchar(255)", nullable: true)
@@ -191,39 +193,33 @@ namespace WakaDaikoApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "Events",
                 columns: table => new
                 {
-                    CmntId = table.Column<int>(type: "int", nullable: false)
+                    EventId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Text = table.Column<string>(type: "varchar(254)", maxLength: 254, nullable: false)
+                    Description = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SndrId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    Image = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    RcpntId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    Title = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ConvoId = table.Column<int>(type: "int", nullable: true)
+                    Text = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    AuthorId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ConvoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.CmntId);
+                    table.PrimaryKey("PK_Events", x => x.EventId);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_RcpntId",
-                        column: x => x.RcpntId,
+                        name: "FK_Events_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_SndrId",
-                        column: x => x.SndrId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_Comments_ConvoId",
-                        column: x => x.ConvoId,
-                        principalTable: "Comments",
-                        principalColumn: "CmntId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -240,6 +236,8 @@ namespace WakaDaikoApp.Migrations
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Instruments = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Positions = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -250,6 +248,44 @@ namespace WakaDaikoApp.Migrations
                         column: x => x.TeamLeadId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    CmntId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Text = table.Column<string>(type: "varchar(254)", maxLength: 254, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SndrId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RcpntId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ConvoId = table.Column<int>(type: "int", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.CmntId);
+                    table.ForeignKey(
+                        name: "FK_Comment_AspNetUsers_RcpntId",
+                        column: x => x.RcpntId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comment_AspNetUsers_SndrId",
+                        column: x => x.SndrId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comment_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "EventId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -301,19 +337,24 @@ namespace WakaDaikoApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_ConvoId",
-                table: "Comments",
-                column: "ConvoId");
+                name: "IX_Comment_EventId",
+                table: "Comment",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_RcpntId",
-                table: "Comments",
+                name: "IX_Comment_RcpntId",
+                table: "Comment",
                 column: "RcpntId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_SndrId",
-                table: "Comments",
+                name: "IX_Comment_SndrId",
+                table: "Comment",
                 column: "SndrId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_AuthorId",
+                table: "Events",
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_TeamLeadId",
@@ -375,10 +416,13 @@ namespace WakaDaikoApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Comment");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
