@@ -5,91 +5,114 @@ using WakaDaikoApp.Models;
 
 namespace WakaDaikoApp.Controllers
 {
-    public class AdminController : Controller
+    // public class AdminController(IRepository db, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) : Controller
+    public class AdminController(IRepository db, UserManager<AppUser> um, RoleManager<IdentityRole> rm) : Controller
     {
-        private UserManager<AppUser> _um;
-        private SignInManager<AppUser> _sm;
-        private RoleManager<IdentityRole> _rm;
-        private IRepository _db;
-        public AdminController(IRepository db, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) { _db = db; _um = um; _rm = rm; _sm = sm; }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        readonly private UserManager<AppUser> _um = um;
+
+        // readonly private SignInManager<AppUser> _sm = sm;
+
+        readonly private RoleManager<IdentityRole> _rm = rm;
+
+        readonly private IRepository _db = db;
+
+        public IActionResult Index() => View();
+
         [HttpPost]
-        public async Task<IActionResult> CreateTeam(string name, string teamLead, string description, string instruments, string members)
+        // public async Task<IActionResult> CreateTeam(string name, string teamLead, string description, string Instruments, string members)
+        public async Task<IActionResult> CreateTeam(string name, string teamLead, string Instruments, string members)
         {
             if (ModelState.IsValid)
             {
                 var teamlead = await _um.FindByNameAsync(teamLead);
-                var team = new Team { Name = name, Description = "The Team of all teams.", TeamLead = teamlead };
-
-                var devices = instruments.ToUpper().Split(',').Select(d => d.Trim()).ToList();
+                var team = new Team { Name = name, Description = "The Team of all Teams.", TeamLead = teamlead };
+                var devices = Instruments.ToUpper().Split(',').Select(d => d.Trim()).ToList();
                 var teamMembers = members.ToUpper().Split(',').Select(d => d.Trim()).ToList();
-                //teamMembers.ForEach((async m => { team.Members.Add( _um.FindByNameAsync(m).Result); }));
-                //devices.ForEach((async d => { team.Instruments.Add(d); }));
+
+                // TeamMembers.ForEach((async m => { team.Members.Add( _um.FindByNameAsync(m).Result); }));
+
+                // Devices.ForEach((async d => { team.Instruments.Add(d); }));
+
+                // foreach (var m in teamMembers) if (await _um.FindByNameAsync(m) != null) team.Members.Add(await _um.FindByNameAsync(m));
                 foreach (var m in teamMembers)
                 {
-                    if (await _um.FindByNameAsync(m) != null) { team.Members.Add(await _um.FindByNameAsync(m)); }
+                    var memberUser = await _um.FindByNameAsync(m);
+
+                    if (memberUser != null) team.Members?.Add(memberUser);
                 }
-                // perhaps add a device table with names and id's
-                foreach (var d in devices)
-                {
-                    if (d != null) { team.Instruments.Add(d); }
-                }
+
+                // Perhaps add a device table with names and ids
+                foreach (var d in devices) team.Instruments?.Add(d);
+
                 var results = await _db.AddTeamAsync(team);
+
                 if (results >= 1)
                 {
                     TempData["Message"] = "Success";
+
                     return RedirectToAction("Index");
                 }
             }
             else
             {
                 TempData["Message"] = "Fail";
+
                 return RedirectToAction("Index");
             }
-            // we should never get here but needed to make the enviorment happy
+
+            // We should never get here, but needed to make the environment happy
             return RedirectToAction("Index");
         }
-        /*  string userName,string userPassword,string instruments,string positions, string rollNames,string teams,string dependants,string email="" */
+
+        /* string UserName,string UserPassword,string Instruments,string positions, string RollNames,string Teams,string Dependents,string UserEmail="" */
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(AdminVM form)
         {
-            //userName = $"{userName.FirstOrDefault().ToString().ToUpper()}{userName.Substring(1).Select(s=>s.ToString().ToLower())}";
+            // UserName = $"{UserName.FirstOrDefault().ToString().ToUpper()}{UserName.Substring(1).Select(s=>s.ToString().ToLower())}";
 
             if (ModelState.IsValid)
             {
-                List<String> validRoleNames = new List<String>();
-                var appUser = new AppUser { UserName = form.userName.Trim(), Email = form.email, };
-                var _dependants = form.dependants.ToUpper().Split(',').Select(r => r.Trim()).ToList();
-                var _teams = form.teams.ToUpper().Split(',').Select(r => r.Trim()).ToList();
-                var _roles = form.rollNames.ToUpper().Split(',').Select(r => r.Trim()).ToList();
-                var teamOBJs = await _db.GetTeamsByNameAsync(_teams);
-                var _instruments = form.instruments.ToUpper().Split(',').Select(d => d.Trim()).ToList();
-                // the lambda should work here but it has its drawbacks
+                List<string> validRoleNames = [];
+
+                var appUser = new AppUser { UserName = form.UserName?.Trim(), Email = form.UserEmail, };
+                var _Dependents = form.Dependents?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
+                var _Teams = form.Teams?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
+                var _roles = form.RollNames?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
+
+                // var teamOBJs = "";
+                // if (_Teams != null) await _db.GetTeamsByNameAsync(_Teams);
+
+                var _Instruments = form.Instruments?.ToUpper().Split(',').Select(d => d.Trim()).ToList();
+
+                // The lambda should work here, but it has its drawbacks
                 //_roles.ForEach(async r => { if ( await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
-                foreach (var r in _roles)
+
+                if (_roles != null) foreach (var r in _roles) if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
+
+                /* foreach (var t in teamOBJs) if (t != null) appUser.Teams.Add(t); */
+
+                if (_Dependents != null)
                 {
-                    if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
+                    foreach (var d in _Dependents)
+                    {
+                        var dependentUser = await _um.FindByNameAsync(d);
+
+                        if (dependentUser != null) appUser.Family?.Add(dependentUser);
+                    }
                 }
-                /*foreach (var t in teamOBJs){
-                    if (t != null) { appUser.Teams.Add(t); }
-                }*/
-                foreach (var d in _dependants)
-                {
-                    if (await _um.FindByNameAsync(d) != null) { appUser.Family.Add(await _um.FindByNameAsync(d)); }
-                }
-                foreach (var i in _instruments)
-                {
-                    appUser.Instruments.Add(i);
-                }
-                await _um.CreateAsync(appUser, form.userPassword);
+                if (_Instruments != null) foreach (var i in _Instruments) appUser.Instruments?.Add(i);
+                if (form.UserPassword != null) await _um.CreateAsync(appUser, form.UserPassword);
+
                 await _um.AddToRolesAsync(appUser, validRoleNames);
+
                 TempData["Message"] = "Success";
+
                 return RedirectToAction("Index");
             }
+
             TempData["Message"] = "Fail";
+
             return RedirectToAction("Index");
         }
     }

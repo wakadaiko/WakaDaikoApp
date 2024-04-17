@@ -252,37 +252,37 @@ namespace WakaDaikoApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
-                    CmntId = table.Column<int>(type: "int", nullable: false)
+                    CommentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Text = table.Column<string>(type: "varchar(254)", maxLength: 254, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SndrId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    SenderId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    RcpntId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    RecipientId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ConvoId = table.Column<int>(type: "int", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.CmntId);
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
                     table.ForeignKey(
-                        name: "FK_Comment_AspNetUsers_RcpntId",
-                        column: x => x.RcpntId,
+                        name: "FK_Comments_AspNetUsers_RecipientId",
+                        column: x => x.RecipientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_AspNetUsers_SndrId",
-                        column: x => x.SndrId,
+                        name: "FK_Comments_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Events_EventId",
+                        name: "FK_Comments_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "EventId");
@@ -337,19 +337,19 @@ namespace WakaDaikoApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_EventId",
-                table: "Comment",
+                name: "IX_Comments_EventId",
+                table: "Comments",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_RcpntId",
-                table: "Comment",
-                column: "RcpntId");
+                name: "IX_Comments_RecipientId",
+                table: "Comments",
+                column: "RecipientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_SndrId",
-                table: "Comment",
-                column: "SndrId");
+                name: "IX_Comments_SenderId",
+                table: "Comments",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_AuthorId",
@@ -416,7 +416,7 @@ namespace WakaDaikoApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

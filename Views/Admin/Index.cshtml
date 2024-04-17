@@ -19,36 +19,41 @@
     @* Team Name *@
     <div id="createTeamField" class="">
         <form class="" method="post" asp-action="CreateTeam">
+            @* Name *@
             <div class="row mb-2">
                 <label class="col-form-label col-md-4">Team Name:</label>
                 <div class="col-md-6">
-                    <input name="name" class="form-control" />
+                    <input name="Name" class="form-control" />
                 </div>
             </div>
+            @* TeamLead *@
             <div class="row mb-2">
                 <label class="col-form-label col-md-4">Team Lead:</label>
                 <div class="col-md-6">
-                    <input name="teamLead" class="form-control" />
+                    <input name="TeamLead" class="form-control" />
                 </div>
             </div>
+            @* Description *@
             <div class="row mb-2">
                 <label class="col-form-label col-md-4">Description:</label>
                 <div class="col-md-6">
-                    <input name="description" class="form-control" />
+                    <input name="Description" class="form-control" />
                 </div>
             </div>
+            @* Instruments *@
             <div class="row mb-2">
                 <div>Enter the instruments played separated by a comma ( , )</div>
                 <label class="col-form-label col-md-4">Instruments:</label>
                 <div class="col-md-6">
-                    <input name="instruments" class="form-control" />
+                    <input name="Instruments" class="form-control" />
                 </div>
             </div>
+            @* Members *@
             <div class="row mb-2">
                 <div>Enter the member user names separated by a comma ( , )</div>
                 <label class="col-form-label col-md-4">Members:</label>
                 <div class="col-md-6">
-                    <input name="members" class="form-control" />
+                    <input name="Members" class="form-control" />
                 </div>
             </div>
 
@@ -62,42 +67,43 @@
     <h2 class="text-start">Create User Area</h2>
 
     <form class="" method="post" asp-action="CreateUser">
-
+        @* UserName *@
         <div class="row mb-2">
             <label class="col-form-label col-md-4">User Name:</label>
             <div class="col-md-6">
-                <input name="userName" class="form-control" />
+                <input name="UserName" class="form-control" />
             </div>
         </div>
-        @* password *@
+        @* UserPassword *@
         <div class="row mb-2">
             <label class="col-form-label col-md-4">Password:</label>
             <div class="col-md-6">
-                <input name="userPassword" class="form-control" />
+                <input name="UserPassword" class="form-control" />
             </div>
         </div>
-        @* instruments *@
+        @* Instruments *@
         <div class="row mb-2">
             <div>Enter the instruments played delimenated by a comma ( , )</div>
             <label class="col-form-label col-md-4">Instruments:</label>
             <div class="col-md-6">
-                <input placeholder="Drums,Symbol,Hands" name="instruments" class="form-control" />
+                <input placeholder="Drums,Symbol,Hands" name="Instruments" class="form-control" />
             </div>
         </div>
+        @* Positions *@
         <div class="row mb-2">
             <div>Enter the positions played separated by a comma ( , )</div>
             <label class="col-form-label col-md-4">Positions:</label>
             <div class="col-md-6">
-                <input name="positions" class="form-control" />
+                <input name="Positions" class="form-control" />
             </div>
         </div>
-        @* rollnames *@
+        @* RollNames *@
         <div class="row mb-2">
             <div>Enter the role names to add user to delimenated by a comma ( , )</div>
 
             <label class="col-form-label col-md-4">Roll Names:</label>
             <div class="col-md-6">
-                <input name="rollNames" class="form-control" />
+                <input name="RollNames" class="form-control" />
             </div>
         </div>
         <button type="submit" class="">Submit</button>

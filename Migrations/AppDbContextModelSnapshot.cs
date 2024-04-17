@@ -229,11 +229,11 @@ namespace WakaDaikoApp.Migrations
 
             modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
                 {
-                    b.Property<int>("CmntId")
+                    b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CmntId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CommentId"));
 
                     b.Property<int>("ConvoId")
                         .HasColumnType("int");
@@ -241,11 +241,11 @@ namespace WakaDaikoApp.Migrations
                     b.Property<int?>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RcpntId")
+                    b.Property<string>("RecipientId")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("SndrId")
+                    b.Property<string>("SenderId")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
@@ -254,15 +254,15 @@ namespace WakaDaikoApp.Migrations
                         .HasMaxLength(254)
                         .HasColumnType("varchar(254)");
 
-                    b.HasKey("CmntId");
+                    b.HasKey("CommentId");
 
                     b.HasIndex("EventId");
 
-                    b.HasIndex("RcpntId");
+                    b.HasIndex("RecipientId");
 
-                    b.HasIndex("SndrId");
+                    b.HasIndex("SenderId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
@@ -419,21 +419,21 @@ namespace WakaDaikoApp.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("EventId");
 
-                    b.HasOne("WakaDaikoApp.Models.AppUser", "Rcpnt")
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "Recipient")
                         .WithMany()
-                        .HasForeignKey("RcpntId")
+                        .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WakaDaikoApp.Models.AppUser", "Sndr")
+                    b.HasOne("WakaDaikoApp.Models.AppUser", "Sender")
                         .WithMany()
-                        .HasForeignKey("SndrId")
+                        .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Rcpnt");
+                    b.Navigation("Recipient");
 
-                    b.Navigation("Sndr");
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>

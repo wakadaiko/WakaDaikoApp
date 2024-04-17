@@ -7,10 +7,15 @@ namespace WakaDaikoApp.Models
     {
         public int AudioId { get; set; }
         [StringLength(254, ErrorMessage = "Text must be between 0 - 254 characters")]
+
         public string? Text { get; set; }
+
         public string? Title { get; set; }
+
         public string? Type { get; set; }
+
         public string? Url { get; set; }
+
         public Blob BlobData { get; set; }
 
         public List<Comment>? Comments { get; set; }
