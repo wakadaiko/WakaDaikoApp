@@ -6,6 +6,8 @@ namespace WakaDaikoApp.Data
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
     {
+        public DbSet<Team> Teams { get; set; }
+
         public DbSet<Event> Events { get; set; }
     }
 }

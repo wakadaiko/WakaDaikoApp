@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WakaDaikoApp.Data;
 
@@ -11,9 +12,11 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411223643_waka2")]
+    partial class waka2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,90 +230,6 @@ namespace WakaDaikoApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
-                {
-                    b.Property<int>("CmntId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CmntId"));
-
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ConvoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RcpntId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("SndrId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(254)
-                        .HasColumnType("varchar(254)");
-
-                    b.HasKey("CmntId");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("RcpntId");
-
-                    b.HasIndex("SndrId");
-
-                    b.ToTable("Comment");
-                });
-
-            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
-                {
-                    b.Property<int>("EventId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EventId"));
-
-                    b.Property<string>("AuthorId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("ConvoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("EventId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Events");
-                });
-
             modelBuilder.Entity("WakaDaikoApp.Models.Team", b =>
                 {
                     b.Property<int>("TeamId")
@@ -320,9 +239,11 @@ namespace WakaDaikoApp.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TeamId"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Instruments")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
@@ -330,9 +251,11 @@ namespace WakaDaikoApp.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Positions")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("TeamLeadId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("TeamId");
@@ -342,23 +265,15 @@ namespace WakaDaikoApp.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
+            modelBuilder.Entity("AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("FamilyId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Instruments")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Instrument")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("TeamId")
                         .HasColumnType("int");
-
-                    b.HasIndex("FamilyId");
 
                     b.HasIndex("TeamId");
 
@@ -416,73 +331,27 @@ namespace WakaDaikoApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
-                {
-                    b.HasOne("WakaDaikoApp.Models.Event", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("EventId");
-
-                    b.HasOne("WakaDaikoApp.Models.AppUser", "Rcpnt")
-                        .WithMany()
-                        .HasForeignKey("RcpntId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WakaDaikoApp.Models.AppUser", "Sndr")
-                        .WithMany()
-                        .HasForeignKey("SndrId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Rcpnt");
-
-                    b.Navigation("Sndr");
-                });
-
-            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
-                {
-                    b.HasOne("WakaDaikoApp.Models.AppUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("WakaDaikoApp.Models.Team", b =>
                 {
-                    b.HasOne("WakaDaikoApp.Models.AppUser", "TeamLead")
+                    b.HasOne("AppUser", "TeamLead")
                         .WithMany()
-                        .HasForeignKey("TeamLeadId");
+                        .HasForeignKey("TeamLeadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TeamLead");
                 });
 
-            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
+            modelBuilder.Entity("AppUser", b =>
                 {
-                    b.HasOne("WakaDaikoApp.Models.AppUser", null)
-                        .WithMany("Family")
-                        .HasForeignKey("FamilyId");
-
                     b.HasOne("WakaDaikoApp.Models.Team", null)
                         .WithMany("Members")
                         .HasForeignKey("TeamId");
                 });
 
-            modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("WakaDaikoApp.Models.Team", b =>
                 {
                     b.Navigation("Members");
-                });
-
-            modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
-                {
-                    b.Navigation("Family");
                 });
 #pragma warning restore 612, 618
         }

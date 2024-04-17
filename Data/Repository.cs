@@ -1,12 +1,35 @@
-﻿using WakaDaikoApp.Models;
+using WakaDaikoApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace WakaDaikoApp.Data
 {
     public class Repository(AppDbContext c) : IRepository
     {
         readonly AppDbContext _context = c;
+
+        #region Get Functions
+        public async Task<List<Team>> GetTeamsByNameAsync(List<string> teams)
+        {
+            var _teams = await _context.Teams.Where(t => t.Name != null && teams.Contains(t.Name) == true).ToListAsync();
+
+            return _teams;
+        }
+
+        #endregion
+
+        #region Add Functions
+
+        public async Task<int> AddTeamAsync(Team team)
+        {
+            await _context.Teams.AddAsync(team);
+
+            return await _context.SaveChangesAsync();
+        }
+
+        // public async Task<int> AddResource() => 0;
+        public int AddResource() => 0;
+
+        #endregion
 
         public async Task<Event> GetEventByIdAsync(int id)
         {

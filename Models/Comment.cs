@@ -5,6 +5,9 @@ namespace WakaDaikoApp.Models
 {
     public class Comment
     {
+        [Key]
+        public int CmntId { get; set; }
+
         public int CommentId { get; set; }
 
         [Required]
@@ -16,8 +19,6 @@ namespace WakaDaikoApp.Models
 
         [Required]
         public AppUser? Rcpnt { get; set; }
-
-        public List<Comment>? Comments { get; set; }
 
         [ForeignKey("ConvoId")]
         public int ConvoId { get; set; }
