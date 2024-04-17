@@ -11,6 +11,7 @@ namespace WakaDaikoApp.Data
 
         // one DbSet for each domain model class
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
     }
 }

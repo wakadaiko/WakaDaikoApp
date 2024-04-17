@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 
 namespace WakaDaikoApp.Models
@@ -10,8 +11,9 @@ namespace WakaDaikoApp.Models
         public string? Name { get; set; }
         public AppUser? TeamLead { get; set; }
         public string? Description { get; set; }
+        public List<AppUser?>? Members { get; set; } = new List<AppUser>();
         public List<string?>? Instruments { get; set; } = new List<string?>();
-        public List<AppUser?>? Members { get; set; } = new List<AppUser?>();
+        [NotMapped]
         public List<string?>? Positions { get; set; } = new List<string?>();
     }
 }
