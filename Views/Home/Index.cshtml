@@ -23,9 +23,9 @@ p-3" open>
 @* Homepage *@
 <div class="z-0 relative flex grow items-center justify-center overflow-hidden text-white">
     <div
-        class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col bg-[linear-gradient(to_right,black,transparent)]">
+        class='z-20 w-full h-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(75vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(to_right,black,transparent)]'>
         <div
-            class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0))]">
+            class='z-20 w-full h-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(75vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0))]'>
             <div class="flex flex-col gap-4 lg:gap-6 text-center lg:text-start m-auto lg:ms-[12.5vw] p-10">
                 <h1 class="font-black text-5xl lg:text-7xl">
                     WAKA DAIKO
@@ -38,7 +38,7 @@ p-3" open>
                     <br />
                     All youth, ages 8-22, are welcome.
                 </p>
-                <div class='flex flex-col lg:flex-row gap-4 mx-auto lg:mx-0'>
+                <div class=' flex flex-col lg:flex-row gap-4 mx-auto lg:mx-0'>
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="btn-solid", URL="/events", Body="UPCOMING EVENTS" }' />
                     <partial name="~/views/shared/htmllink.cshtml"

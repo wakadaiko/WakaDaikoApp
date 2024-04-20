@@ -12,13 +12,13 @@
             c = $"flex items-center gap-2 font-black text-2xl {class2}";
             break;
         case "navlink":
-            c = "flex items-center hover:text-black p-6 lg:px-4";
+            c = "flex items-center text-[rgb(37.5%,37.5%,37.5%)] hover:text-black p-4";
             break;
         case "nav-workshops":
             c = $"gap-3 {buttonSolid} m-5 lg:m-0";
             break;
         case "dropdown":
-            c = "flex items-center hover:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-6 lg:px-4";
+            c = "flex items-center hover:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-4";
             break;
         case "dialog":
             c = $"flex items-center justify-center {colorDefault1} p-4 -m-3";
@@ -45,7 +45,7 @@
             c = $"flex items-center {colorDefault1} -m-3 p-3";
             break;
         default:
-            c = $"{colorDefault1} -m-3 p-3";
+            c = $"{colorDefault1} p-3";
             break;
     }
 }

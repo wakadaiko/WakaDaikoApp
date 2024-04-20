@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
@@ -10,40 +11,92 @@ namespace WakaDaikoApp.Controllers
     public class EventsController(IRepository r) : Controller
     {
         // Variables
+
         readonly IRepository _repository = r;
 
         // readonly UserManager<AppUser> _userManager = u;
 
-        // Controllers & routes
-        public IActionResult Index()
-        {
-            string? search = Request.Query["search"];
-            string? status = Request.Query["status"];
-            string? alphabet = Request.Query["alphabet"];
-            string? date = Request.Query["date"];
+        // Functions
 
-            return View("Index", GetEvents("", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+        public async Task GetPinnedBanner()
+        {
+            List<Event> events = [
+                .. _repository
+                .GetEvents()
+                .Where(e => e.Pinned == true)
+            ];
+
+            Event _event;
+
+            switch (events.Count)
+            {
+                case 1:
+                    _event = await _repository.GetEventByIdAsync(events[0].EventId);
+
+                    ViewBag.BannerTitle = _event.Title;
+                    ViewBag.BannerDate = _event.Date;
+
+                    break;
+                case int n when n > 1:
+                    throw new Exception("More than one pinned event was found.");
+            }
         }
 
-        [HttpGet("/events/view/{eventDesc}")]
-        public IActionResult Index(string eventDesc) => View(GetEvents("", eventDesc));
+        // Controllers & Routes
 
-        // Workaround - Extra parameter
-
-        [HttpGet("/events/page/{paginationId}/")]
-        public IActionResult Index(string paginationId, string z)
+        public async Task<IActionResult> Index()
         {
+            await GetPinnedBanner();
+
             string? search = Request.Query["search"];
             string? status = Request.Query["status"];
             string? alphabet = Request.Query["alphabet"];
             string? date = Request.Query["date"];
 
-            return View(GetEvents(paginationId, "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+            return View("Index", GetEvents("", "", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+        }
+
+        [HttpGet("/events/page/{paginationId}/")]
+        public async Task<IActionResult> Index(string paginationId)
+        {
+            await GetPinnedBanner();
+
+            string? search = Request.Query["search"];
+            string? status = Request.Query["status"];
+            string? alphabet = Request.Query["alphabet"];
+            string? date = Request.Query["date"];
+
+            return View(GetEvents(paginationId ?? "", "", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+        }
+
+        // Workaround - Extra [used] parameter
+
+        [HttpGet("/events/view/{descriptionId}")]
+        public async Task<IActionResult> Index(string descriptionId, string _)
+        {
+            await GetPinnedBanner();
+
+            return View(GetEvents("", descriptionId ?? ""));
+        }
+
+        // Workaround - Extra [used] parameter
+
+        [HttpGet("/events/pin/{pinId}/")]
+        public async Task<IActionResult> Index(string pinId, string _, string __)
+        {
+            await GetPinnedBanner();
+
+            string? search = Request.Query["search"];
+            string? status = Request.Query["status"];
+            string? alphabet = Request.Query["alphabet"];
+            string? date = Request.Query["date"];
+
+            return View(GetEvents("", "", pinId ?? "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
         }
 
         // Functions
 
-        public List<Event> GetEvents(string paginationId = "", string eventDesc = "", string search = "", string status = "", string alphabet = "", string date = "")
+        public List<Event> GetEvents(string paginationId = "", string descriptionId = "", string pinId = "", string search = "", string status = "", string alphabet = "", string date = "")
         {
             // Variables
 
@@ -83,11 +136,11 @@ namespace WakaDaikoApp.Controllers
 
             // Description
 
-            if (eventDesc.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == eventDesc)];
+            if (descriptionId.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == descriptionId)];
 
             // Search
 
-            if (search != "") events = [.. events.Where(e => e.Title != null && e.Title.Contains(search))];
+            if (search != "") events = [.. events.Where(e => e.Title != null && e.Title.Contains(search, StringComparison.CurrentCultureIgnoreCase) || (e.Text != null && e.Text.Contains(search, StringComparison.CurrentCultureIgnoreCase)))];
 
             // Status
 
