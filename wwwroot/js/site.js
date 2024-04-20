@@ -1,5 +1,6 @@
 const eMobileBorder = document.getElementById('eMobileBorder');
 const eMobiles = document.getElementsByClassName('eMobiles');
+const eDropdowns = document.getElementsByClassName('eDropdowns');
 const eMobileButton = document.getElementById('eMobileButton');
 
 function toggleMobile() {
@@ -8,6 +9,13 @@ function toggleMobile() {
 
 function resetMobile() {
     Array.from(eMobiles).forEach(e => window.matchMedia('(min-width: 1024px)') ? (eMobileBorder.classList.remove('border-b-[1px]'), e.classList.add('hidden'), eMobileButton.children[0].classList.remove('hidden'), eMobileButton.children[1].classList.add('hidden')) : {});
+
+    // Prevent transition flickering
+    Array.from(eDropdowns).forEach(e => e.classList.add('transition-none'));
+
+    setInterval(() => {
+        Array.from(eDropdowns).forEach(e => e.classList.remove('transition-none'));
+    }, 300);
 }
 
 // function rememberFormValues() {

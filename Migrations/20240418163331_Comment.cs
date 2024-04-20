@@ -209,6 +209,7 @@ namespace WakaDaikoApp.Migrations
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     AuthorId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Pinned = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ConvoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

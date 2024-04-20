@@ -27,6 +27,8 @@ namespace WakaDaikoApp.Models
         [Required]
         public AppUser? Author { get; set; }
 
+        public bool Pinned { get; set; }
+
         public List<Comment>? Comments { get; set; }
 
         [ForeignKey("ConvoId")]

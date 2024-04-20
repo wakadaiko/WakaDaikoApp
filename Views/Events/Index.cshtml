@@ -3,19 +3,19 @@
 }
 @model List<Event>
 
-<div class="container m-auto lg:my-20 p-5">
+<div class="container m-auto lg:my-20 p-5 lg:p-0">
     <div class="flex flex-col xl:flex-row gap-5">
         @* Section - Left *@
-        <form class="flex gap-5">
+        <form class="h-min flex gap-5 bg-[rgb(95%,95%,95%)] border-[1px] border-[rgb(85%,85%,85%)] lg:mt-20 p-3">
             @* Section - Pagination *@
             <div class="w-full flex flex-col items-center lg:items-start">
                 @* Section - Filters - Search *@
                 <div class="flex p-1 mb-5">
                     <label class="peer relative" for="search">
                         <input id="eSearch"
-                            class="peer w-full rounded-[8px] bg-transparent border-[1px] border-[rgb(67.5%,67.5%,67.5%)] focus:border-black focus:outline-none lg:-ms-5 ps-[34px] pe-[12px] py-[6px]"
+                            class="peer w-full rounded-[8px] bg-transparent border-[1px] border-[rgb(80%,80%,80%)] focus:border-[rgb(70%,70%,70%)] focus:outline-none ps-[34px] pe-[12px] py-[6px]"
                             for="search" name="search" type="search" placeholder="Search ..." />
-                        <svg class="absolute top-[50%] left-[8px] lg:left-[-10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)]
+                        <svg class="absolute top-[50%] left-[10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)]
                     peer-focus:fill-black" stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px"
                             height="16px" xmlns="http://www.w3.org/2000/svg">
                             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col items-center justify-center gap-5 lg:-ms-10">
+                    <div class="flex flex-col items-center justify-center gap-5">
                         <button class="w-full bg-red-600 hover:bg-red-500 font-bold text-white p-5"
                             type="submit">Submit</button>
                         <partial name="~/views/shared/htmllink.cshtml"
@@ -72,12 +72,12 @@
                     </div>
                 </div>
             </div>
-            <div class='hidden lg:block min-w-[1px] bg-neutral-300 -my-5'></div>
+            @* <div class='hidden lg:block min-w-[1px] bg-neutral-300 -my-5'></div> *@
         </form>
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
             @* Section - Pagination *@
-            <ul class="flex gap-3 p-6">
+            <ul class="w-full flex justify-center gap-3 p-6">
                 @* Section - Button - Left *@
                 <li>
                     <button>
@@ -117,7 +117,7 @@
             {
                 if (Model.Count > 0)
                 {
-                    <ul id="eEvent" class="w-full h-full grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <ul id="eEvent" class="w-full grid grid-cols-1 lg:grid-cols-3 gap-4">
                         @foreach (var _event in Model)
                         {
                             <partial name="~/views/shared/htmlevent.cshtml"

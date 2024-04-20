@@ -12,7 +12,7 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240417182121_Comment")]
+    [Migration("20240418163331_Comment")]
     partial class Comment
     {
         /// <inheritdoc />
@@ -293,6 +293,9 @@ namespace WakaDaikoApp.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("Pinned")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Text")
                         .IsRequired()

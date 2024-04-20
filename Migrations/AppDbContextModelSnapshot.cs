@@ -291,6 +291,9 @@ namespace WakaDaikoApp.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Pinned")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(1000)

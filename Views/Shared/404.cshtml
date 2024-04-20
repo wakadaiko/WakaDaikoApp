@@ -10,13 +10,15 @@
 </div> *@
 
 <div class="z-0 relative flex grow items-center justify-center overflow-hidden">
-    <div class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col">
-        <div class="z-20 w-full h-full min-h-[calc(100vh-96px)] lg:min-h-[calc(75vh-96px)] flex flex-col">
+    <div
+        class='z-20 w-full h-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(75vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col'>
+        <div
+            class='z-20 w-full h-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(75vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col'>
             <div class="flex flex-col gap-4 lg:gap-6 text-center m-auto p-10">
                 <h1 class="font-black text-7xl lg:text-9xl">
                     404
                 </h1>
-                <h3 class="italic lg:text-3xl tracking-wider">
+                <h3 class="lg:text-3xl tracking-wider">
                     Page Not Found
                 </h3>
                 <p class="text-xs lg:text-lg text-[rgb(37.5%,37.5%,37.5%)]">

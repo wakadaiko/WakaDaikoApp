@@ -5,18 +5,53 @@ using WakaDaikoApp.Models;
 
 namespace WakaDaikoApp.Controllers
 {
-    // public class AdminController(IRepository db, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) : Controller
-    public class AdminController(IRepository db, UserManager<AppUser> um, RoleManager<IdentityRole> rm) : Controller
+    // public class AdminController(IRepository r, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) : Controller
+    public class AdminController(IRepository r, UserManager<AppUser> um, RoleManager<IdentityRole> rm) : Controller
     {
-        readonly private UserManager<AppUser> _um = um;
+        // Variables
 
-        // readonly private SignInManager<AppUser> _sm = sm;
+        readonly private UserManager<AppUser> _userManager = um;
 
-        readonly private RoleManager<IdentityRole> _rm = rm;
+        // readonly private SignInManager<AppUser> _signInManager = sm;
 
-        readonly private IRepository _db = db;
+        readonly private RoleManager<IdentityRole> _roleManager = rm;
 
-        public IActionResult Index() => View();
+        readonly private IRepository _repository = r;
+
+        // Functions
+
+        public async Task GetPinnedBanner()
+        {
+            List<Event> events = [
+                .. _repository
+                .GetEvents()
+                .Where(e => e.Pinned == true)
+            ];
+
+            Event _event;
+
+            switch (events.Count)
+            {
+                case 1:
+                    _event = await _repository.GetEventByIdAsync(events[0].EventId);
+
+                    ViewBag.BannerTitle = _event.Title;
+                    ViewBag.BannerDate = _event.Date;
+
+                    break;
+                case int n when n > 1:
+                    throw new Exception("More than one pinned event was found.");
+            }
+        }
+
+        // Controllers & Routes
+
+        public async Task<IActionResult> Index()
+        {
+            await GetPinnedBanner();
+
+            return View();
+        }
 
         [HttpPost]
         // public async Task<IActionResult> CreateTeam(string name, string teamLead, string description, string Instruments, string members)
@@ -24,19 +59,19 @@ namespace WakaDaikoApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var teamlead = await _um.FindByNameAsync(teamLead);
-                var team = new Team { Name = name, Description = "The Team of all Teams.", TeamLead = teamlead };
+                var _teamLead = await _userManager.FindByNameAsync(teamLead);
+                var team = new Team { Name = name, Description = "The Team of all Teams.", TeamLead = _teamLead };
                 var devices = Instruments.ToUpper().Split(',').Select(d => d.Trim()).ToList();
                 var teamMembers = members.ToUpper().Split(',').Select(d => d.Trim()).ToList();
 
-                // TeamMembers.ForEach((async m => { team.Members.Add( _um.FindByNameAsync(m).Result); }));
+                // TeamMembers.ForEach((async m => { team.Members.Add( _userManager.FindByNameAsync(m).Result); }));
 
                 // Devices.ForEach((async d => { team.Instruments.Add(d); }));
 
-                // foreach (var m in teamMembers) if (await _um.FindByNameAsync(m) != null) team.Members.Add(await _um.FindByNameAsync(m));
+                // foreach (var m in teamMembers) if (await _userManager.FindByNameAsync(m) != null) team.Members.Add(await _userManager.FindByNameAsync(m));
                 foreach (var m in teamMembers)
                 {
-                    var memberUser = await _um.FindByNameAsync(m);
+                    var memberUser = await _userManager.FindByNameAsync(m);
 
                     if (memberUser != null) team.Members?.Add(memberUser);
                 }
@@ -44,7 +79,7 @@ namespace WakaDaikoApp.Controllers
                 // Perhaps add a device table with names and ids
                 foreach (var d in devices) team.Instruments?.Add(d);
 
-                var results = await _db.AddTeamAsync(team);
+                var results = await _repository.AddTeamAsync(team);
 
                 if (results >= 1)
                 {
@@ -81,14 +116,14 @@ namespace WakaDaikoApp.Controllers
                 var _roles = form.RollNames?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
 
                 // var teamOBJs = "";
-                // if (_Teams != null) await _db.GetTeamsByNameAsync(_Teams);
+                // if (_Teams != null) await _repository.GetTeamsByNameAsync(_Teams);
 
                 var _Instruments = form.Instruments?.ToUpper().Split(',').Select(d => d.Trim()).ToList();
 
                 // The lambda should work here, but it has its drawbacks
-                //_roles.ForEach(async r => { if ( await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
+                //_roles.ForEach(async r => { if ( await _roleManager.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
 
-                if (_roles != null) foreach (var r in _roles) if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
+                if (_roles != null) foreach (var r in _roles) if (await _roleManager.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
 
                 /* foreach (var t in teamOBJs) if (t != null) appUser.Teams.Add(t); */
 
@@ -96,15 +131,15 @@ namespace WakaDaikoApp.Controllers
                 {
                     foreach (var d in _Dependents)
                     {
-                        var dependentUser = await _um.FindByNameAsync(d);
+                        var dependentUser = await _userManager.FindByNameAsync(d);
 
                         if (dependentUser != null) appUser.Family?.Add(dependentUser);
                     }
                 }
                 if (_Instruments != null) foreach (var i in _Instruments) appUser.Instruments?.Add(i);
-                if (form.UserPassword != null) await _um.CreateAsync(appUser, form.UserPassword);
+                if (form.UserPassword != null) await _userManager.CreateAsync(appUser, form.UserPassword);
 
-                await _um.AddToRolesAsync(appUser, validRoleNames);
+                await _userManager.AddToRolesAsync(appUser, validRoleNames);
 
                 TempData["Message"] = "Success";
 
