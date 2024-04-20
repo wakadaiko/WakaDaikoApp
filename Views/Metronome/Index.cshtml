@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Admin Page";
+}
+
+@{
+    if (TempData["Message"] != null)
+    {
+        <div id="Console" class="col-7">
+            <h2 class="text-start">Console:</h2>
+            <span>@TempData["Message"]</span>
+        </div>
+        <script>setTimeout(() => { document.getElementById("Console").hidden = true; }, 3000)</script>
+    }
+}
+<div class="col-7 adminCard">
+
+    <h2 class="text-start">Metronome View Area</h2>
+   
+</div>
+
+
+<div class="col-7 adminCard">
+    <h2 class="text-start">Metronome Buttons Area</h2>    
+</div>

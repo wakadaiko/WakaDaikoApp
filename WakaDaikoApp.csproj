@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Models\ModelsKG\ViewModels\" />
+    <Folder Include="Views\Metronome\" />
   </ItemGroup>
 
 </Project>
