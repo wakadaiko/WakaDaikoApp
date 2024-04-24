@@ -4,16 +4,14 @@
     ViewBag.Link_cookies = "https://smarterasp.net/cookies";
 }
 
-<div class="flex flex-col items-center gap-5 container m-auto lg:my-20 p-5">
+<div class="flex flex-col items-center gap-5 container mx-auto my-10 lg:my-20 p-5">
     <h1 class="font-black text-3xl lg:text-5xl">@ViewBag.Title.ToUpper()</h1>
-    <ul class="whitespace-nowrap text-[rgb(37.5%,37.5%,37.5%)]">
-        <li class="mb-3">
-            [1]
+    <ul class="flex flex-col gap-3 text-[rgb(37.5%,37.5%,37.5%)]">
+        <li>
             <partial name="~/views/shared/htmllink.cshtml"
                 model='new HtmlLinkVM { URL=@ViewBag.Link_privacy.ToString(), Body=@ViewBag.Link_privacy.ToString() }' />
         </li>
         <li>
-            [2]
             <partial name="~/views/shared/htmllink.cshtml"
                 model='new HtmlLinkVM { URL=@ViewBag.Link_cookies.ToString(), Body=@ViewBag.Link_cookies.ToString() }' />
         </li>

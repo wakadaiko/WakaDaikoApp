@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col items-center justify-center gap-5">
+                    <div class="flex flex-col justify-center items-center gap-3">
                         <button class="w-full bg-red-600 hover:bg-red-500 font-bold text-white p-5"
                             type="submit">Submit</button>
                         <partial name="~/views/shared/htmllink.cshtml"
@@ -121,13 +121,13 @@
                         @foreach (var _event in Model)
                         {
                             <partial name="~/views/shared/htmlevent.cshtml"
-                                model='new Event { EventId=_event.EventId, Description=_event.Description, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author }' />
+                                model='new Event { EventId=_event.EventId, Description=_event.Description, Image=_event.Image, Title=_event.Title, Text=_event.Text, Date=_event.Date, Author=_event.Author, Pinned=_event.Pinned, Comments=_event.Comments, ConvoId=_event.ConvoId }' />
                         }
                     </ul>
                 }
                 else
                 {
-                    <div class="w-full h-full flex flex-col items-center justify-center text-center">
+                    <div class="size-full flex flex-col justify-center items-center text-center">
                         <h1 class="font-black italic text-5xl lg:text-7xl mb-5">OOPS...</h1>
                         <div class="text-[rgb(37.5%,37.5%,37.5%)]">We couldn't find any events with the given parameters.</div>
                     </div>

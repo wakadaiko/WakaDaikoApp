@@ -1,7 +1,6 @@
 ﻿using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace WakaDaikoApp
 {
@@ -15,24 +14,34 @@ namespace WakaDaikoApp
 
                 var userManager = provider.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
-                const string ROLE = "Admin";
+                const string ROLE_SITE_ADMIN = "Admin";
+                const string ROLE_TEAM_LEAD = "Team_Lead";
+                const string ROLE_TEAM_MEMBER = "User";
                 const string SECRET_PASSWORD = "Secret!123";
-                bool isSuccess = true;
+                bool isSuccessSiteAdmin = true;
+                bool isSuccessTeamLead = true;
+                bool isSuccessTeamMember = true;
 
-                if (roleManager.FindByNameAsync(ROLE).Result == null) isSuccess = roleManager.CreateAsync(new IdentityRole(ROLE)).Result.Succeeded;
+                if (roleManager.FindByNameAsync(ROLE_SITE_ADMIN).Result == null) isSuccessSiteAdmin = roleManager.CreateAsync(new IdentityRole(ROLE_SITE_ADMIN)).Result.Succeeded;
+                if (roleManager.FindByNameAsync(ROLE_TEAM_LEAD).Result == null) isSuccessTeamLead = roleManager.CreateAsync(new IdentityRole(ROLE_TEAM_LEAD)).Result.Succeeded;
+                if (roleManager.FindByNameAsync(ROLE_TEAM_MEMBER).Result == null) isSuccessTeamMember = roleManager.CreateAsync(new IdentityRole(ROLE_TEAM_MEMBER)).Result.Succeeded;
 
-                var user1 = new AppUser { Name = "John Smith", UserName = "John" };
-                var user2 = new AppUser { Name = "Jane Doe", UserName = "Jane" };
+                var user1 = new AppUser { Name = "SITE ADMIN", UserName = "SiteAdmin" };
+                var user2 = new AppUser { Name = "TEAM LEAD", UserName = "TeamLead" };
+                var user3 = new AppUser { Name = "TEAM MEMBER", UserName = "TeamMember" };
 
-                isSuccess &= userManager.CreateAsync(user1, SECRET_PASSWORD).Result.Succeeded;
+                isSuccessSiteAdmin &= userManager.CreateAsync(user1, SECRET_PASSWORD).Result.Succeeded;
+                if (isSuccessSiteAdmin) isSuccessSiteAdmin &= userManager.AddToRoleAsync(user1, ROLE_SITE_ADMIN).Result.Succeeded;
 
-                if (isSuccess) isSuccess &= userManager.AddToRoleAsync(user1, ROLE).Result.Succeeded;
+                isSuccessTeamLead &= userManager.CreateAsync(user2, SECRET_PASSWORD).Result.Succeeded;
+                if (isSuccessTeamLead) isSuccessTeamLead &= userManager.AddToRoleAsync(user2, ROLE_TEAM_LEAD).Result.Succeeded;
 
-                isSuccess &= userManager.CreateAsync(user2, SECRET_PASSWORD).Result.Succeeded;
+                isSuccessTeamMember &= userManager.CreateAsync(user3, SECRET_PASSWORD).Result.Succeeded;
+                if (isSuccessTeamMember) isSuccessTeamMember &= userManager.AddToRoleAsync(user3, ROLE_TEAM_MEMBER).Result.Succeeded;
 
                 // Create - Events
 
-                if (isSuccess)
+                if (isSuccessSiteAdmin)
                 {
                     Random random = new();
 
@@ -42,7 +51,7 @@ namespace WakaDaikoApp
 
                     // Test - Search, Date, and Alphabet
 
-                    for (var i = 0; i < 14; i++)
+                    for (int i = 0; i < 14; i++)
                     {
                         // Variable - Title
                         var randomTitle = new string(Enumerable.Repeat(randomLowerAndUpperChars, 20).Select(s => s[random.Next(s.Length)]).ToArray());
