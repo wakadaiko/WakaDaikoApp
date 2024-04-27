@@ -1,24 +1,47 @@
 ﻿@{
-    ViewData["Title"] = "Admin Page";
+    ViewData["Title"] = "Metronome";
 }
 
-@{
-    if (TempData["Message"] != null)
-    {
-        <div id="Console" class="col-7">
-            <h2 class="text-start">Console:</h2>
-            <span>@TempData["Message"]</span>
+@model List<int>
+<body>
+    <div id="MetronomeBackground">
+        <div class="mCard ">
+            <div class="flex-row-3">
+                <button id="decrease" class="plus-icon hoverZoom">&minus;</button>
+                <div id="bpmField" class="metronome-display">60 BPM</div>
+                <button id="increase" class="plus-icon hoverZoom">&plus;</button>
+            </div>
+            <div class="controls flex-row-3">
+                <button id="start" class="hoverZoom">Start</button>
+                <button id="stop" class="hoverZoom" disabled>Stop</button>
+            </div>
+            <div id="timer" class="mCard">00:00</div>
         </div>
-        <script>setTimeout(() => { document.getElementById("Console").hidden = true; }, 3000)</script>
-    }
-}
-<div class="col-7 adminCard">
+        <div class="mCard">
+		    <div>Preference Field</div>
+            @{if(Model.Any()){
+                int i = 0;
+					foreach(var bpm in Model){
+                        <div class="flex-row-3">
+                            <form asp-action="Set" method="post">
+                                <input name="id" value="@i" hidden />
+                                <input name="bpmToSave" value="" hidden />
+                                <input id="one" type="submit" class="hoverZoom" />
+                            </form>
+                            <form asp-action="Delete" method="post">
+                                <input name="bpmToDelete" value="@i" hidden />
+                                <input id="two" type="submit" class="hoverZoom" />
+                            </form>
+                        <div>@bpm BPM</div>
+                        </div>
+                        i++;
+					}
+				}
+            }
+		    </div>
+        </div>
+    <script src="./js/Metronome.js">
+    </script>
+    </div>
 
-    <h2 class="text-start">Metronome View Area</h2>
-   
-</div>
-
-
-<div class="col-7 adminCard">
-    <h2 class="text-start">Metronome Buttons Area</h2>    
-</div>
+</body>
