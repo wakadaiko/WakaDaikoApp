@@ -29,7 +29,19 @@ namespace WakaDaikoApp.Controllers
 
                     break;
                 case int n when n > 1:
-                    throw new Exception("More than one pinned event was found.");
+                    foreach (var e in events)
+                    {
+                        e.Pinned = false;
+
+                        _c.Update(e);
+
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    Console.WriteLine("More than one pinned event was found. Reverting all pinned Events.");
+
+                    break;
             }
         }
 
@@ -88,23 +100,35 @@ namespace WakaDaikoApp.Controllers
 
                 if (_event != null)
                 {
-                    _c.Update(_event);
-
                     List<Event> events = [
                         .. _r
-                    .GetEvents()
+                        .GetEvents()
                     ];
 
-                    foreach (var e in events)
+                    Event? pinnedEvent = events.FirstOrDefault(e => e.Pinned == true);
+
+                    if (pinnedEvent?.EventId == pinId2)
                     {
-                        e.Pinned = false;
+                        if (pinnedEvent != null)
+                        {
+                            _c.Update(pinnedEvent);
 
-                        _c.Update(e);
-
-                        await _c.SaveChangesAsync();
+                            pinnedEvent.Pinned = false;
+                        }
                     }
+                    else
+                    {
+                        foreach (var e in events)
+                        {
+                            e.Pinned = false;
 
-                    _event.Pinned = true;
+                            _c.Update(e);
+                        }
+
+                        _c.Update(_event);
+
+                        _event.Pinned = true;
+                    }
 
                     await _c.SaveChangesAsync();
 
@@ -140,7 +164,7 @@ namespace WakaDaikoApp.Controllers
             // Pagination
 
             ViewBag.PaginationCount = events.Count / EVENTS_PER_PAGE;
-            // ViewBag.PaginationId = ViewBag.PaginationCount.ToString();
+            ViewBag.PaginationId = ViewBag.PaginationCount.ToString();
 
             if (paginationId != "")
             {
@@ -157,7 +181,7 @@ namespace WakaDaikoApp.Controllers
                     ViewBag.PaginationId = paginationId;
                 }
             }
-            // else if (paginationId == "" && eventDesc == "") events = events.Take(4).ToList();
+            else if (paginationId == "" && descriptionText == "") events = events.Take(EVENTS_PER_PAGE).ToList();
 
             // Description
 
@@ -196,6 +220,13 @@ namespace WakaDaikoApp.Controllers
                     events = [.. events.OrderByDescending(e => e.Title)];
                     break;
             }
+
+            // Remember Selected Filters
+
+            ViewBag.Search = search;
+            ViewBag.Status = status;
+            ViewBag.Date = date;
+            ViewBag.Alphabet = alphabet;
 
             // Return
 

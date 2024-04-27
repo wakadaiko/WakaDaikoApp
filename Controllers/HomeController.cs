@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace WakaDaikoApp.Controllers
 {
-    public class HomeController(IRepository _r) : Controller
+    public class HomeController(IRepository _r, AppDbContext _c) : Controller
     {
         // Functions
 
@@ -29,7 +29,19 @@ namespace WakaDaikoApp.Controllers
 
                     break;
                 case int n when n > 1:
-                    throw new Exception("More than one pinned event was found.");
+                    foreach (var e in events)
+                    {
+                        e.Pinned = false;
+
+                        _c.Update(e);
+
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    Console.WriteLine("More than one pinned event was found. Reverting all pinned Events.");
+
+                    break;
             }
         }
 

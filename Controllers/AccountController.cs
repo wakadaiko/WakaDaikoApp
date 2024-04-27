@@ -5,7 +5,7 @@ using WakaDaikoApp.Models;
 
 namespace WakaDaikoApp.Controllers
 {
-    public class AccountController(IRepository _r, UserManager<AppUser> _um, SignInManager<AppUser> _sm) : Controller
+    public class AccountController(IRepository _r, AppDbContext _c, UserManager<AppUser> _um, SignInManager<AppUser> _sm) : Controller
     {
         // Functions
 
@@ -29,7 +29,19 @@ namespace WakaDaikoApp.Controllers
 
                     break;
                 case int n when n > 1:
-                    throw new Exception("More than one pinned event was found.");
+                    foreach (var e in events)
+                    {
+                        e.Pinned = false;
+
+                        _c.Update(e);
+
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    Console.WriteLine("More than one pinned event was found. Reverting all pinned Events.");
+
+                    break;
             }
         }
 
@@ -61,6 +73,9 @@ namespace WakaDaikoApp.Controllers
                 else foreach (var error in result.Errors) ModelState.AddModelError("", error.Description);
             }
 
+            ViewBag.Name = model.Name;
+            ViewBag.Username = model.Username;
+
             ModelState.AddModelError("", "Invalid name, username, password or confirm password");
 
             return View(model);
@@ -86,6 +101,8 @@ namespace WakaDaikoApp.Controllers
 
                 if (result.Succeeded) return (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl)) ? Redirect(model.ReturnUrl) : RedirectToAction("Index", "home");
             }
+
+            ViewBag.Username = model.Username;
 
             ModelState.AddModelError("", "Invalid username or password");
 

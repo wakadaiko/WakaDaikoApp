@@ -92,7 +92,8 @@ namespace WakaDaikoApp
                         Title = "Test - Status - XyZ",
                         Text = randomText,
                         Date = DateOnly.Parse("7/3/2026"),
-                        Author = user2
+                        Author = user2,
+                        Pinned = true
                     };
 
                     // Test - View

@@ -1,5 +1,10 @@
 ﻿@{
     ViewBag.Title = "Events / Home";
+
+    _ = int.TryParse(ViewBag.paginationId, out int paginationId2);
+
+    int nextPagination = paginationId2 + 1 > ViewBag.paginationCount ? 1 : paginationId2 + 1;
+    int previousPagination = paginationId2 - 1 < 1 ? ViewBag.PaginationCount : paginationId2 - 1;
 }
 @model List<Event>
 
@@ -14,7 +19,8 @@
                     <label class="peer relative" for="search">
                         <input id="eSearch"
                             class="peer w-full rounded-[8px] bg-transparent border-[1px] border-[rgb(80%,80%,80%)] focus:border-[rgb(70%,70%,70%)] focus:outline-none ps-[34px] pe-[12px] py-[6px]"
-                            for="search" name="search" type="search" placeholder="Search ..." />
+                            for="search" name="search" type="search" placeholder="Search ..." value='@(ViewBag.Search ??
+                            "")' />
                         <svg class="absolute top-[50%] left-[10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)]
                     peer-focus:fill-black" stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px"
                             height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -35,9 +41,9 @@
                                     <partial name="~/views/shared/htmlradio.cshtml"
                                         model='new HtmlRadioVM { Id="eStatusAll", Name="status", Body="All", Checked=true }' />
                                     <partial name="~/views/shared/htmlradio.cshtml"
-                                        model='new HtmlRadioVM { Id="eStatusUpcoming", Name="status", Body="Upcoming", Checked=false }' />
+                                        model='new HtmlRadioVM { Id="eStatusUpcoming", Name="status", Body="Upcoming", Checked=ViewBag.Status == "eStatusUpcoming" }' />
                                     <partial name="~/views/shared/htmlradio.cshtml"
-                                        model='new HtmlRadioVM { Id="eStatusPast", Name="status", Body="Past", Checked=false }' />
+                                        model='new HtmlRadioVM { Id="eStatusPast", Name="status", Body="Past", Checked=ViewBag.Status == "eStatusPast" }' />
                                 </ul>
                             </div>
                             @* Section - Filters - Date *@
@@ -47,7 +53,7 @@
                                     <partial name="~/views/shared/htmlradio.cshtml"
                                         model='new HtmlRadioVM { Id="eDateNewest", Name="date", Body="Newest", Checked=true }' />
                                     <partial name="~/views/shared/htmlradio.cshtml"
-                                        model='new HtmlRadioVM { Id="eDateOldest", Name="date", Body="Oldest", Checked=false }' />
+                                        model='new HtmlRadioVM { Id="eDateOldest", Name="date", Body="Oldest", Checked=ViewBag.Date == "eDateOldest" }' />
                                 </ul>
                             </div>
                             @* Section - Filters - Alphabet *@
@@ -57,9 +63,9 @@
                                     <partial name="~/views/shared/htmlradio.cshtml"
                                         model='new HtmlRadioVM { Id="eAlphabetNone", Name="alphabet", Body="None", Checked=true }' />
                                     <partial name="~/views/shared/htmlradio.cshtml"
-                                        model='new HtmlRadioVM { Id="eAlphabetAZ", Name="alphabet", Body="A - Z", Checked=false }' />
+                                        model='new HtmlRadioVM { Id="eAlphabetAZ", Name="alphabet", Body="A - Z", Checked=ViewBag.Alphabet == "eAlphabetAZ" }' />
                                     <partial name="~/views/shared/htmlradio.cshtml"
-                                        model='new HtmlRadioVM { Id="eAlphabetZA", Name="alphabet", Body="Z - A", Checked=false }' />
+                                        model='new HtmlRadioVM { Id="eAlphabetZA", Name="alphabet", Body="Z - A", Checked=ViewBag.Alphabet == "eAlphabetZA" }' />
                                 </ul>
                             </div>
                         </div>
@@ -77,39 +83,41 @@
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
             @* Section - Pagination *@
-            <ul class="w-full flex justify-center gap-3 p-6">
-                @* Section - Button - Left *@
-                <li>
-                    <button>
-                        <svg class="fill-red-600 hover:fill-red-500 stroke-1 stroke-red-900 hover:stroke-red-800"
-                            stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16"
-                            width="32px" height="32px" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.5 8l7.5 7.5v-4.5h8v-6h-8v-4.5z"></path>
-                        </svg>
-                    </button>
-                </li>
-                @* Section - Links *@
+            <ul class="w-full flex justify-center p-6">
                 <li>
                     <ul
-                        class="grid grid-cols-[repeat(@(ViewBag.PaginationCount / 2),minmax(0,1fr))] lg:grid-cols-[repeat(@ViewBag.PaginationCount,minmax(0,1fr))] gap-3">
+                        class="grid grid-cols-[repeat(@((ViewBag.PaginationCount / 2) + 2),minmax(0,1fr))] lg:grid-cols-[repeat(@(ViewBag.PaginationCount + 2),minmax(0,1fr))] gap-2">
+                        @* Section - Button - Left *@
+                        <li>
+                            <a class="flex items-center justify-center bg-red-600 hover:bg-red-500 text-white p-3"
+                                href="/events/page/@nextPagination">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512"
+                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </li>
+                        @* Section - Links *@
                         @for (var i = @ViewBag.PaginationCount; i > 0; i--)
                         {
-                            @* model='new HtmlPaginationVM { Id=i.ToString(), Selected=i == ViewBag.PaginationCount ? true :
-                        false }' /> *@
                             <partial name="~/views/shared/htmlpagination.cshtml"
                                 model='new HtmlPaginationVM { Id=i.ToString(), Selected=i.ToString()==ViewBag.PaginationId }' />
                         }
+                        @* Section - Button - Right *@
+                        <li>
+                            <a class="flex items-center justify-center bg-red-600 hover:bg-red-500 text-white p-3"
+                                href="/events/page/@previousPagination">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512"
+                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </li>
                     </ul>
-                </li>
-                @* Section - Button - Right *@
-                <li>
-                    <button>
-                        <svg class="fill-red-600 hover:fill-red-500 stroke-1 stroke-red-900 hover:stroke-red-800"
-                            stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16"
-                            width="32px" height="32px" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.5 8l-7.5-7.5v4.5h-8v6h8v4.5z"></path>
-                        </svg>
-                    </button>
                 </li>
             </ul>
             @* Section - Events *@
@@ -128,7 +136,7 @@
                 else
                 {
                     <div class="size-full flex flex-col justify-center items-center text-center">
-                        <h1 class="font-black italic text-5xl lg:text-7xl mb-5">OOPS...</h1>
+                        <h1 class="font-black italic text-5xl lg:text-7xl tracking-wider mb-5">OOPS...</h1>
                         <div class="text-[rgb(37.5%,37.5%,37.5%)]">We couldn't find any events with the given parameters.</div>
                     </div>
                 }
