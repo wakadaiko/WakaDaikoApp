@@ -11,7 +11,7 @@ const bpmToSave = document.getElementById('bpmToSave');
 //const timeSignatureInput = document.getElementById('timeSignature');
 
 let seconds = 0;
-beat = 0;
+let beat = 0;
 let bpm = 60;
 let timerInterval = null;
 let intervalId = null;

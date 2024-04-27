@@ -19,47 +19,47 @@ namespace WakaDaikoApp.Controllers
         // GET: MetronomeController
         public ActionResult Index()
         {
-            return View(new List<int> { 100, 90, 120, 80, 50 });
+            var user = _userManager.GetUserAsync(User).Result;
+            // pass the logged in user to the view
+            return View(new List<int> { 90, 120, 80, 50 });
         }
         // POST: MetronomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Set(IFormCollection collection)
+        public ActionResult Set(int bpmToSave)
         {
-            try
+            new List<int> { 100, 90, 120, 80, 50 };
+            var user = _userManager.GetUserAsync(User).Result;
+            if (user == null)
             {
-                //message to user success save
-                var user = _userManager.GetUserAsync(User).Result;
-                user.MetronomePreferances.Add(int.Parse(collection["bpm"]));
-                TempData["Message"] = "BPM saved successfully";
-                return RedirectToAction("Index", "Metronome", new List<int> { 100, 90, 120, 80, 50 });
-            }
-            catch
-            {
-                // tempdata message to user error something went wrong
                 TempData["Message"] = "Something went wrong";
                 return RedirectToAction("Index", "Metronome", new List<int> { 100, 90, 120, 80, 50 });
+            }
+            else
+            {
+                user.MetronomePreferances.Add(bpmToSave);
+                TempData["Message"] = "BPM saved successfully";
+                return RedirectToAction(nameof(Index), "Metronome", user.MetronomePreferances);
             }
         }
         // POST: MetronomeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int bpmToDelete)
         {
             var list = new List<int> { 100, 90, 120, 80, 50 };
-            try
-            {
-                //Grab current .net users preferred bpm list
-                var user = _userManager.GetUserAsync(User).Result;
-                user.MetronomePreferances.RemoveAt(id);
-                //remove the bpm from the list at index id
-                list.RemoveAt(id);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            var user = _userManager.GetUserAsync(User).Result;
+            if (user == null)
             {
                 TempData["Message"] = "Something went wrong";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                user.MetronomePreferances.RemoveAt(bpmToDelete);
+                //remove the bpm from the list at index id
+                list.RemoveAt(bpmToDelete);
+                return RedirectToAction(nameof(Index), "Metronome", user.MetronomePreferances);
             }
         }
     }

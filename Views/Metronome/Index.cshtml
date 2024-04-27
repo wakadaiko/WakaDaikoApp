@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Metronome";
-}
-
-@model List<int>
+﻿@model List<int>?
 <body>
     <div id="MetronomeBackground">
         <div class="mCard ">
@@ -19,29 +15,28 @@
         </div>
         <div class="mCard">
 		    <div>Preference Field</div>
-            @{if(Model.Any()){
-                int i = 0;
-					foreach(var bpm in Model){
+            @{
+                if(Model.Any()){
+                   
+                    for (int i = 0; i < Model.Count; i++)
+                    {
                         <div class="flex-row-3">
                             <form asp-action="Set" method="post">
-                                <input name="id" value="@i" hidden />
-                                <input name="bpmToSave" value="" hidden />
+                                <input id="bpmToSave" name="bpmToSave" value="" hidden />
                                 <input id="one" type="submit" class="hoverZoom" />
                             </form>
                             <form asp-action="Delete" method="post">
                                 <input name="bpmToDelete" value="@i" hidden />
                                 <input id="two" type="submit" class="hoverZoom" />
                             </form>
-                        <div>@bpm BPM</div>
+                            <div>@Model[i] BPM</div>
                         </div>
-                        i++;
-					}
+                    }
 				}
             }
 		    </div>
         </div>
-    <script src="./js/Metronome.js">
-    </script>
+    <script src="./js/Metronome.js"></script>
     </div>
 
 </body>
