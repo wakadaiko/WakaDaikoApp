@@ -1,29 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WakaDaikoApp.Controllers
 {
-    // public class AdminController(IRepository r, UserManager<AppUser> um, SignInManager<AppUser> sm, RoleManager<IdentityRole> rm) : Controller
-    public class AdminController(IRepository r, UserManager<AppUser> um, RoleManager<IdentityRole> rm) : Controller
+    [Authorize(Roles = "Admin, Team Lead")]
+    public class AdminController(IRepository _r, AppDbContext _c, UserManager<AppUser> _um, RoleManager<IdentityRole> _rm) : Controller
     {
-        // Variables
-
-        readonly private UserManager<AppUser> _userManager = um;
-
-        // readonly private SignInManager<AppUser> _signInManager = sm;
-
-        readonly private RoleManager<IdentityRole> _roleManager = rm;
-
-        readonly private IRepository _repository = r;
-
         // Functions
 
         public async Task GetPinnedBanner()
         {
             List<Event> events = [
-                .. _repository
+                .. _r
                 .GetEvents()
                 .Where(e => e.Pinned == true)
             ];
@@ -33,14 +24,26 @@ namespace WakaDaikoApp.Controllers
             switch (events.Count)
             {
                 case 1:
-                    _event = await _repository.GetEventByIdAsync(events[0].EventId);
+                    _event = await _r.GetEventByIdAsync(events[0].EventId);
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
 
                     break;
                 case int n when n > 1:
-                    throw new Exception("More than one pinned event was found.");
+                    foreach (var e in events)
+                    {
+                        e.Pinned = false;
+
+                        _c.Update(e);
+
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    Console.WriteLine("More than one pinned event was found. Reverting all pinned Events.");
+
+                    break;
             }
         }
 
@@ -59,19 +62,19 @@ namespace WakaDaikoApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var _teamLead = await _userManager.FindByNameAsync(teamLead);
+                var _teamLead = await _um.FindByNameAsync(teamLead);
                 var team = new Team { Name = name, Description = "The Team of all Teams.", TeamLead = _teamLead };
                 var devices = Instruments.ToUpper().Split(',').Select(d => d.Trim()).ToList();
                 var teamMembers = members.ToUpper().Split(',').Select(d => d.Trim()).ToList();
 
-                // TeamMembers.ForEach((async m => { team.Members.Add( _userManager.FindByNameAsync(m).Result); }));
+                // TeamMembers.ForEach((async m => { team.Members.Add( _um.FindByNameAsync(m).Result); }));
 
                 // Devices.ForEach((async d => { team.Instruments.Add(d); }));
 
-                // foreach (var m in teamMembers) if (await _userManager.FindByNameAsync(m) != null) team.Members.Add(await _userManager.FindByNameAsync(m));
+                // foreach (var m in teamMembers) if (await _um.FindByNameAsync(m) != null) team.Members.Add(await _um.FindByNameAsync(m));
                 foreach (var m in teamMembers)
                 {
-                    var memberUser = await _userManager.FindByNameAsync(m);
+                    var memberUser = await _um.FindByNameAsync(m);
 
                     if (memberUser != null) team.Members?.Add(memberUser);
                 }
@@ -79,24 +82,24 @@ namespace WakaDaikoApp.Controllers
                 // Perhaps add a device table with names and ids
                 foreach (var d in devices) team.Instruments?.Add(d);
 
-                var results = await _repository.AddTeamAsync(team);
+                var results = await _r.AddTeamAsync(team);
 
                 if (results >= 1)
                 {
                     TempData["Message"] = "Success";
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("index");
                 }
             }
             else
             {
                 TempData["Message"] = "Fail";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
 
             // We should never get here, but needed to make the environment happy
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
         /* string UserName,string UserPassword,string Instruments,string positions, string RollNames,string Teams,string Dependents,string UserEmail="" */
@@ -116,14 +119,14 @@ namespace WakaDaikoApp.Controllers
                 var _roles = form.RollNames?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
 
                 // var teamOBJs = "";
-                // if (_Teams != null) await _repository.GetTeamsByNameAsync(_Teams);
+                // if (_Teams != null) await _r.GetTeamsByNameAsync(_Teams);
 
                 var _Instruments = form.Instruments?.ToUpper().Split(',').Select(d => d.Trim()).ToList();
 
                 // The lambda should work here, but it has its drawbacks
-                //_roles.ForEach(async r => { if ( await _roleManager.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
+                //_roles.ForEach(async r => { if ( await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
 
-                if (_roles != null) foreach (var r in _roles) if (await _roleManager.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
+                if (_roles != null) foreach (var r in _roles) if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
 
                 /* foreach (var t in teamOBJs) if (t != null) appUser.Teams.Add(t); */
 
@@ -131,24 +134,24 @@ namespace WakaDaikoApp.Controllers
                 {
                     foreach (var d in _Dependents)
                     {
-                        var dependentUser = await _userManager.FindByNameAsync(d);
+                        var dependentUser = await _um.FindByNameAsync(d);
 
                         if (dependentUser != null) appUser.Family?.Add(dependentUser);
                     }
                 }
                 if (_Instruments != null) foreach (var i in _Instruments) appUser.Instruments?.Add(i);
-                if (form.UserPassword != null) await _userManager.CreateAsync(appUser, form.UserPassword);
+                if (form.UserPassword != null) await _um.CreateAsync(appUser, form.UserPassword);
 
-                await _userManager.AddToRolesAsync(appUser, validRoleNames);
+                await _um.AddToRolesAsync(appUser, validRoleNames);
 
                 TempData["Message"] = "Success";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
 
             TempData["Message"] = "Fail";
 
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
     }
 }

@@ -5,18 +5,14 @@ using System.Diagnostics;
 
 namespace WakaDaikoApp.Controllers
 {
-    public class HomeController(IRepository r) : Controller
+    public class HomeController(IRepository _r, AppDbContext _c) : Controller
     {
-        // Variables
-
-        readonly IRepository _repository = r;
-
         // Functions
 
         public async Task GetPinnedBanner()
         {
             List<Event> events = [
-                .. _repository
+                .. _r
                 .GetEvents()
                 .Where(e => e.Pinned == true)
             ];
@@ -26,14 +22,26 @@ namespace WakaDaikoApp.Controllers
             switch (events.Count)
             {
                 case 1:
-                    _event = await _repository.GetEventByIdAsync(events[0].EventId);
+                    _event = await _r.GetEventByIdAsync(events[0].EventId);
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
 
                     break;
                 case int n when n > 1:
-                    throw new Exception("More than one pinned event was found.");
+                    foreach (var e in events)
+                    {
+                        e.Pinned = false;
+
+                        _c.Update(e);
+
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    Console.WriteLine("More than one pinned event was found. Reverting all pinned Events.");
+
+                    break;
             }
         }
 

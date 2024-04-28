@@ -1,6 +1,6 @@
 namespace WakaDaikoApp.Models
 {
-    public class HtmlSectionsVM
+    public class HtmlSectionVM
     {
         public string? Type { get; set; } = string.Empty;
 

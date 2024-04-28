@@ -41,7 +41,8 @@ namespace WakaDaikoApp.Data
 
                 return _event;
             }
-            else throw new Exception($"Event with ID [{id}] not found.");
+
+            throw new Exception($"Event with ID [{id}] not found.");
         }
 
         public List<Event> GetEvents()

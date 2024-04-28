@@ -1,5 +1,6 @@
 <li class="eEvents relative">
-    <a class="absolute top-0 right-0 bg-amber-300 hover:bg-amber-200 m-3 p-3" href="/events/pin/@Model.EventId">
+    <a class='@(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin") ? "" : "hidden ")absolute top-0 right-0 @(Model.Pinned ? "bg-amber-300 hover:bg-amber-200" : "bg-[rgb(75%,75%,75%)] hover:bg-[rgb(87.5%,87.5%,87.5%)]") m-3 p-3'
+        href="/events/pin/@Model.EventId">
         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" width="20px" height="20px"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -8,9 +9,10 @@
         </svg>
     </a>
     <div class="h-full flex flex-col border-[1px] border-[rgb(90%,90%,90%)] shadow-lg">
-        <img class="h-[192px] object-cover" src="~/assets/@Model.Image" />
+        <img class="h-[192px] object-cover" src="~/assets/@Model.Image"
+            alt="Screenshot for event number: @Model.EventId" />
         <h1
-            class="h-full flex items-center justify-center break-all font-black text-2xl text-center border-[1px] border-[rgb(90%,90%,90%)] p-3">
+            class="h-full flex justify-center items-center break-all font-black text-2xl text-center border-[1px] border-[rgb(90%,90%,90%)] p-3">
             @Model.Title</h1>
         <div class="h-full text-[rgb(37.5%,37.5%,37.5%)]">
             <p class="border-x-[1px] border-[rgb(90%,90%,90%)] p-3">

@@ -1,0 +1,61 @@
+@{
+    string textRaw = Model.Type;
+    string textResult = "";
+
+    foreach (char c in textRaw)
+    {
+        if (char.IsUpper(c) && textResult.Length > 0) textResult += " ";
+
+        textResult += c;
+    }
+
+    var rememberValue = "";
+
+    switch (Model.Type)
+    {
+        case "Name":
+            if (ViewBag.Name != null) rememberValue = ViewBag.Name;
+            break;
+        case "Username":
+            if (ViewBag.Username != null) rememberValue = ViewBag.Username;
+            break;
+    }
+}
+
+<div>
+    <div
+        class='relative group flex flex-col gap-3 bg-white border-[1px] border-[rgb(80%,80%,80%)] focus-within:border-blue-500@(ViewData.ModelState[Model.Type] != null ? " border-red-600 " : " ")p-3'>
+        @switch (Model.Type)
+        {
+            case "Name":
+            case "Username":
+                <svg class="z-10 absolute text-[rgb(75%,75%,75%)]" stroke="currentColor" fill="currentColor" stroke-width="0"
+                    viewBox="0 0 16 16" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
+                    <path fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1">
+                    </path>
+                </svg>
+                break;
+            case "Password":
+            case "ConfirmPassword":
+                <svg class="z-10 absolute text-[rgb(75%,75%,75%)]" stroke="currentColor" fill="currentColor" stroke-width="0"
+                    viewBox="0 0 24 24" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M18 8H20C20.5523 8 21 8.44772 21 9V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V9C3 8.44772 3.44772 8 4 8H6V7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7V8ZM16 8V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V8H16ZM11 14V16H13V14H11ZM7 14V16H9V14H7ZM15 14V16H17V14H15Z">
+                </svg>
+                break;
+        }
+        <input id=@Model.Type class="peer rounded-[8px] border-0 focus:outline-none ps-[36px]" name=@Model.Type
+            type=@(Model.Type == "Password" || Model.Type == "ConfirmPassword" ? "password" : "text") placeholder=""
+            value='@rememberValue' />
+        <label
+            class="duration-200 ease-in-out absolute left-[36px] group-focus-within:top-[-25%] group-focus-within:left-[46px] peer-[:not(:placeholder-shown)]:top-[-25%] peer-[:not(:placeholder-shown)]:left-[46px] bg-white text-[rgb(50%,50%,50%)] select-none px-2"
+            for=@Model.Type>
+            @textResult
+        </label>
+    </div>
+    <small class="text-red-500" for=@Model.Type>
+        @Html.ValidationMessage((string)Model.Type)
+    </small>
+</div>

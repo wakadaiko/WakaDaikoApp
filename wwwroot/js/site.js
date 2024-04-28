@@ -18,26 +18,15 @@ function resetMobile() {
     }, 300);
 }
 
-// function rememberFormValues() {
-//     const eRegisterName = document.getElementById('eRegisterName')
-//     const eRegisterUsername = document.getElementById('eRegisterUsername')
-//     const sRegisterName = sessionStorage.getItem('register-name');
-//     const sRegisterUsername = sessionStorage.getItem('register-username');
-
-//     if (eRegisterName && sRegisterName) document.forms[0].name.value = sRegisterName;
-//     if (eRegisterUsername && sRegisterUsername) document.forms[0].username.value = sRegisterUsername;
-// }
-
-// function storeFormValues() {
-//     sessionStorage.setItem('register-name', document.forms[0].name.value);
-//     sessionStorage.setItem('register-username', document.forms[0].username.value);
-// }
+function removeDisclaimer() {
+    document.getElementById('disclaimer').classList.replace('scale-1', 'scale-0');
+}
 
 function checkScroll() {
     const eBtn = document.getElementById('buttonScrollToTop');
     let classes = [];
 
-    classes = document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ? ['invisible', 'visible'] : ['visible', 'invisible'];
+    classes = document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ? ['scale-0', 'scale-1'] : ['scale-1', 'scale-0'];
 
     eBtn.classList.replace(classes[0], classes[1]);
 }
@@ -56,7 +45,6 @@ function scrollToTop() {
 }
 
 window.addEventListener('load', () => {
-    // rememberFormValues();
     checkScroll();
 });
 window.addEventListener('resize', resetMobile);

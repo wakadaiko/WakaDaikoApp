@@ -1,27 +1,18 @@
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
-// using Microsoft.AspNetCore.Authorization;
-// using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WakaDaikoApp.Controllers
 {
-    // public class EventsController(IRepository r, UserManager<AppUser> u) : Controller
-    public class EventsController(IRepository r) : Controller
+    public class EventsController(IRepository _r, AppDbContext _c) : Controller
     {
-        // Variables
-
-        readonly IRepository _repository = r;
-
-        // readonly UserManager<AppUser> _userManager = u;
-
         // Functions
 
         public async Task GetPinnedBanner()
         {
             List<Event> events = [
-                .. _repository
+                .. _r
                 .GetEvents()
                 .Where(e => e.Pinned == true)
             ];
@@ -31,14 +22,26 @@ namespace WakaDaikoApp.Controllers
             switch (events.Count)
             {
                 case 1:
-                    _event = await _repository.GetEventByIdAsync(events[0].EventId);
+                    _event = await _r.GetEventByIdAsync(events[0].EventId);
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
 
                     break;
                 case int n when n > 1:
-                    throw new Exception("More than one pinned event was found.");
+                    foreach (var e in events)
+                    {
+                        e.Pinned = false;
+
+                        _c.Update(e);
+
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    Console.WriteLine("More than one pinned event was found. Reverting all pinned Events.");
+
+                    break;
             }
         }
 
@@ -53,10 +56,10 @@ namespace WakaDaikoApp.Controllers
             string? alphabet = Request.Query["alphabet"];
             string? date = Request.Query["date"];
 
-            return View("Index", GetEvents("", "", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+            return View("Index", GetEvents("", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
         }
 
-        [HttpGet("/events/page/{paginationId}/")]
+        [HttpGet("/events/page/{paginationId}")]
         public async Task<IActionResult> Index(string paginationId)
         {
             await GetPinnedBanner();
@@ -66,37 +69,83 @@ namespace WakaDaikoApp.Controllers
             string? alphabet = Request.Query["alphabet"];
             string? date = Request.Query["date"];
 
-            return View(GetEvents(paginationId ?? "", "", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+            return View(GetEvents(paginationId ?? "", "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
         }
 
         // Workaround - Extra [used] parameter
 
-        [HttpGet("/events/view/{descriptionId}")]
-        public async Task<IActionResult> Index(string descriptionId, string _)
+        [HttpGet("/events/view/{descriptionText}")]
+        public async Task<IActionResult> Index(string descriptionText, string _)
         {
             await GetPinnedBanner();
 
-            return View(GetEvents("", descriptionId ?? ""));
+            return View(GetEvents("", descriptionText ?? ""));
         }
 
         // Workaround - Extra [used] parameter
+        [Authorize(Roles = "Admin")]
 
-        [HttpGet("/events/pin/{pinId}/")]
+        [HttpGet("/events/pin/{pinId}")]
         public async Task<IActionResult> Index(string pinId, string _, string __)
         {
             await GetPinnedBanner();
 
-            string? search = Request.Query["search"];
-            string? status = Request.Query["status"];
-            string? alphabet = Request.Query["alphabet"];
-            string? date = Request.Query["date"];
+            try
+            {
+                bool b = int.TryParse(pinId, out int pinId2);
 
-            return View(GetEvents("", "", pinId ?? "", search ?? "", status ?? "", alphabet ?? "", date ?? ""));
+                Event? _event = null;
+
+                if (await _r.GetEventByIdAsync(pinId2) != null) _event = await _r.GetEventByIdAsync(pinId2);
+
+                if (_event != null)
+                {
+                    List<Event> events = [
+                        .. _r
+                        .GetEvents()
+                    ];
+
+                    Event? pinnedEvent = events.FirstOrDefault(e => e.Pinned == true);
+
+                    if (pinnedEvent?.EventId == pinId2)
+                    {
+                        if (pinnedEvent != null)
+                        {
+                            _c.Update(pinnedEvent);
+
+                            pinnedEvent.Pinned = false;
+                        }
+                    }
+                    else
+                    {
+                        foreach (var e in events)
+                        {
+                            e.Pinned = false;
+
+                            _c.Update(e);
+                        }
+
+                        _c.Update(_event);
+
+                        _event.Pinned = true;
+                    }
+
+                    await _c.SaveChangesAsync();
+
+                    return Redirect("/events");
+                }
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+            return NotFound();
         }
 
         // Functions
 
-        public List<Event> GetEvents(string paginationId = "", string descriptionId = "", string pinId = "", string search = "", string status = "", string alphabet = "", string date = "")
+        public List<Event> GetEvents(string paginationId = "", string descriptionText = "", string search = "", string status = "", string alphabet = "", string date = "")
         {
             // Variables
 
@@ -107,7 +156,7 @@ namespace WakaDaikoApp.Controllers
             // Load initial events
 
             List<Event> events = [
-                .. _repository
+                .. _r
                 .GetEvents()
                 .OrderByDescending(e => e.Date)
             ];
@@ -115,7 +164,7 @@ namespace WakaDaikoApp.Controllers
             // Pagination
 
             ViewBag.PaginationCount = events.Count / EVENTS_PER_PAGE;
-            // ViewBag.PaginationId = ViewBag.PaginationCount.ToString();
+            ViewBag.PaginationId = ViewBag.PaginationCount.ToString();
 
             if (paginationId != "")
             {
@@ -132,11 +181,11 @@ namespace WakaDaikoApp.Controllers
                     ViewBag.PaginationId = paginationId;
                 }
             }
-            // else if (paginationId == "" && eventDesc == "") events = events.Take(4).ToList();
+            else if (paginationId == "" && descriptionText == "") events = events.Take(EVENTS_PER_PAGE).ToList();
 
             // Description
 
-            if (descriptionId.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == descriptionId)];
+            if (descriptionText.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == descriptionText)];
 
             // Search
 
@@ -171,6 +220,13 @@ namespace WakaDaikoApp.Controllers
                     events = [.. events.OrderByDescending(e => e.Title)];
                     break;
             }
+
+            // Remember Selected Filters
+
+            ViewBag.Search = search;
+            ViewBag.Status = status;
+            ViewBag.Date = date;
+            ViewBag.Alphabet = alphabet;
 
             // Return
 

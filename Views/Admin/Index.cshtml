@@ -18,7 +18,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     @* Team Name *@
     <div id="createTeamField" class="">
-        <form class="" method="post" asp-action="CreateTeam">
+        <form class="" method="POST" asp-action="CreateTeam">
             @* Name *@
             <div class="row mb-2">
                 <label class="col-form-label col-md-4">Team Name:</label>
@@ -66,7 +66,7 @@
 <div class="col-7 adminCard">
     <h2 class="text-start">Create User Area</h2>
 
-    <form class="" method="post" asp-action="CreateUser">
+    <form class="" method="POST" asp-action="CreateUser">
         @* UserName *@
         <div class="row mb-2">
             <label class="col-form-label col-md-4">User Name:</label>

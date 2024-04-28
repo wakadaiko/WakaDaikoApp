@@ -15,6 +15,10 @@ builder.Services.AddTransient<IRepository, Repository>();
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Account/PermissionsDenied";
+});
 
 var app = builder.Build();
 
@@ -35,6 +39,7 @@ app.Use(async (context, next) =>
     if (context.Response.StatusCode == 404)
     {
         context.Request.Path = "/Home";
+
         await next();
     }
 });
@@ -42,7 +47,6 @@ app.Use(async (context, next) =>
 app.UseStatusCodePagesWithReExecute("/Home/HandleError/{0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-// app.UseStatusCodePagesWithRedirects("/Home/HandleError/{0}");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
