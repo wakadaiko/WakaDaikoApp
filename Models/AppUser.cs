@@ -14,5 +14,7 @@ namespace WakaDaikoApp.Models
 
         [NotMapped]
         public IList<string>? RoleNames { get; set; }
+
+        public List<int>? MetronomePreferances { get; set; } = new List<int> { 100, 90, 120, 80, 50 };
     }
 }
