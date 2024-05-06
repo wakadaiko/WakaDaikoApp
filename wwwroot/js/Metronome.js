@@ -9,6 +9,8 @@ const bing = new Audio('../assets/bing.wav');
 const timer = document.getElementById('timer');
 const bpmToSave = document.getElementById('bpmToSave');
 //const timeSignatureInput = document.getElementById('timeSignature');
+const metronomeField = document.getElementById('metronomeField');
+const preferenceField = document.getElementById('preferenceField');
 
 let seconds = 0;
 let beat = 0;
@@ -17,6 +19,9 @@ let timerInterval = null;
 let intervalId = null;
 let timeSignature = 4;
 bpmToSave.value = bpm;
+
+metronomeField.hidden = true;
+preferenceField.hidden = true;
 function calculateInterval() {
     return 60000 / bpm; // Convert BPM to milliseconds
 }
@@ -63,17 +68,21 @@ function stopMetronome() {
 }
 function increaseBPM(){
     bpm++;
-    bpmToSave.value = bpm;
     updateBPMField();
 }
 function decreaseBPM() {
-    bpm--;
-    bpmToSave.value = bpm;
-    updateBPMField();
+    if (bpm > 0) {
+        bpm--;
+        updateBPMField();
+    }
 }
 function updateBPMField() {
     bpmInput.value = bpm;
     bpmDisplay.textContent = `${bpm} BPM`;
+}
+function updateBpm(bpm) {
+    this.bpm = bpm;
+    updateBPMField();
 }
 
 startButton.addEventListener('click', startMetronome);
@@ -96,4 +105,6 @@ function parseSeconds(seconds) {
     let secs = seconds % 60;
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
-
+const toggleSettings = () => {
+    (metronomeField.hidden = !metronomeField.hidden,preferenceField.hidden = !preferenceField.hidden);
+}
