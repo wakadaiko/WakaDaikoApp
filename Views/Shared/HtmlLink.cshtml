@@ -1,36 +1,38 @@
 @{
     string c = "";
-    const string colorDefault1 = "underline decoration-blue-500 hover:decoration-blue-400 text-blue-500 hover:text-blue-400";
-    const string colorDefault2 = "text-blue-500 hover:text-blue-400";
+    @* const string colorDefault1 = "underline decoration-[rgb(75%,75%,75%)] hover:decoration-white text-[rgb(75%,75%,75%)] hover:text-white"; *@
+    const string colorDefault1 = "font-black tracking-wider text-amber-300 hover:text-amber-200";
+    const string colorDefault2 = "font-black tracking-wider text-amber-300 hover:text-amber-200";
     const string class1 = $"flex justify-center items-center {colorDefault1} p-3";
     const string class2 = $"flex justify-center items-center {colorDefault2} p-3";
-    const string buttonSolid = "flex justify-center items-center whitespace-nowrap font-bold bg-red-600 hover:bg-red-500 text-white p-4";
+    const string buttonSolid = "flex justify-center items-center rounded-lg bg-amber-300 hover:bg-amber-200 whitespace-nowrap tracking-wider font-black text-black p-4";
 
     switch (Model.Type)
     {
         case "nav-brand":
-            c = $"h-full flex justify-center  items-center gap-2 font-black text-2xl text-black hover:bg-[rgb(90%,90%,90%)] px-4";
+            c = $"h-full flex justify-center items-center gap-2 font-['Bebas_Neue'] font-black tracking-wider hover:bg-[rgb(90%,90%,90%)] text-2xl text-white px-4";
             break;
         case "navlink":
-            c = "flex items-center font-medium text-[rgb(37.5%,37.5%,37.5%)] hover:text-black p-4";
+            c = "flex items-center font-medium text-[rgb(37.5%,37.5%,37.5%)] hover:text-white p-4";
             break;
         case "nav-workshops":
             c = $"gap-3 {buttonSolid} m-5 my-3 lg:m-0";
             break;
         case "dropdown-item":
-            c = "flex items-center font-medium lg:text-nowrap text-black hover:bg-[rgb(90%,90%,90%)] lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-4";
+            c = "flex items-center font-medium lg:text-nowrap text-white lg:text-black hover:bg-[rgb(90%,90%,90%)] lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-4";
             break;
         case "dialog":
-            c = $"flex justify-center items-center {colorDefault1} p-4 -m-3";
+            c = $"flex justify-center items-center font-black tracking-wider text-black p-4 -m-3";
             break;
         case "btn-solid":
             c = buttonSolid;
             break;
         case "btn-outline":
-            c = "flex justify-center items-center font-bold border-2 border-[rgb(75%,75%,75%)] hover:border-white text-white p-4";
+            @* c = "flex justify-center items-center font-bold border-2 border-transparent hover:border-white text-white p-4"; *@
+            c = "flex justify-center items-center rounded-lg font-black hover:bg-white text-white hover:text-black p-4";
             break;
         case "fancy-link":
-            c = $"group flex items-center text-xs lg:text-base text-blue-500 hover:text-blue-400 p-4 -m-3";
+            c = $"group flex items-center text-xs lg:text-base text-[rgb(75%,75%,75%)] hover:text-white p-4 -m-3";
             break;
         @* case "account-1":
             c = $"w-max flex items-center {colorDefault1} -ms-3 p-3";
@@ -54,10 +56,10 @@
     @{
         switch (Model.Type) {
             case "nav-brand":
-                <div class="relative grow brightness-200">
+                <div class="relative grow invert brightness-200">
                     <img class="grow" src="~/assets/logo_waka_daiko.png" alt="Waka Daiko logo" width="32" height="32" />
                 </div>
-                <div class="shrink text-nowrap text-3xl">
+                <div class="shrink text-nowrap text-4xl mt-1">
                     @Model.Body
                 </div>
                 break;
@@ -68,10 +70,12 @@
                 @Html.Raw(Model.Body)
                 break;
             case "fancy-link":
-                <span class="underline decoration-blue-500 group-hover:decoration-blue-400">
+                @* <span class="underline decoration-[rgb(75%,75%,75%)] group-hover:decoration-white"> *@
+                <span class="group-hover:decoration-white">
                     @Html.Raw(Model.Body)
                 </span>
-                <span class="transition-transform group-hover:translate-x-1 ms-2">-&gt;</span>
+                @* <span class="transition-transform group-hover:translate-x-1 ms-2">-&gt;</span> *@
+                <span class="transition-transform group-hover:translate-x-1 flex justify-center text-4xl ms-2 -mt-[1px]">→</span>
                 break;
             @* case "message-1":
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">

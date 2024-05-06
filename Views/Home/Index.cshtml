@@ -3,7 +3,7 @@
 }
 
 <div id="disclaimer"
-    class="z-40 duration-200 ease-in-out fixed bottom-0 lg:bottom-[16px] right-0 lg:right-100 left-0 lg:left-[16px] scale-1 lg:w-max flex flex-col justify-center gap-3 bg-[rgb(95%,95%,95%)] text-xs text-black border-[1px] border-[rgb(20%,20%,20%)] shadow-lg p-3">
+    class="z-40 duration-200 ease-in-out fixed bottom-0 lg:bottom-[20px] right-0 lg:right-100 left-0 lg:left-[20px] scale-1 lg:w-max flex flex-col justify-center gap-3 rounded-lg bg-white text-xs text-black border-[1px] border-[rgb(50,50,50)] p-3">
     <div class="flex justify-center">
         <div class="my-auto">
             This site uses analytics. Click
@@ -14,25 +14,34 @@
             to learn more.
         </div>
     </div>
-    <button class="bg-red-600 hover:bg-red-500 font-bold text-white p-3" onclick="removeDisclaimer();">Dismiss</button>
+    <button
+        class="rounded-lg bg-transparent hover:bg-black font-black tracking-wider text-black hover:text-white border-[1px] border-black hover:border-transparent p-3"
+        onclick="removeDisclaimer();">DISMISS</button>
 </div>
 @*bg-[radial-gradient(transparent,rgba(255,0,0,1))]">*@
+@* bg-[linear-gradient(to_right,black,transparent)] *@
+@* min-h-[calc(100vh+@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" :
+"64")px)] *@
 @* Homepage *@
 <div class="z-0 relative flex grow justify-center items-center overflow-hidden text-white">
     <div
-        class='z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(to_right,black,transparent)]'>
+        class='relative z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-gradient-to-t from-[rgb(30,30,30)] from-0% via-transparent via-50% to-[rgb(30,30,30)] to-100%'>
+        <div class="z-10 absolute top-0 left-0 size-full bg-[linear-gradient(to_right,rgba(0,0,0,0.5),transparent)]">
+        </div>
         <div
-            class='z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0))]'>
+            class='z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]'>
             <div
-                class="flex flex-col gap-3 lg:gap-5 items-center lg:items-start text-center lg:text-start m-auto lg:ms-[12.5vw] p-10">
-                <h1
-                    class="w-max bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 font-black text-nowrap text-6xl lg:text-8xl text-transparent tracking-wider">
+                class="flex flex-col gap-3 items-center lg:items-start text-center lg:text-start m-auto lg:ms-[12.5vw] p-10">
+                @* Inline style for TailwindCSS *@
+                <h1 class="w-max bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 font-['Bebas_Neue'] font-black tracking-wider text-nowrap text-7xl lg:text-9xl lg:text-transparent"
+                    style="line-height: 0.8;">
                     Waka Daiko
                 </h1>
-                <h3 class="tracking-wider font-black text-wrap text-3xl">
+                <h3 class="font-['Bebas_Neue'] lg:font-bold tracking-wider text-wrap text-xl lg:text-4xl"
+                    style="line-height: 0.8;">
                     Events, Teamwork, Community, Culture
                 </h3>
-                <p class="lg:w-2/3 font-bold text-lg lg:text-xl">
+                <p class="lg:w-2/3 text-xs lg:text-xl mb-2">
                     Youth, taiko drumming group, based in Eugene, Oregon. All youth, ages 8-22, are welcome.
                 </p>
                 <div class='w-max flex flex-col lg:flex-row gap-3 mx-auto lg:mx-0'>
@@ -44,22 +53,22 @@
             </div>
         </div>
     </div>
-    <img class="absolute z-10 size-full object-cover saturate-[50%]" src="~/assets/homepage.jpg"
-        alt="Homepage screenshot" />
-    @* <video class="absolute z-10 size-full object-cover saturate-[25%]"
-    src="~/assets/Color.mp4" playsInline autoPlay muted loop>
-    This browser doesn&#39;t support MP4. Try using a different browser.
-    </video> *@
+    <img class="absolute z-10 size-full object-cover saturate-[75%] brightness-[125%] contrast-[75%]"
+        src="~/assets/homepage.jpg" alt="Homepage screenshot" />
 </div>
+@* <video class="absolute z-10 size-full object-cover saturate-[25%]"
+src="~/assets/Color.mp4" playsInline autoPlay muted loop>
+This browser doesn&#39;t support MP4. Try using a different browser.
+</video> *@
 @* Who We Are *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="who-we-are", URL1="/home#who-we-are", Heading="Who We Are" }' />
+    model='new HtmlSectionVM { Type="who-we-are", URL1="/home#who-we-are", Heading="WHO WE ARE" }' />
 @* Performances *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="performances", URL1="/home#performances", Heading="Performances", Flip=true }' />
+    model='new HtmlSectionVM { Type="performances", URL1="/home#performances", Heading="PERFORMANCES", Flip=true }' />
 @* Community *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="community", URL1="/home#community", Heading="Community", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by our community booth at the annual Asian Celebration." }' />
+    model='new HtmlSectionVM { Type="community", URL1="/home#community", Heading="COMMUNITY", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by our community booth at the annual Asian Celebration." }' />
 @* Culture *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="culture", URL1="/home#culture", Heading="Culture", Body="The history of Taiko and its song origins play a key part in making Waka Daiko what it&#39;s to this very day.", Flip=true }' />
+    model='new HtmlSectionVM { Type="culture", URL1="/home#culture", Heading="CULTURE", Body="The history of Taiko and its song origins play a key part in making Waka Daiko what it&#39;s to this very day.", Flip=true }' />

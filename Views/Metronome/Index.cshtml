@@ -1,5 +1,5 @@
 ﻿@model List<int>?
-<body>
+<div class="special2">
     <div id="MetronomeBackground">
         <div class="mCard ">
             <div class="flex-row-3">
@@ -17,17 +17,17 @@
 		    <div>Preference Field</div>
             @{
                 if(Model.Any()){
-                   
+
                     for (int i = 0; i < Model.Count; i++)
                     {
                         <div class="flex-row-3">
                             <form asp-action="Set" method="post">
-                                <input id="bpmToSave" name="bpmToSave" value="" hidden />
-                                <input id="one" type="submit" class="hoverZoom" />
+                                <input id="bpmToSave" class="special1" name="bpmToSave" value="" hidden />
+                                <input id="one" type="submit" class="special1 hoverZoom" />
                             </form>
                             <form asp-action="Delete" method="post">
-                                <input name="bpmToDelete" value="@i" hidden />
-                                <input id="two" type="submit" class="hoverZoom" />
+                                <input class="special1" name="bpmToDelete" value="@i" hidden />
+                                <input id="two" type="submit" class="special1 hoverZoom" />
                             </form>
                             <div>@Model[i] BPM</div>
                         </div>
@@ -39,4 +39,4 @@
     <script src="./js/Metronome.js"></script>
     </div>
 
-</body>
+</d>
