@@ -12,7 +12,7 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240427190709_WakaAzure")]
+    [Migration("20240507040912_WakaAzure")]
     partial class WakaAzure
     {
         /// <inheritdoc />

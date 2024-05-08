@@ -110,6 +110,7 @@
     width: 50%;
     padding: 10px;
 }
+
 /*Metronome Area*/
 .mCard {
     padding: 1.25%;
@@ -118,16 +119,47 @@
     background-color: #faf6f094;
     box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
 }
+
+.rCard {
+    display: flex;
+    flex-direction: row;
+    padding: 1.25%;
+    margin: 1.20% 15% 1.20% 15%;
+    //border-radius: 8px;
+    //background-color: #faf6f094;
+    //box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
+    bottom: 25em;
+    left: -14%;
+    position: fixed;
+}
+
+.cCard {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25%;
+    margin: 1.20% 15% 1.20% 15%;
+    background-color: #faf6f094;
+    border: none;
+    padding: 5px;
+    font-size: 31px;
+    height: 130px;
+    width: 130px;
+    box-shadow: 0 2px 4px darkslategray;
+    border-radius: 50%;
+}
+
 .mbtn {
     background-color: white;
     color: black;
     border-radius: 40%;
     border: 2px solid #555555;
 }
+
 .mbtn:hover {
     background-color: #555555;
     color: white;
 }
+
 body {
     font-family: sans-serif;
     text-align: center;
@@ -135,7 +167,6 @@ body {
 
 .metronome-display {
     font-size: 32px;
-    margin-bottom: 16px;
 }
 
 .controls {
@@ -156,24 +187,28 @@ body {
     font-size: 32px;
     color: #000;
 }
+
 .flex-row-3 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.flex-row-3 > * {
-    flex: 1 1 0;    
+.flex-row-3>* {
+    flex: 1 1 0;
 }
-.flex-row-wrap{
+
+.flex-row-wrap {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.col-3{
+
+.col-3 {
     flex: 0 0 25%;
     max-width: 25%;
 }
+
 .yellow-circle {
     width: 50px;
     height: 50px;
@@ -187,9 +222,11 @@ body {
     border-radius: 50%;
     background-color: gray;
 }
+
 .hoverZoom:hover {
     transform: scale(1.33);
 }
+
 /*-----*/
 input {
     /*width: 100%;*/
@@ -200,3 +237,35 @@ input {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+/*-----5/3/24 kg-------*/
+button.round {
+    background-color: #48abe0;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 31px;
+    height: 130px;
+    width: 130px;
+    box-shadow: 0 2px 4px darkslategray;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button.round:hover {
+    background-color: #65b9e6;
+}
+
+button.round:active {
+    box-shadow: 0 0 2px darkslategray;
+    transform: translateY(2px);
+}
+
+button:active {
+    filter: drop-shadow(5px 5px 20px #000000);
+    /*box-shadow: 0 0 2px darkslategray;*/
+    transform: translateY(2px);
+}
+
+/*-----------*/

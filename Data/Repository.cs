@@ -14,23 +14,6 @@ namespace WakaDaikoApp.Data
 
             return _teams;
         }
-
-        #endregion
-
-        #region Add Functions
-
-        public async Task<int> AddTeamAsync(Team team)
-        {
-            await _context.Teams.AddAsync(team);
-
-            return await _context.SaveChangesAsync();
-        }
-
-        // public async Task<int> AddResource() => 0;
-        public int AddResource() => 0;
-
-        #endregion
-
         public async Task<Event> GetEventByIdAsync(int id)
         {
             var _event = await _context.Events.FindAsync(id);
@@ -44,7 +27,6 @@ namespace WakaDaikoApp.Data
 
             throw new Exception($"Event with ID [{id}] not found.");
         }
-
         public List<Event> GetEvents()
         {
             return [.. _context.Events
@@ -52,12 +34,53 @@ namespace WakaDaikoApp.Data
             .OrderBy(m => m.EventId)];
         }
 
+        #endregion
+
+        #region Add Functions
+
+        public async Task<int> AddTeamAsync(Team team)
+        {
+            await _context.Teams.AddAsync(team);
+
+            return await _context.SaveChangesAsync();
+        }
         public async Task<int> StoreEventAsync(Event _event)
         {
             await _context.AddAsync(_event);
 
             return _context.SaveChanges();
         }
+        public async Task<int> AddAudioResource(AudioResource audioResource)
+        {
+            await _context.AudioResources.AddAsync(audioResource);
+
+            return await _context.SaveChangesAsync();
+        }
+        public async Task<int> AddVideoResource(VideoResource videoResource)
+        {
+            await _context.VideoResources.AddAsync(videoResource);
+
+            return await _context.SaveChangesAsync();
+        }
+        public async Task<int> AddTextResource(TextResource textResource)
+        {
+            await _context.TextResources.AddAsync(textResource);
+
+            return await _context.SaveChangesAsync();
+        }
+        /*public async Task<int> AddImageResource(ImageResource imageResource)
+        {
+            await _context.ImageResources.AddAsync(imageResource);
+
+            return await _context.SaveChangesAsync();
+        }*/
+
+        // public async Task<int> AddResource() => 0;
+        public int AddResource() => 0;
+
+        #endregion
+
+        #region Update Functions
 
         public int UpdateEvent(Event _event)
         {
@@ -66,6 +89,9 @@ namespace WakaDaikoApp.Data
             return _context.SaveChanges();
         }
 
+        #endregion
+
+        #region Delete Functions
         public int DeleteEvent(int _eventId)
         {
             Event _event = GetEventByIdAsync(_eventId).Result;
@@ -74,5 +100,8 @@ namespace WakaDaikoApp.Data
 
             return _context.SaveChanges();
         }
+
+        #endregion
+
     }
 }
