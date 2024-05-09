@@ -5,7 +5,7 @@ namespace WakaDaikoApp.Models
 {
     public class VideoResource
     {
-        public int VideoId { get; set; }
+        [Key] public int VideoId { get; set; }
         [StringLength(254, ErrorMessage = "Text must be between 0 - 254 characters")]
 
         public string? Text { get; set; }
@@ -18,7 +18,7 @@ namespace WakaDaikoApp.Models
 
         public string? Url { get; set; }
 
-        public Blob? BlobData { get; set; }
+        public int? VideoBinaryData { get; set; }
 
         public List<Comment>? Comments { get; set; }
     }

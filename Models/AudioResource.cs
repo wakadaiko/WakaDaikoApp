@@ -5,7 +5,7 @@ namespace WakaDaikoApp.Models
 {
     public class AudioResource
     {
-        public int AudioId { get; set; }
+        [Key] public int AudioId { get; set; }
         [StringLength(254, ErrorMessage = "Text must be between 0 - 254 characters")]
 
         public string? Text { get; set; }
@@ -16,7 +16,7 @@ namespace WakaDaikoApp.Models
 
         public string? Url { get; set; }
 
-        public Blob BlobData { get; set; }
+        public int? AudioBinaryData { get; set; }
 
         public List<Comment>? Comments { get; set; }
     }

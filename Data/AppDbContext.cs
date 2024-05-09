@@ -11,5 +11,9 @@ namespace WakaDaikoApp.Data
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Event> Events { get; set; }
+        public DbSet<AudioResource> AudioResources { get; set; }
+        public DbSet<VideoResource> VideoResources { get; set; }
+        public DbSet<TextResource> TextResources { get; set; }
+
     }
 }

@@ -7,8 +7,11 @@ const decreaseButton = document.getElementById('decrease');
 const clap = new Audio('../assets/click.wav');
 const bing = new Audio('../assets/bing.wav');
 const timer = document.getElementById('timer');
-const bpmToSave = document.getElementById('bpmToSave');
+const bpmToSave = (document.getElementById('bpmToStore') != null) ? document.getElementById('bpmToStore') : {value:0};
 //const timeSignatureInput = document.getElementById('timeSignature');
+const metronomeField = document.getElementById('metronomeField');
+const preferenceField = document.getElementById('preferenceField');
+const bpmPrefValue = document.getElementById('bpmPrefValue');
 
 let seconds = 0;
 let beat = 0;
@@ -17,6 +20,8 @@ let timerInterval = null;
 let intervalId = null;
 let timeSignature = 4;
 bpmToSave.value = bpm;
+metronomeField.hidden = true;
+preferenceField.hidden = true;
 function calculateInterval() {
     return 60000 / bpm; // Convert BPM to milliseconds
 }
@@ -61,20 +66,28 @@ function stopMetronome() {
     startButton.disabled = false;
     beat = 0;
 }
-function increaseBPM(){
+function increaseBPM() {
     bpm++;
-    bpmToSave.value = bpm;
     updateBPMField();
 }
 function decreaseBPM() {
-    bpm--;
-    bpmToSave.value = bpm;
-    updateBPMField();
+    if (bpm > 0) {
+        bpm--;
+        updateBPMField();
+    }
 }
 function updateBPMField() {
     bpmInput.value = bpm;
+    bpmToSave.value = bpm;
+    console.log(bpm);
     bpmDisplay.textContent = `${bpm} BPM`;
 }
+async function updateBpm(bpmToSet) {
+    bpm = await bpmToSet;
+    console.log(bpmToSet);
+    updateBPMField();
+}
+
 
 startButton.addEventListener('click', startMetronome);
 stopButton.addEventListener('click', stopMetronome);
@@ -96,4 +109,7 @@ function parseSeconds(seconds) {
     let secs = seconds % 60;
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
-
+const handleSetBpm = () => { updateBpm(Number(bpmPrefValue.textContent.slice(0, 2))); console.log(bpmPrefValue.textContent.slice(0, 2)); };
+const toggleSettings = () => {
+    (metronomeField.hidden = !metronomeField.hidden, preferenceField.hidden = !preferenceField.hidden);
+}

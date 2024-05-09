@@ -51,6 +51,34 @@
     box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
 }
 
+.rCard {
+    display: flex;
+    flex-direction: row;
+    padding: 1.25%;
+    margin: 1.20% 15% 1.20% 15%;
+    border-radius: 8px;
+    background-color: #faf6f094;
+    box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
+    bottom: 25em;
+    left: -14%;
+    position: fixed;
+}
+
+.cCard {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25%;
+    margin: 1.20% 15% 1.20% 15%;
+    background-color: #faf6f094;
+    border: none;
+    padding: 5px;
+    font-size: 31px;
+    height: 130px;
+    width: 130px;
+    box-shadow: 0 2px 4px darkslategray;
+    border-radius: 50%;
+}
+
 .mbtn {
     background-color: white;
     color: black;
@@ -63,14 +91,14 @@
     color: white;
 }
 
-.special2 {
+.metronome-body {
     font-family: sans-serif;
     text-align: center;
+    color: black;
 }
 
 .metronome-display {
     font-size: 32px;
-    margin-bottom: 16px;
 }
 
 .controls {
@@ -132,12 +160,44 @@
 }
 
 /*-----*/
-input.special1 {
+input.metronome-input {
     /*width: 100%;*/
-    /* padding: 12px 20px;
-    margin: 8px 0; */
-    /* display: inline-block; */
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
+
+/*-----5/3/24 kg-------*/
+button.round {
+    background-color: #48abe0;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 31px;
+    height: 130px;
+    width: 130px;
+    box-shadow: 0 2px 4px darkslategray;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button.round:hover {
+    background-color: #65b9e6;
+}
+
+button.round:active {
+    box-shadow: 0 0 2px darkslategray;
+    transform: translateY(2px);
+}
+
+button:active {
+    filter: drop-shadow(5px 5px 20px #000000);
+    /*box-shadow: 0 0 2px darkslategray;*/
+    transform: translateY(2px);
+}
+
+/*-----------*/

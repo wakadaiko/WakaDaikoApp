@@ -21,23 +21,24 @@ namespace WakaDaikoApp.Controllers
         {
             var user = _userManager.GetUserAsync(User).Result;
             // pass the logged in user to the view
-            return View(new List<int> { 90, 120, 80, 50 });
+            if (user != null) { return View(user.MetronomePreferances); 
+            }else { return View(new List<int> { }); }           
         }
         // POST: MetronomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Set(int bpmToSave)
+        public async Task<ActionResult> Set(int bpmToSave)
         {
-            new List<int> { 100, 90, 120, 80, 50 };
             var user = _userManager.GetUserAsync(User).Result;
             if (user == null)
             {
-                TempData["Message"] = "Something went wrong";
-                return RedirectToAction("Index", "Metronome", new List<int> { 100, 90, 120, 80, 50 });
+                TempData["Message"] = "No-one is logged in.";
+                return RedirectToAction("Index", "Metronome", user.MetronomePreferances);
             }
             else
             {
                 user.MetronomePreferances.Add(bpmToSave);
+                await um.UpdateAsync(user);
                 TempData["Message"] = "BPM saved successfully";
                 return RedirectToAction(nameof(Index), "Metronome", user.MetronomePreferances);
             }
@@ -47,18 +48,17 @@ namespace WakaDaikoApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int bpmToDelete)
         {
-            var list = new List<int> { 100, 90, 120, 80, 50 };
             var user = _userManager.GetUserAsync(User).Result;
             if (user == null)
             {
                 TempData["Message"] = "Something went wrong";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",user.MetronomePreferances);
             }
             else
             {
-                user.MetronomePreferances.RemoveAt(bpmToDelete);
+               user.MetronomePreferances.RemoveAt(bpmToDelete);
                 //remove the bpm from the list at index id
-                list.RemoveAt(bpmToDelete);
+                await um.UpdateAsync(user);
                 return RedirectToAction(nameof(Index), "Metronome", user.MetronomePreferances);
             }
         }
