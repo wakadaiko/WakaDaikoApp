@@ -24,14 +24,14 @@
     <script src="~/lib/tailwindcss/tailwindcss_341.js"></script>
 </head>
 
-<body class="bg-[rgb(21,21,21)] text-white">
+<body class="bg-inherit text-xs lg:text-base text-inherit">
     @* Section - Header *@
     <header class="z-40 sticky top-0 start-0 flex flex-col bg-inherit">
         @* Section - Banner *@
         @if (ViewBag.BannerTitle != null && ViewBag.BannerDate != null)
         {
-            <a class="group h-8 flex justify-center items-center bg-white hover:bg-[rgb(87.5%,87.5%,87.5%)] font-medium text-center text-xs text-black"
-                href="/events">
+            <a class="group h-8 flex justify-center items-center bg-white font-medium text-center text-xs text-black"
+                href="/events/view/@ViewBag.Description">
                 <div
                     class='rounded bg-transparent group-hover:bg-black tracking-wider text-black group-hover:text-white border-[1px] border-black group-hover:border-transparent px-2 py-[1px]'>
                     NEW EVENT
@@ -46,16 +46,16 @@
         }
         @* Section - Navbar *@
         @* <nav id="eMobileBorder" class="lg:border-b-[0px] border-[rgb(90%,90%,90%)]"> *@
-        <nav id="eMobileBorder" class="lg:border-b-[1px] border-[rgb(50,50,50)]">
+        <nav id="eMobileBorder" class="bg-[rgb(6.25%,6.25%,6.25%)] lg:border-b-[1px] border-[rgb(25%,25%,25%)]">
             <div class="lg:h-16 flex flex-col lg:flex-row lg:container lg:mx-auto">
                 @* Section - Navbar - Left *@
                 <div class="flex flex-col lg:flex-row text-[rgb(75%,75%,75%)] lg:me-auto">
                     @* Section - Brand + Mobile *@
                     @* <div class="h-16 flex items-center border-b-[0px] border-[rgb(90%,90%,90%)] lg:border-0"> *@
-                    <div class="h-16 flex items-center border-b-[0px] border-[rgb(50,50,50)] lg:border-0">
+                    <div class="h-16 flex items-center border-b-[0px] border-[rgb(25%,25%,25%)] lg:border-0">
                         <div class="h-16 flex items-center lg:border-0">
                             <partial name="~/views/shared/htmllink.cshtml"
-                                model='new HtmlLinkVM { Type="nav-brand", URL="/", Body="WAKA DAIKO" }' />
+                                model='new HtmlLinkVM { Type="link-brand", URL="/", Body="WAKA DAIKO" }' />
                         </div>
                         <button id="eMobileButton" class="lg:hidden h-full flex items-center ms-auto p-6" type="button"
                             onclick="toggleMobile();">
@@ -81,7 +81,7 @@
                     <div class="eMobiles hidden lg:flex flex-col lg:flex-row">
                         @* Section - Dropdown - Performances *@
                         <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(25,25,25)] lg:hover:bg-[rgb(25,25,25)] tracking-wider">
+                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
                             <button class="group hidden w-full lg:flex font-medium p-6 lg:px-4">
                                 Performances
                                 <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2 my-auto"
@@ -96,17 +96,17 @@
                                 class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/events", Body="Events" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/events", Body="Events" }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/forms/requests", Body="Requests" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/forms/requests", Body="Requests" }' />
                                 </li>
                             </ul>
                         </div>
                         @* Section - Dropdown - Resources *@
                         <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(25,25,25)] lg:hover:bg-[rgb(25,25,25)] tracking-wider">
+                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
                             <button class="hidden w-full lg:flex font-medium p-6 lg:px-4">
                                 Resources
                                 <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2 my-auto"
@@ -121,21 +121,21 @@
                                 class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/resources/tutorials", Body="Tutorials" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/resources/tutorials", Body="Tutorials" }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/resources/soundtracks", Body="Soundtracks" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/resources/soundtracks", Body="Soundtracks" }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/metronome", Body="Metronome" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/metronome", Body="Metronome" }' />
                                 </li>
                             </ul>
                         </div>
                         @* Section - Dropdown - Contact *@
                         <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(25,25,25)] lg:hover:bg-[rgb(25,25,25)] tracking-wider">
+                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
                             <button class="hidden w-full lg:flex font-medium p-6 lg:px-4">
                                 Contact
                                 <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2 my-auto"
@@ -150,41 +150,41 @@
                                 class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="mailto:abc@gmail.com", Body="Email" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="mailto:wakadaiko@gmail.com", Body="Email" }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="https://facebook.com/youthtaiko", Body="Facebook" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://facebook.com/youthtaiko", Body="Facebook" }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/forms/signup", Body="Sign Up" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/forms/signup", Body="Sign Up" }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="dropdown-item", URL="/forms/questions", Body="General Inquiries" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/forms/questions", Body="General Inquiries" }' />
                                 </li>
                             </ul>
                         </div>
-                        @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin"))
                         {
                             <div
-                                class="relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(25,25,25)] lg:hover:bg-[rgb(25,25,25)]">
+                                class="relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(6.25%,6.25%,6.25%)] lg:hover:bg-[rgb(6.25%,6.25%,6.25%)]">
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="navlink", URL="/admin", Body="Admin" }' />
+                                    model='new HtmlLinkVM { Type="link-nav-link", URL="/admin", Body="Admin" }' />
                             </div>
                         }
                     </div>
                 </div>
                 <hr />
                 @* Section - Navbar - Right *@
-                <div class="flex flex-col lg:flex-row">
+                <div class="flex flex-col lg:flex-row text-[rgb(75%,75%,75%)]">
                     <div class="eMobiles hidden lg:flex flex-col lg:flex-row justify-center">
                         @* Section - Dropdown - Account *@
                         <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(25,25,25)] lg:hover:bg-[rgb(25,25,25)] tracking-wider">
-                            <button class='group hidden w-full h-full lg:flex lg:items-center lg:justify-center@(User.Identity != null && User.Identity.IsAuthenticated ? " bg-black group-hover:bg-[rgb(12.5%,12.5%,12.5%)] text-white "
-                                    : "")p-8 lg:px-8'>
+                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
+                            <button class='group hidden w-full h-full lg:flex lg:items-center lg:justify-center@(User.Identity != null && User.Identity.IsAuthenticated ? " text-sky-400 hover:text-sky-300 "
+                                    : " ")border-l-[1px] border-[rgb(25%,25%,25%)] p-8 lg:px-8'>
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
                                     width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
@@ -207,14 +207,16 @@
                                 {
                                     <li>
                                         <div
-                                            class="flex justify-center items-center bg-amber-300 font-medium text-white mx-5 my-3 lg:m-0 p-4">
-                                            Hello&nbsp;<span class="font-black">@User.Identity.Name</span></div>
+                                            class="flex justify-center items-center bg-white font-medium text-black mx-5 my-3 lg:m-0 p-4">
+                                            Hello&nbsp;<span class="tracking-wider font-black">@User.Identity.Name</span>
+                                        </div>
                                     </li>
                                     <li>
                                         <form class="flex items-center text-blue-400 mx-5 lg:mx-0" action="/account/logout"
                                             method="POST">
-                                            <button class="w-full bg-red-600 hover:bg-red-500 font-bold text-white p-4"
-                                                type="submit">Logout</button>
+                                            <button
+                                                class="w-full bg-amber-300 hover:bg-amber-200 tracking-wider font-black text-black p-4"
+                                                type="submit">LOGOUT</button>
                                         </form>
                                     </li>
                                 }
@@ -222,18 +224,18 @@
                                 {
                                     <li>
                                         <partial name="~/views/shared/htmllink.cshtml"
-                                            model='new HtmlLinkVM { Type="dropdown-item", URL="/account/login", Body="Login" }' />
+                                            model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/account/login", Body="Login" }' />
                                     </li>
                                     <li>
                                         <partial name="~/views/shared/htmllink.cshtml"
-                                            model='new HtmlLinkVM { Type="dropdown-item", URL="/account/register", Body="Register" }' />
+                                            model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/account/register", Body="Register" }' />
                                     </li>
                                 }
                             </ul>
                         </div>
                         @* Section - Button - Workshops *@
                         <partial name="~/views/shared/htmllink.cshtml"
-                            model='new HtmlLinkVM { Type="nav-workshops", URL="/workshops", Body="Taiko Workshops" }' />
+                            model='new HtmlLinkVM { Type="link-nav-workshops", URL="/workshops", Body="WORKSHOPS" }' />
                     </div>
                 </div>
             </div>
@@ -245,28 +247,19 @@
     <main role="main">@RenderBody()</main>
     @* Section - Footer *@
     @* class="text-[rgb(67.5%,67.5%,67.5%)] border-t-[0px] border-[rgb(90%,90%,90%)] shadow-hack p-5 pb-32"> *@
-    <footer class="bg-black text-[rgb(50%,50%,50%)] p-5 pt-10 pb-32">
-        <div class="container mx-auto flex flex-col gap-3 justify-center items-center">
-            <span class="flex gap-5 ms-1">
+    <footer class="bg-[rgb(12.5%,12.5%,12.5%)] text-[rgb(50%,50%,50%)] border-t-[1px] border-[rgb(25%,25%,25%)] p-5">
+        <div class="container mx-auto flex flex-col gap-2 justify-center items-center">
+            <div>
                 <partial name="~/views/shared/htmllink.cshtml"
-                    model='new HtmlLinkVM { Type="footer", URL="/home/privacy", Body="Privacy" }' />
+                    model='new HtmlLinkVM { Type="link-footer", URL="/home/privacy", Body="PRIVACY" }' />
                 <partial name="~/views/shared/htmllink.cshtml"
-                    model='new HtmlLinkVM { Type="footer", URL="/home/sitemap", Body="Sitemap" }' />
-            </span>
+                    model='new HtmlLinkVM { Type="link-footer", URL="/home/sitemap", Body="SITEMAP" }' />
+            </div>
             &copy; 2003-2024, Waka Daiko. All rights reserved.
         </div>
     </footer>
     @* Section - Scroll To Top *@
-    <button id="buttonScrollToTop"
-        class="z-10 duration-200 ease-in-out scale-0 fixed bottom-[24px] right-[24px] rounded-lg bg-amber-300 hover:bg-amber-200 text-black shadow-lg p-4"
-        onclick="scrollToTop();">
-        <svg stroke="currentColor" fill="currentColor" stroke-width="2" viewBox="0 0 16 16" height="16px" width="20px"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z">
-            </path>
-        </svg>
-    </button>
+    <partial name="~/views/shared/htmllink.cshtml" model='new HtmlLinkVM { Type="btn-scroll-to-top" }' />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

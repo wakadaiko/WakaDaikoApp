@@ -24,7 +24,7 @@
 
 <div>
     <div
-        class='relative group flex flex-col gap-3 bg-white border-[1px] border-[rgb(80%,80%,80%)] focus-within:border-blue-500@(ViewData.ModelState[Model.Type] != null ? " border-red-600 " : " ")p-3'>
+        class='relative group flex items-center rounded-md border-[1px] border-[rgb(25%,25%,25%)]@(ViewData.ModelState[Model.Type] != null ? " border-rose-400 " : " focus-within:border-sky-400 ")p-4'>
         @switch (Model.Type)
         {
             case "Name":
@@ -46,16 +46,16 @@
                 </svg>
                 break;
         }
-        <input id=@Model.Type class="peer rounded-[8px] border-0 focus:outline-none ps-[36px]" name=@Model.Type
+        <input id=@Model.Type class="peer w-full bg-transparent border-0 focus:outline-none ps-[36px]" name=@Model.Type
             type=@(Model.Type == "Password" || Model.Type == "ConfirmPassword" ? "password" : "text") placeholder=""
             value='@rememberValue' />
         <label
-            class="duration-200 ease-in-out absolute left-[36px] group-focus-within:top-[-25%] group-focus-within:left-[46px] peer-[:not(:placeholder-shown)]:top-[-25%] peer-[:not(:placeholder-shown)]:left-[46px] bg-white text-[rgb(50%,50%,50%)] select-none px-2"
+            class="duration-200 ease-in-out absolute group-focus-within:top-[-25%] left-[44px] group-focus-within:left-[46px] peer-[:not(:placeholder-shown)]:top-[-25%] peer-[:not(:placeholder-shown)]:left-[46px] bg-[rgb(6.25%,6.25%,6.25%)] text-[rgb(75%,75%,75%)] select-none px-2"
             for=@Model.Type>
             @textResult
         </label>
     </div>
-    <small class="text-red-500" for=@Model.Type>
+    <small class="text-rose-400" for=@Model.Type>
         @Html.ValidationMessage((string)Model.Type)
     </small>
 </div>

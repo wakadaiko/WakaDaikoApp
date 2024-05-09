@@ -11,8 +11,8 @@
 
 :root {
     /* Prevent flickering on page switching */
-    background-color: white;
-    color: black;
+    background-color: rgb(12.5%, 12.5%, 12.5%);
+    color: white;
     /* font-family: 'Inter'; */
     /* font-family: 'Poppins'; */
     /* font-family: "Bebas Neue", sans-serif; */

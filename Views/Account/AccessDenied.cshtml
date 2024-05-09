@@ -1,0 +1,21 @@
+@{
+    ViewBag.Title = "Access Denied";
+}
+
+<div class='flex flex-col items-center justify-center gap-4 bg-[rgb(6.25%,6.25%,6.25%)]
+min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]
+lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]'>
+    <div class="flex flex-col gap-2 items-center">
+        <h1 class="w-max font-['Bebas_Neue'] font-black tracking-wider text-nowrap text-6xl lg:text-8xl"
+            style="line-height: 0.8;">
+            @ViewBag.Title
+        </h1>
+        <p class="w-2/3 font-medium text-center text-xs lg:text-xl mb-2">
+            Sorry, you don't seem to have enough permissions. Try using a different account.
+        </p>
+        <div class="w-2/3 lg:w-max font-medium text-xs lg:text-xl">
+            <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { Type="btn-primary", URL="/events", Body="RETURN HOME" }' />
+        </div>
+    </div>
+</div>

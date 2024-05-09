@@ -4,7 +4,7 @@
     for (int i = 0; i < words.Length; i++) words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
 }
 
-<div class="relative">
+<div class="relative bg-[rgb(6.25%,6.25%,6.25%)]">
     @* <div class="z-20 absolute top-0 left-0 size-full bg-gradient-to-t from-[rgba(12.5%,25%,50%,0.25)] from-0%
     via-transparent
     via-50% to-[rgba(12.5%,25%,50%,0.25)] to-100%">
@@ -42,20 +42,20 @@
             @* <div class="z-20 absolute w-full h-full bg-[rgba(249,115,22,0.1)] contrast-[200%]"></div> *@
             @* <div class="bg-orange-500"></div> *@
         </div>
-        @* <div class='size-full gap-3 flex my-auto p-5 lg:p-20 lg:@(Model.Flip ? "pe-0" : "ps-0")'> *@
-        <div class="w-full aspect-video gap-3 flex my-auto">
+        @* <div class='size-full gap-2 flex my-auto p-5 lg:p-20 lg:@(Model.Flip ? "pe-0" : "ps-0")'> *@
+        <div class="w-full aspect-video gap-2 flex my-auto">
             @* <div class='min-w-1 bg-neutral-300@(Model.Flip ? " " : " ms-auto " )-my-5'></div> *@
-            <div class="w-full flex flex-col gap-3 my-auto p-5 lg:p-20">
+            <div class="w-full flex flex-col gap-2 my-auto p-5 lg:p-20">
                 <div class="w-max flex flex-col gap-1">
                     @* <hr class="border-4 border-amber-300 mb-2" /> *@
-                    <h1 class="font-['Bebas_Neue'] font-black tracking-wider text-7xl lg:text-9xl"
+                    <h1 class="font-['Bebas_Neue'] font-black tracking-wider text-6xl lg:text-9xl"
                         style="line-height: 0.8;">
                         @Model.Heading
                     </h1>
                     <hr class="border-4 border-white mb-4" />
                 </div>
-                <div class="w-full flex flex-col gap-5">
-                    <h3 class="w-max font-['Bebas_Neue'] font-bold tracking-wider text-4xl lg:text-5xl"
+                <div class="w-full flex flex-col gap-4">
+                    <h3 class="w-max font-['Bebas_Neue'] font-bold tracking-wider text-2xl lg:text-5xl"
                         style="line-height: 0.8;">
                         @* Html.Raw() requires extra @ symbol *@
                         @switch (Model.Type)
@@ -77,7 +77,7 @@
                     @switch (Model.Type)
                     {
                         case "who-we-are":
-                            <ul class="list-disc list-inside flex flex-col gap-3 lg:text-xl text-[rgb(75%,75%,75%)]">
+                            <ul class="list-disc list-inside flex flex-col gap-2 lg:text-xl text-[rgb(75%,75%,75%)]">
                                 Waka Daiko is a fun, diverse, Taiko drumming group, that encourages team building and
                                 instructor-student
                                 mentorships.
@@ -85,15 +85,15 @@
                         All youth, ages 8-22, are welcome.
                         </li> *@
                             </ul>
-                            <div class='w-max flex flex-col lg:flex-row gap-1 lg:gap-4'>
+                            <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="/forms/signup", Body="Sign Up" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="/forms/signup", Body="SIGN UP" }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="/workshops", Body="Available Workshops" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="/workshops", Body="AVAILABLE WORKSHOPS" }' />
                             </div>
                             break;
                         case "performances":
-                            <ul class="list-disc list-inside flex flex-col gap-3 lg:text-xl text-[rgb(75%,75%,75%)]">
+                            <ul class="list-disc list-inside flex flex-col gap-2 lg:text-xl text-[rgb(75%,75%,75%)]">
                                 @* <li class="list-none">
                         <ul class="font-black text-lg text-white">
                         <li>
@@ -135,9 +135,9 @@
                             </ul>
                             <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="/events", Body="Upcoming Events" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="/events", Body="UPCOMING EVENTS" }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="https://youtube.com/watch?v=xreRP5yyxAE", Body="Extra Video Resource" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="https://youtube.com/watch?v=xreRP5yyxAE", Body="VIDEO RESOURCE" }' />
                             </div>
                             break;
                         case "community":
@@ -147,9 +147,9 @@
                             </p>
                             <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="https://asiancelebration.org", Body="Asian Celebration" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="https://asiancelebration.org", Body="ASIAN CELEBRATION" }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="https://youtube.com/watch?v=GGRKNf-wDGM", Body="Extra Video Resource" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="https://youtube.com/watch?v=GGRKNf-wDGM", Body="VIDEO RESOURCE" }' />
                             </div>
                             break;
                         case "culture":
@@ -159,9 +159,9 @@
                             </p>
                             <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="https://en.wikipedia.org/wiki/Taiko#History", Body="History of Taiko" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="https://en.wikipedia.org/wiki/Taiko#History", Body="HISTORY OF TAIKO" }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="btn-solid", URL="https://youtube.com/watch?v=pJ68QTgGaN0", Body="Extra Video Resource" }' />
+                                    model='new HtmlLinkVM { Type="btn-primary", URL="https://youtube.com/watch?v=pJ68QTgGaN0", Body="VIDEO RESOURCE" }' />
                             </div>
                             break;
                         default:

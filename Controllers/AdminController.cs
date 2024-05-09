@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WakaDaikoApp.Controllers
 {
-    [Authorize(Roles = "Admin, Team Lead")]
+    [Authorize(Roles = "Site_Admin")]
     public class AdminController(IRepository _r, AppDbContext _c, UserManager<AppUser> _um, RoleManager<IdentityRole> _rm) : Controller
     {
         // Functions
@@ -28,6 +28,7 @@ namespace WakaDaikoApp.Controllers
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
+                    ViewBag.Description = _event.Description;
 
                     break;
                 case int n when n > 1:

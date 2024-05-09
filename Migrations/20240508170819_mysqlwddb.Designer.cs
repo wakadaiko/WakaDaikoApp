@@ -12,7 +12,7 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240506053353_mysqlwddb")]
+    [Migration("20240508170819_mysqlwddb")]
     partial class mysqlwddb
     {
         /// <inheritdoc />
