@@ -1,7 +1,9 @@
 ﻿@model List<int>?
+
 <body>
     <div id="MetronomeBackground">
-        <div class="mCard ">
+        <button class="round"></button>
+        @* <div id="metronomeField" class="mCard" style="border-radius:50%">
             <div class="flex-row-3">
                 <button id="decrease" class="plus-icon hoverZoom">&minus;</button>
                 <div id="bpmField" class="metronome-display">60 BPM</div>
@@ -11,31 +13,72 @@
                 <button id="start" class="hoverZoom">Start</button>
                 <button id="stop" class="hoverZoom" disabled>Stop</button>
             </div>
-            <div id="timer" class="mCard">00:00</div>
-        </div>
-        <div class="mCard">
+            <div id="timer" class="mCard" style="border-radius:50%">00:00</div>
+        </div> *@
+		@*  <div id="preferenceField"class="" hidden>
 		    <div>Preference Field</div>
             @{
                 if(Model.Any()){
-                   
+                    <form asp-action="Set" method="post">
+                        <input id="bpmToStore" name="bpmToSave" value="" hidden />
+                        <input id="one" type="submit" class="hoverZoom" style="border: 0;" value="Add" />
+
+                    </form>
                     for (int i = 0; i < Model.Count; i++)
                     {
-                        <div class="flex-row-3">
-                            <form asp-action="Set" method="post">
-                                <input id="bpmToSave" name="bpmToSave" value="" hidden />
-                                <input id="one" type="submit" class="hoverZoom" />
-                            </form>
+                        <div class="flex-row-3 mCard">
                             <form asp-action="Delete" method="post">
                                 <input name="bpmToDelete" value="@i" hidden />
-                                <input id="two" type="submit" class="hoverZoom" />
+                                <input id="two" type="submit" class="hoverZoom" style="border: 0;" value="X" />
                             </form>
-                            <div>@Model[i] BPM</div>
+                            <button id="bpmPrefValue" class="" onclick="handleSetBpm()">@Model[i] BPM</button>
                         </div>
+                        
                     }
 				}
             }
-		    </div>
+		    </div> *@
+            
+        <div class="mCard" style="border-radius:50%">
+            <div id="metronomeField" class="" style="border-radius:50%">
+                <div class="">
+                    <button id="increase" class="plus-icon hoverZoom">&plus;</button>
+                    <div id="bpmField" class="metronome-display" style="">60 BPM</div>
+                    <button id="decrease" class="plus-icon hoverZoom">&minus;</button>
+                </div>
+                <div class="">
+                    <button id="start" class="hoverZoom">Start</button>
+                    <button id="stop" class="hoverZoom" disabled>Stop</button>
+                </div>
+                <div id="timer" class="mCard" style="border-radius:50%">00:00</div>
+            </div>
+            <button style="margin: .1em" class="hoverZoom" onclick="toggleSettings()">&#9881;</button>
+            <div id="preferenceField" class="" hidden>
+                <div>Preference Field</div>
+                @{
+                    if (Model.Any())
+                    {
+                        <form asp-action="Set" method="post">
+                            <input id="bpmToStore" name="bpmToSave" value="" hidden />
+                            <input id="one" type="submit" class="hoverZoom" style="border: 0;" value="Add" />
+
+                        </form>
+                        for (int i = 0; i < Model.Count; i++)
+                        {
+                            <div class=" " style="display:flex;justify-content:center;">
+                                <form asp-action="Delete" method="post">
+                                    <input name="bpmToDelete" value="@i" hidden />
+                                    <input id="two" type="submit" class="hoverZoom" style="border: 0;" value="Del" />
+                                </form>
+                                <button style="padding-left:1em" id="bpmPrefValue" class="" onclick="handleSetBpm()">@Model[i] BPM</button>
+                            </div>
+
+                        }
+                    }
+                }
+            </div>
         </div>
+
     <script src="./js/Metronome.js"></script>
     </div>
 
