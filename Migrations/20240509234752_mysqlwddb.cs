@@ -35,6 +35,72 @@ namespace WakaDaikoApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "AudioResources",
+                columns: table => new
+                {
+                    AudioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Text = table.Column<string>(type: "varchar(254)", maxLength: 254, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Url = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AudioBinaryData = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AudioResources", x => x.AudioId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TextResources",
+                columns: table => new
+                {
+                    TextId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Text = table.Column<string>(type: "varchar(254)", maxLength: 254, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Url = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TextBinaryData = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TextResources", x => x.TextId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "VideoResources",
+                columns: table => new
+                {
+                    VideoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Text = table.Column<string>(type: "varchar(254)", maxLength: 254, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Url = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    VideoBinaryData = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VideoResources", x => x.VideoId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -267,7 +333,10 @@ namespace WakaDaikoApp.Migrations
                     RecipientId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ConvoId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: true)
+                    AudioResourceAudioId = table.Column<int>(type: "int", nullable: true),
+                    EventId = table.Column<int>(type: "int", nullable: true),
+                    TextResourceTextId = table.Column<int>(type: "int", nullable: true),
+                    VideoResourceVideoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -285,10 +354,25 @@ namespace WakaDaikoApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Comments_AudioResources_AudioResourceAudioId",
+                        column: x => x.AudioResourceAudioId,
+                        principalTable: "AudioResources",
+                        principalColumn: "AudioId");
+                    table.ForeignKey(
                         name: "FK_Comments_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "EventId");
+                    table.ForeignKey(
+                        name: "FK_Comments_TextResources_TextResourceTextId",
+                        column: x => x.TextResourceTextId,
+                        principalTable: "TextResources",
+                        principalColumn: "TextId");
+                    table.ForeignKey(
+                        name: "FK_Comments_VideoResources_VideoResourceVideoId",
+                        column: x => x.VideoResourceVideoId,
+                        principalTable: "VideoResources",
+                        principalColumn: "VideoId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -340,6 +424,11 @@ namespace WakaDaikoApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_AudioResourceAudioId",
+                table: "Comments",
+                column: "AudioResourceAudioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_EventId",
                 table: "Comments",
                 column: "EventId");
@@ -353,6 +442,16 @@ namespace WakaDaikoApp.Migrations
                 name: "IX_Comments_SenderId",
                 table: "Comments",
                 column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_TextResourceTextId",
+                table: "Comments",
+                column: "TextResourceTextId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_VideoResourceVideoId",
+                table: "Comments",
+                column: "VideoResourceVideoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_AuthorId",
@@ -425,7 +524,16 @@ namespace WakaDaikoApp.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AudioResources");
+
+            migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "TextResources");
+
+            migrationBuilder.DropTable(
+                name: "VideoResources");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

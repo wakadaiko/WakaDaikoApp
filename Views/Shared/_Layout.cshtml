@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base target="_blank" />
     <title>Waka Daiko - @ViewBag.Title</title>
     <link rel="icon" href="~/assets/favicon.jpg">
     <link href="~/css/site.css" rel="stylesheet">
@@ -33,11 +34,12 @@
             <a class="group h-8 flex justify-center items-center bg-white font-medium text-center text-xs text-black"
                 href="/events/view/@ViewBag.Description">
                 <div
-                    class='rounded bg-transparent group-hover:bg-black tracking-wider text-black group-hover:text-white border-[1px] border-black group-hover:border-transparent px-2 py-[1px]'>
+                    class='rounded bg-transparent group-hover:bg-black tracking-wider font-black text-black group-hover:text-white border-[1px] border-black group-hover:border-transparent px-2 py-[1px]'>
                     NEW EVENT
                 </div>
-                <div class="tracking-widest ms-3 me-2">
-                    @ViewBag.BannerTitle <span class="font-black">on</span>
+                <div class="tracking-wider ms-3 me-2">
+                    @ViewBag.BannerTitle
+                    <span class="font-black">on</span>
                     @ViewBag.BannerDate
                 </div>
                 @* <span class="text-lg transition-transform group-hover:translate-x-1">-&gt;</span> *@
@@ -169,9 +171,9 @@
                         @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin"))
                         {
                             <div
-                                class="relative flex flex-col lg:flex-row items-start lg:items-center text-sm hover:text-white lg:focus-within:bg-[rgb(6.25%,6.25%,6.25%)] lg:hover:bg-[rgb(6.25%,6.25%,6.25%)]">
+                                class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="link-nav-link", URL="/admin", Body="Admin" }' />
+                                    model='new HtmlLinkVM { Type="link-navbar", URL="/admin", Body="Admin" }' />
                             </div>
                         }
                     </div>

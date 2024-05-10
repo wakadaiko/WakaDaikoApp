@@ -14,8 +14,8 @@
         case "link-nav-dropdown-item":
             c = "flex items-center lg:hover:bg-[rgb(87.5%,87.5%,87.5%)] font-medium lg:text-nowrap text-white lg:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-4";
             break;
-        case "link-nav-link":
-            c = "flex items-center font-medium text-[rgb(37.5%,37.5%,37.5%)] hover:text-white p-4";
+        case "link-navbar":
+            c = "w-full h-full flex items-center font-medium text-white lg:text-inherit p-4 lg:px-4 lg:py-0";
             break;
         case "link-nav-workshops":
             c = $"gap-2 {buttonSolid} m-5 my-3 lg:m-0";
@@ -36,7 +36,7 @@
             c = $"w-full flex justify-center {colorDefault1} p-4";
             break;
         case "link-events-pin-btn":
-            c = $"{(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden ")}absolute top-0 right-0 {(Model.Body == "True" ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400")} text-black m-3 p-3";
+            c = $"z-20 {(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden ")}absolute top-0 right-0 {(Model.Body == "True" ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400")} text-black m-3 p-3";
             break;
         case "btn-events":
             c = $"w-full flex justify-center items-center rounded-md {bgBtnSolid} whitespace-nowrap tracking-wider font-black text-black p-4";
@@ -125,13 +125,14 @@
             <span class="transition-transform group-hover:translate-x-1 flex justify-center text-4xl ms-2 -mt-[1px]">→</span>
         </a>
         break; *@
+    case "link-navbar":
     case "link-dialog":
-    case "btn-primary":
-    case "btn-secondary":
     case "link-account":
     case "link-events-filters":
     case "link-privacy":
     case "link-footer":
+    case "btn-primary":
+    case "btn-secondary":
         <a class="@(c ?? c)" href=@Model.URL>
             @Html.Raw(Model.Body)
         </a>

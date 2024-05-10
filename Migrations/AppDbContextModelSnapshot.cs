@@ -227,6 +227,35 @@ namespace WakaDaikoApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WakaDaikoApp.Models.AudioResource", b =>
+                {
+                    b.Property<int>("AudioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AudioId"));
+
+                    b.Property<int?>("AudioBinaryData")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(254)
+                        .HasColumnType("varchar(254)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("AudioId");
+
+                    b.ToTable("AudioResources");
+                });
+
             modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
                 {
                     b.Property<int>("CommentId")
@@ -234,6 +263,9 @@ namespace WakaDaikoApp.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CommentId"));
+
+                    b.Property<int?>("AudioResourceAudioId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ConvoId")
                         .HasColumnType("int");
@@ -254,13 +286,25 @@ namespace WakaDaikoApp.Migrations
                         .HasMaxLength(254)
                         .HasColumnType("varchar(254)");
 
+                    b.Property<int?>("TextResourceTextId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VideoResourceVideoId")
+                        .HasColumnType("int");
+
                     b.HasKey("CommentId");
+
+                    b.HasIndex("AudioResourceAudioId");
 
                     b.HasIndex("EventId");
 
                     b.HasIndex("RecipientId");
 
                     b.HasIndex("SenderId");
+
+                    b.HasIndex("TextResourceTextId");
+
+                    b.HasIndex("VideoResourceVideoId");
 
                     b.ToTable("Comments");
                 });
@@ -342,6 +386,68 @@ namespace WakaDaikoApp.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("WakaDaikoApp.Models.TextResource", b =>
+                {
+                    b.Property<int>("TextId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TextId"));
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(254)
+                        .HasColumnType("varchar(254)");
+
+                    b.Property<int?>("TextBinaryData")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("TextId");
+
+                    b.ToTable("TextResources");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.VideoResource", b =>
+                {
+                    b.Property<int>("VideoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("VideoId"));
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(254)
+                        .HasColumnType("varchar(254)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("VideoBinaryData")
+                        .HasColumnType("int");
+
+                    b.HasKey("VideoId");
+
+                    b.ToTable("VideoResources");
+                });
+
             modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -421,6 +527,10 @@ namespace WakaDaikoApp.Migrations
 
             modelBuilder.Entity("WakaDaikoApp.Models.Comment", b =>
                 {
+                    b.HasOne("WakaDaikoApp.Models.AudioResource", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("AudioResourceAudioId");
+
                     b.HasOne("WakaDaikoApp.Models.Event", null)
                         .WithMany("Comments")
                         .HasForeignKey("EventId");
@@ -436,6 +546,14 @@ namespace WakaDaikoApp.Migrations
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WakaDaikoApp.Models.TextResource", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("TextResourceTextId");
+
+                    b.HasOne("WakaDaikoApp.Models.VideoResource", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("VideoResourceVideoId");
 
                     b.Navigation("Recipient");
 
@@ -473,6 +591,11 @@ namespace WakaDaikoApp.Migrations
                         .HasForeignKey("TeamId");
                 });
 
+            modelBuilder.Entity("WakaDaikoApp.Models.AudioResource", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("WakaDaikoApp.Models.Event", b =>
                 {
                     b.Navigation("Comments");
@@ -481,6 +604,16 @@ namespace WakaDaikoApp.Migrations
             modelBuilder.Entity("WakaDaikoApp.Models.Team", b =>
                 {
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.TextResource", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("WakaDaikoApp.Models.VideoResource", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("WakaDaikoApp.Models.AppUser", b =>

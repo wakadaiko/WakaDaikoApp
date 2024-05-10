@@ -12,13 +12,22 @@
     </a> *@
     <partial name="~/views/shared/htmllink.cshtml"
         model='new HtmlLinkVM { Type="link-events-pin-btn", Body=(Model.Pinned == true).ToString(), URL=$"/events/pin/{Model.EventId}" }' />
-    <div class="h-full flex flex-col rounded-md bg-black">
-        <img class="w-full h-[192px] object-cover saturate-[75%] brightness-[125%]
-        contrast-[75%] shadow-lg" src="~/assets/@Model.Image" alt="Screenshot for event number: @Model.EventId" />
+    <div class="h-full flex flex-col rounded-md shadow-md">
+        <div class="relative w-full rounded-t-md border-[1px] border-b-0 border-[rgb(25%,25%,25%)]">
+            @* <div
+            class="z-10 absolute top-0 left-0 size-full bg-gradient-to-t from-[rgb(30,30,30)] from-0% via-transparent
+            via-50% to-[rgb(30,30,30)] to-100%">
+            </div> *@
+            <div
+                class="z-10 absolute top-0 left-0 size-full bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]">
+            </div>
+            <img class="w-full h-[192px] object-cover saturate-[75%] brightness-[125%] contrast-[75%] shadow-lg"
+                src="~/assets/@Model.Image" alt="Screenshot for event number: @Model.EventId" />
+        </div>
         <h1
             class="h-full flex items-center break-all tracking-wider font-black text-2xl text-center border-[1px] border-[rgb(25%,25%,25%)] p-4">
             @Model.Title</h1>
-        <div class="h-full text-[rgb(75%,75%,75%)] border-[1px] border-t-0 border-[rgb(25%,25%,25%)]">
+        <div class="h-full rounded-b-md text-[rgb(75%,75%,75%)] border-[1px] border-t-0 border-[rgb(25%,25%,25%)]">
             <p class="p-4">
                 @Model.Text
             </p>

@@ -194,7 +194,7 @@ button.round:active {
     transform: translateY(2px);
 }
 
-button:active {
+button.round:active {
     filter: drop-shadow(5px 5px 20px #000000);
     /*box-shadow: 0 0 2px darkslategray;*/
     transform: translateY(2px);
