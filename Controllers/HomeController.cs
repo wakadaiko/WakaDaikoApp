@@ -26,6 +26,7 @@ namespace WakaDaikoApp.Controllers
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
+                    ViewBag.Description = _event.Description;
 
                     break;
                 case int n when n > 1:

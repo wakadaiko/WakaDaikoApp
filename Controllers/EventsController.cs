@@ -26,6 +26,7 @@ namespace WakaDaikoApp.Controllers
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
+                    ViewBag.Description = _event.Description;
 
                     break;
                 case int n when n > 1:
@@ -83,7 +84,7 @@ namespace WakaDaikoApp.Controllers
         }
 
         // Workaround - Extra [used] parameter
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Site_Admin")]
 
         [HttpGet("/events/pin/{pinId}")]
         public async Task<IActionResult> Index(string pinId, string _, string __)

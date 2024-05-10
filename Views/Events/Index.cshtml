@@ -8,22 +8,22 @@
 }
 @model List<Event>
 
-<div class="container m-auto lg:my-20 p-5 lg:p-0">
-    <div class="flex flex-col xl:flex-row gap-5">
+<div class="bg-[rgb(6.25%,6.25%,6.25%)]">
+    <div class="flex flex-col xl:flex-row">
         @* Section - Left *@
-        <form class="h-min flex gap-5 bg-[rgb(95%,95%,95%)] border-[1px] border-[rgb(85%,85%,85%)] lg:mt-20 p-3">
+        <form class="flex gap-4 border-b-[1px] lg:border-r-[1px] border-[rgb(25%,25%,25%)] shadow-md p-3">
             @* Section - Pagination *@
             <div class="w-full flex flex-col items-center lg:items-start">
                 @* Section - Filters - Search *@
-                <div class="flex p-1 mb-5">
-                    <label class="peer relative" for="search">
+                <div class="w-full flex p-1 mb-5">
+                    <label class="w-full peer relative" for="search">
                         <input id="eSearch"
-                            class="peer w-full rounded-[8px] bg-transparent border-[1px] border-[rgb(80%,80%,80%)] focus:border-[rgb(70%,70%,70%)] focus:outline-none ps-[34px] pe-[12px] py-[6px]"
+                            class="peer w-full rounded-[8px] bg-transparent border-[1px] border-[rgb(25%,25%,25%)] focus:border-sky-400 focus:outline-none ps-[34px] pe-[12px] py-[6px]"
                             for="search" name="search" type="search" placeholder="Search ..." value='@(ViewBag.Search ??
                             "")' />
-                        <svg class="absolute top-[50%] left-[10px] translate-y-[-50%] fill-[rgb(50%,50%,50%)]
-                    peer-focus:fill-black" stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px"
-                            height="16px" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="absolute top-[50%] left-[10px] translate-y-[-50%] fill-[rgb(75%,75%,75%)]"
+                            stroke="currentColor" stroke-width="0" viewBox="0 0 512 512" width="16px" height="16px"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7
                     376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144
                     144 0 1 0 0-288 144 144 0 1 0 0 288z">
@@ -31,9 +31,9 @@
                         </svg>
                     </label>
                 </div>
-                <div class="w-full flex flex-col gap-5">
+                <div class="w-full flex flex-col gap-4">
                     <div class="flex flex-col items-center lg:items-start">
-                        <div class="flex flex-col gap-5">
+                        <div class="flex flex-col gap-4">
                             @* Section - Filters - Status *@
                             <div>
                                 <h1 class="font-black">Filter By Status</h1>
@@ -70,11 +70,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col justify-center items-center gap-3">
-                        <button class="w-full bg-red-600 hover:bg-red-500 font-bold text-white p-5"
-                            type="submit">Submit</button>
+                    <div class="w-full flex flex-col justify-center items-center gap-2">
                         <partial name="~/views/shared/htmllink.cshtml"
-                            model='new HtmlLinkVM { URL="/events", Body="Reset Filters" }' />
+                            model='new HtmlLinkVM { Type="btn-events", Body="SUBMIT" }' />
+                        <partial name="~/views/shared/htmllink.cshtml"
+                            model='new HtmlLinkVM { Type="link-events-filters", URL="/events", Body="RESET FILTERS" }' />
                     </div>
                 </div>
             </div>
@@ -83,39 +83,30 @@
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
             @* Section - Pagination *@
-            <ul class="w-full flex justify-center p-6">
+            <ul class="w-full flex justify-center p-4 lg:p-8">
                 <li>
                     <ul
                         class="grid grid-cols-[repeat(@((ViewBag.PaginationCount / 2) + 2),minmax(0,1fr))] lg:grid-cols-[repeat(@(ViewBag.PaginationCount + 2),minmax(0,1fr))] gap-2">
                         @* Section - Button - Left *@
                         <li>
-                            <a class="flex items-center justify-center bg-red-600 hover:bg-red-500 text-white p-3"
-                                href="/events/page/@nextPagination">
-                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512"
-                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z">
-                                    </path>
-                                </svg>
-                            </a>
+                            <partial name="~/views/shared/htmllink.cshtml"
+                                model='new HtmlLinkVM { Type="link-events-pagination-left", URL=$"/events/page/{nextPagination}" }' />
                         </li>
                         @* Section - Links *@
                         @for (var i = @ViewBag.PaginationCount; i > 0; i--)
                         {
-                            <partial name="~/views/shared/htmlpagination.cshtml"
-                                model='new HtmlPaginationVM { Id=i.ToString(), Selected=i.ToString()==ViewBag.PaginationId }' />
+                            <li>
+                                @* <partial name="~/views/shared/htmlpagination.cshtml"
+                            model='new HtmlPaginationVM { Id=i.ToString(), Selected=i.ToString()==ViewBag.PaginationId
+                            }' /> *@
+                                <partial name="~/views/shared/htmllink.cshtml"
+                                    model='new HtmlLinkVM { Type="link-events-pagination-middle", Body=i.ToString(), URL=$"/events/page/{i.ToString()}"  }' />
+                            </li>
                         }
                         @* Section - Button - Right *@
                         <li>
-                            <a class="flex items-center justify-center bg-red-600 hover:bg-red-500 text-white p-3"
-                                href="/events/page/@previousPagination">
-                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512"
-                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z">
-                                    </path>
-                                </svg>
-                            </a>
+                            <partial name="~/views/shared/htmllink.cshtml"
+                                model='new HtmlLinkVM { Type="link-events-pagination-right", URL=$"/events/page/{previousPagination}" }' />
                         </li>
                     </ul>
                 </li>
@@ -125,7 +116,7 @@
             {
                 if (Model.Count > 0)
                 {
-                    <ul id="eEvent" class="w-full grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <ul id="eEvent" class="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 pt-0 lg:p-8 lg:pt-0">
                         @foreach (var _event in Model)
                         {
                             <partial name="~/views/shared/htmlevent.cshtml"

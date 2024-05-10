@@ -15,10 +15,6 @@ builder.Services.AddTransient<IRepository, Repository>();
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.AccessDeniedPath = "/Account/PermissionsDenied";
-});
 
 var app = builder.Build();
 

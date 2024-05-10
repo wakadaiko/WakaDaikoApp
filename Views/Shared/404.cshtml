@@ -2,26 +2,24 @@
     ViewBag.Title = "Page Not Found";
 }
 
-<div class="z-0 relative flex grow justify-center items-center overflow-hidden">
-    <div
-        class='z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(75vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col'>
-        <div
-            class='z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(75vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col'>
-            <div class="flex flex-col gap-4 lg:gap-6 text-center m-auto p-10">
-                <h1 class="font-black text-8xl lg:text-9xl tracking-wider">
-                    404
-                </h1>
-                <h3 class="text-3xl lg:text-4xl tracking-wider">
-                    @ViewBag.Title
-                </h3>
-                <p class="text-xl lg:text-2xl text-[rgb(37.5%,37.5%,37.5%)]">
-                    Whatever you&apos;re looking for doesn&apos;t exist here.
-                </p>
-                <div class='flex flex-col lg:flex-row justify-center gap-4 mx-auto lg:mx-0'>
-                    <partial name="~/views/shared/htmllink.cshtml"
-                        model='new HtmlLinkVM { Type="btn-solid", URL="/events", Body="Return Home" }' />
-                </div>
-            </div>
+<div class='flex flex-col items-center justify-center gap-4 bg-[rgb(6.25%,6.25%,6.25%)]
+min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]
+lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]'>
+    <div class="flex flex-col gap-4 items-center">
+        <h1 class="w-max font-['Bebas_Neue'] font-black tracking-wider text-nowrap text-7xl lg:text-9xl"
+            style="line-height: 0.8;">
+            404
+        </h1>
+        <h3 class="font-['Bebas_Neue'] lg:font-black tracking-wider text-wrap text-xl lg:text-4xl"
+            style="line-height: 0.8;">
+            @ViewBag.Title
+        </h3>
+        <p class="font-medium text-xs lg:text-xl">
+            Whatever you&apos;re looking for doesn&apos;t exist here.
+        </p>
+        <div class='w-full flex flex-col lg:flex-row justify-center gap-4 mx-auto lg:mx-0'>
+            <partial name="~/views/shared/htmllink.cshtml"
+                model='new HtmlLinkVM { Type="btn-primary", URL="/", Body="RETURN HOME" }' />
         </div>
     </div>
 </div>
