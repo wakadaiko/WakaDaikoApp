@@ -15,11 +15,11 @@ lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != nul
         <ul class='w-full flex flex-col justify-center gap-2 font-medium text-xs lg:text-xl mx-auto lg:mx-0'>
             <li>
                 <partial name="~/views/shared/htmllink.cshtml"
-                    model='new HtmlLinkVM { Type="link-privacy", URL=@ViewBag.Link_privacy.ToString(), Body=@ViewBag.Link_privacy.ToString() }' />
+                    model='new HtmlLinkVM { Type="link-privacy", URL=@ViewBag.Link_privacy.ToString(), Body=@ViewBag.Link_privacy.ToString(), ExternalSite=true }' />
             </li>
             <li>
                 <partial name="~/views/shared/htmllink.cshtml"
-                    model='new HtmlLinkVM { Type="link-privacy", URL=@ViewBag.Link_cookies.ToString(), Body=@ViewBag.Link_cookies.ToString() }' />
+                    model='new HtmlLinkVM { Type="link-privacy", URL=@ViewBag.Link_cookies.ToString(), Body=@ViewBag.Link_cookies.ToString(), ExternalSite=true }' />
             </li>
         </ul>
     </div>

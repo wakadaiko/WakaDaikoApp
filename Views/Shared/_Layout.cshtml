@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base target="_blank" />
     <title>Waka Daiko - @ViewBag.Title</title>
     <link rel="icon" href="~/assets/favicon.jpg">
     <link href="~/css/site.css" rel="stylesheet">
@@ -156,7 +155,7 @@
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://facebook.com/youthtaiko", Body="Facebook" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://facebook.com/youthtaiko", Body="Facebook", ExternalSite=true }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"

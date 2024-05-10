@@ -7,5 +7,7 @@ namespace WakaDaikoApp.Models
         public string? Body { get; set; }
 
         public string? URL { get; set; }
+
+        public bool ExternalSite { get; set; }
     }
 }

@@ -77,7 +77,7 @@
         </a>
         break;
     case "link-nav-dropdown-item":
-        <a class="@(c ?? c)" href=@Model.URL>
+        <a class="@(c ?? c)" href=@Model.URL target="@(Model.ExternalSite == true ? "_blank" : "_self")">
             @Html.Raw(Model.Body)
         </a>
         break;
@@ -133,7 +133,7 @@
     case "link-footer":
     case "btn-primary":
     case "btn-secondary":
-        <a class="@(c ?? c)" href=@Model.URL>
+        <a class="@(c ?? c)" href=@Model.URL target="@(Model.ExternalSite == true ? "_blank" : "_self")">
             @Html.Raw(Model.Body)
         </a>
         break;
