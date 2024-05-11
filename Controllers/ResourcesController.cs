@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace WakaDaikoApp.Controllers
 {
-    public class HomeController(IRepository _r, AppDbContext _c) : Controller
+    public class ResourcesController(IRepository _r, AppDbContext _c) : Controller
     {
         // Functions
 
@@ -48,36 +48,19 @@ namespace WakaDaikoApp.Controllers
 
         // Controllers & Routes
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Tutorials()
         {
             await GetPinnedBanner();
 
             return View();
         }
 
-        public async Task<IActionResult> Privacy()
+
+        public async Task<IActionResult> Soundtracks()
         {
             await GetPinnedBanner();
 
             return View();
-        }
-
-        public async Task<IActionResult> Sitemap()
-        {
-            await GetPinnedBanner();
-
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() => View(new ErrorVM { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-
-        [Route("/Home/HandleError/{code:int}")]
-        public IActionResult HandleError(int code)
-        {
-            ViewData["ErrorMessage"] = $"Error occurred. The ErrorCode is: {code}";
-
-            return View("~/Views/Shared/404.cshtml");
         }
     }
 }
