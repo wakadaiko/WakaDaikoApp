@@ -18,7 +18,7 @@
             c = "w-full h-full flex items-center font-medium text-white lg:text-inherit p-4 lg:px-4 lg:py-0";
             break;
         case "link-nav-workshops":
-            c = $"{buttonSolid} m-4";
+            c = $"rounded-md lg:rounded-none {buttonSolid} m-4 lg:m-0";
             break;
         case "link-dialog":
             c = "flex justify-center items-center font-black tracking-wider text-black p-4 -m-3";
@@ -46,7 +46,7 @@
             c = "w-full lg:w-max flex justify-center items-center whitespace-nowrap tracking-wider font-black text-[rgb(75%,75%,75%)] hover:text-white p-4";
             break;
         case "link-events-pagination-middle":
-            c = $"w-full h-full flex justify-center items-center rounded-lg font-black{(Model.Body == ViewBag.PaginationId ? $" {bgBtnSolid} text-black" : " text-[rgb(75%,75%,75%)] hover:text-white")}";
+            c = $"w-full h-full flex justify-center items-center rounded-md font-black{(Model.Body == ViewBag.PaginationId ? $" {bgBtnSolid} text-black" : " text-[rgb(75%,75%,75%)] hover:text-white")}";
             break;
         case "btn-scroll-to-top":
             c = $"z-10 duration-200 ease-in-out scale-0 fixed bottom-[24px] right-[24px] rounded-md {bgBtnSolid} text-black shadow-lg p-4";

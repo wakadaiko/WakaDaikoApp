@@ -234,9 +234,11 @@
                                 }
                             </ul>
                         </div>
-                        @* Section - Button - Workshops *@
-                        <partial name="~/views/shared/htmllink.cshtml"
-                            model='new HtmlLinkVM { Type="link-nav-workshops", URL="/workshops", Body="WORKSHOPS" }' />
+                        <div class="flex">
+                            @* Section - Button - Workshops *@
+                            <partial name="~/views/shared/htmllink.cshtml"
+                                model='new HtmlLinkVM { Type="link-nav-workshops", URL="/workshops", Body="WORKSHOPS" }' />
+                        </div>
                     </div>
                 </div>
             </div>
