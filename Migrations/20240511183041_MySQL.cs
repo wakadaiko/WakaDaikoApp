@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WakaDaikoApp.Migrations
 {
     /// <inheritdoc />
-    public partial class mysqlwddb : Migration
+    public partial class MySQL : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

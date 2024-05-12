@@ -12,8 +12,8 @@ using WakaDaikoApp.Data;
 namespace WakaDaikoApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240510024947_mysqlwddb")]
-    partial class mysqlwddb
+    [Migration("20240511183041_MySQL")]
+    partial class MySQL
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

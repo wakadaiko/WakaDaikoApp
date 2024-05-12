@@ -101,7 +101,7 @@
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/forms/requests", Body="Requests" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://forms.gle/MGAFa9UH7JnGpK8V7", Body="Requests", ExternalSite=true }' />
                                 </li>
                             </ul>
                         </div>
@@ -159,11 +159,11 @@
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/forms/signup", Body="Sign Up" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://forms.gle/8s4ffwbx5hCoF3AV8", Body="Sign Up", ExternalSite=true }' />
                                 </li>
                                 <li>
                                     <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/forms/questions", Body="General Inquiries" }' />
+                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://forms.gle/KW9GXVysD6gdFaKm9", Body="General Inquiries", ExternalSite=true }' />
                                 </li>
                             </ul>
                         </div>
@@ -234,9 +234,11 @@
                                 }
                             </ul>
                         </div>
-                        @* Section - Button - Workshops *@
-                        <partial name="~/views/shared/htmllink.cshtml"
-                            model='new HtmlLinkVM { Type="link-nav-workshops", URL="/workshops", Body="WORKSHOPS" }' />
+                        <div class="flex">
+                            @* Section - Button - Workshops *@
+                            <partial name="~/views/shared/htmllink.cshtml"
+                                model='new HtmlLinkVM { Type="link-nav-workshops", URL="/workshops", Body="WORKSHOPS" }' />
+                        </div>
                     </div>
                 </div>
             </div>

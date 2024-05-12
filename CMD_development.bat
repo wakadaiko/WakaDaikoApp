@@ -23,7 +23,7 @@ IF %input% == 2 (
 
     CALL dotnet ef migrations remove
 
-    CALL dotnet ef migrations add mysqlwddb
+    CALL dotnet ef migrations add MySQL
 
     CALL dotnet ef database update
 )
