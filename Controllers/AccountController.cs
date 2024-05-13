@@ -26,6 +26,7 @@ namespace WakaDaikoApp.Controllers
 
                     ViewBag.BannerTitle = _event.Title;
                     ViewBag.BannerDate = _event.Date;
+                    ViewBag.Description = _event.Description;
 
                     break;
                 case int n when n > 1:
@@ -119,7 +120,7 @@ namespace WakaDaikoApp.Controllers
             return RedirectToAction("index", "home");
         }
 
-        public async Task<IActionResult> PermissionsDenied()
+        public async Task<IActionResult> AccessDenied()
         {
             await GetPinnedBanner();
 

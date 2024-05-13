@@ -1,6 +1,5 @@
 ﻿@model List<int>?
-
-<body>
+<div class="metronome-body">
     <div id="MetronomeBackground">
         <button class="round" hidden></button>            
             <div id="metronomeField" class="" style="border-radius:50%; justify-content:center;">
@@ -14,10 +13,8 @@
                 <div id="timer" class="mCard" style="border-radius:50%; width:120px; font-size:2em;">00:00</div>
                 <button id="stop" class="round" style="font-size: 2em;">Stop</button>
                 </div>
-            </div>
-            
+            </div>  
             <div id="preferenceField" class="" hidden>
-                
                 @{
                     if (Model.Any())
                     {
@@ -36,14 +33,11 @@
                                 </form>
                                 <button style="padding-left:1em" id="" class="" onclick="handleSetBpm(event)">@Model[i] BPM</button>
                             </div>
-
                         }
                     }
                 }
             </div>
         <button style="width:3em;left:10px;top:10%; position:absolute; font-size:2em;" class="round" onclick="toggleSettings()">&#9778;</button>
-
     <script src="./js/Metronome.js"></script>
     </div>
-
-</body>
+</di>

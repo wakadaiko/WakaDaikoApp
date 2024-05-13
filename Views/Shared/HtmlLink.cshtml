@@ -1,91 +1,162 @@
 @{
     string c = "";
-    const string colorDefault1 = "underline decoration-blue-500 hover:decoration-blue-400 text-blue-500 hover:text-blue-400";
-    const string colorDefault2 = "text-blue-500 hover:text-blue-400";
-    const string class1 = $"flex justify-center items-center {colorDefault1} p-3";
-    const string class2 = $"flex justify-center items-center {colorDefault2} p-3";
-    const string buttonSolid = "flex justify-center items-center whitespace-nowrap font-bold bg-red-600 hover:bg-red-500 text-white p-4";
+    const string colorDefault1 = "font-black tracking-wider text-amber-300 hover:text-amber-200";
+    const string bgBtnSolid = "bg-amber-300 hover:bg-amber-200";
+    const string class1 = $"flex justify-center items-center {colorDefault1} p-4";
+    const string buttonSolid = $"w-full lg:w-max flex justify-center items-center {bgBtnSolid} whitespace-nowrap tracking-wider font-black text-black p-4";
 
     switch (Model.Type)
     {
-        case "nav-brand":
-            c = $"h-full flex justify-center  items-center gap-2 font-black text-2xl text-black hover:bg-[rgb(90%,90%,90%)] px-4";
+        @* Unique *@
+        case "link-brand":
+            c = "h-full flex justify-center items-center gap-2 font-['Bebas_Neue'] font-black tracking-wider hover:bg-[rgb(12.5%,12.5%,12.5%)] text-2xl text-white px-4";
             break;
-        case "navlink":
-            c = "flex items-center font-medium text-[rgb(37.5%,37.5%,37.5%)] hover:text-black p-4";
+        case "link-nav-dropdown-item":
+            c = "flex items-center lg:hover:bg-[rgb(87.5%,87.5%,87.5%)] font-medium lg:text-nowrap text-white lg:text-black lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-4";
             break;
-        case "nav-workshops":
-            c = $"gap-3 {buttonSolid} m-5 my-3 lg:m-0";
+        case "link-navbar":
+            c = "w-full h-full flex items-center font-medium text-white lg:text-inherit p-4 lg:px-4 lg:py-0";
             break;
-        case "dropdown-item":
-            c = "flex items-center font-medium lg:text-nowrap text-black hover:bg-[rgb(90%,90%,90%)] lg:border-[1px] lg:border-[rgb(75%,75%,75%)] lg:hover:border-[rgb(50%,50%,50%)] p-4";
+        case "link-nav-workshops":
+            c = $"rounded-md lg:rounded-none {buttonSolid} m-4 lg:m-0";
             break;
-        case "dialog":
-            c = $"flex justify-center items-center {colorDefault1} p-4 -m-3";
+        case "link-dialog":
+            c = "flex justify-center items-center font-black tracking-wider text-black p-4 -m-3";
             break;
-        case "btn-solid":
-            c = buttonSolid;
+        case "btn-secondary":
+            c = "flex justify-center items-center rounded-md tracking-wider font-black hover:bg-white text-white hover:text-black p-4";
             break;
-        case "btn-outline":
-            c = "flex justify-center items-center font-bold border-2 border-[rgb(75%,75%,75%)] hover:border-white text-white p-4";
+        case "btn-dialog":
+            c = "rounded-md bg-transparent hover:bg-black font-black tracking-wider text-black hover:text-white border-[1px] border-black hover:border-transparent p-4";
             break;
-        case "fancy-link":
-            c = $"group flex items-center text-xs lg:text-base text-blue-500 hover:text-blue-400 p-4 -m-3";
-            break;
-        @* case "account-1":
-            c = $"w-max flex items-center {colorDefault1} -ms-3 p-3";
-            break;
-        case "account-2":
-            c = $"{class1}";
-            break;
-        case "user":
-            c = $"w-max flex items-center {colorDefault1} -ms-3 p-3";
+        @* case "fancy-link":
+            c = "group flex items-center text-[rgb(75%,75%,75%)] hover:text-white p-4 -m-3";
             break; *@
-        case "footer":
-            c = $"flex items-center {colorDefault1} -m-3 p-3";
+        case "link-events-filters":
+            c = $"w-full flex justify-center {colorDefault1} p-4";
             break;
-        default:
-            c = $"{colorDefault1} p-3";
+        case "link-events-pin-btn":
+            c = $"z-20 {(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden ")}absolute top-0 right-0 {(Model.Body == "True" ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400")} text-black m-3 p-3";
+            break;
+        case "btn-events":
+            c = $"w-full flex justify-center items-center rounded-md {bgBtnSolid} whitespace-nowrap tracking-wider font-black text-black p-4";
+            break;
+        case "link-events-pagination-left":
+        case "link-events-pagination-right":
+            c = "w-full lg:w-max flex justify-center items-center whitespace-nowrap tracking-wider font-black text-[rgb(75%,75%,75%)] hover:text-white p-4";
+            break;
+        case "link-events-pagination-middle":
+            c = $"w-full h-full flex justify-center items-center rounded-md font-black{(Model.Body == ViewBag.PaginationId ? $" {bgBtnSolid} text-black" : " text-[rgb(75%,75%,75%)] hover:text-white")}";
+            break;
+        case "btn-scroll-to-top":
+            c = $"z-10 duration-200 ease-in-out scale-0 fixed bottom-[24px] right-[24px] rounded-md {bgBtnSolid} text-black shadow-lg p-4";
+            break;
+        @* Shared *@
+        case "link-account":
+        case "link-privacy":
+        case "link-footer":
+            c = $"{colorDefault1} p-4";
+            break;
+        case "btn-primary":
+        case "btn-account":
+            c = $"rounded-md {buttonSolid}";
             break;
     }
 }
 
-<a class="@(c ?? c)" href=@Model.URL>
-    @{
-        switch (Model.Type) {
-            case "nav-brand":
-                <div class="relative grow brightness-200">
-                    <img class="grow" src="~/assets/logo_waka_daiko.png" alt="Waka Daiko logo" width="32" height="32" />
-                </div>
-                <div class="shrink text-nowrap text-3xl">
-                    @Model.Body
-                </div>
-                break;
-            case "nav-workshops":
-                <svg class="hidden lg:block" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" width="32px" height="32px" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M256 41c-43.696 0-83.28 3.58-111.37 9.197-14.047 2.81-25.26 6.196-32.21 9.483-3.476 1.643-5.842 3.293-6.88 4.306l-.013.014.014.014c1.038 1.013 3.404 2.663 6.88 4.306 6.95 3.287 18.163 6.674 32.21 9.483C172.72 83.42 212.303 87 256 87s83.28-3.58 111.37-9.197c14.047-2.81 25.26-6.196 32.21-9.483 3.476-1.643 5.842-3.293 6.88-4.306l.013-.014-.014-.014c-1.038-1.013-3.404-2.663-6.88-4.306-6.95-3.287-18.163-6.674-32.21-9.483C339.28 44.58 299.697 41 256 41zm-80 15a32 8 0 0 1 32 8 32 8 0 0 1-32 8 32 8 0 0 1-32-8 32 8 0 0 1 32-8zm-75.168 26.594c-2.832 12.035-7.414 32.162-12.05 55.28 16.735 4.338 33.52 7.99 50.327 10.995 2.988-17.203 6.707-34.438 11.27-51.708-3.186-.547-6.3-1.113-9.282-1.71-14.91-2.98-27.13-6.49-36.37-10.86-1.363-.644-2.656-1.307-3.896-1.998zm310.336 0c-1.24.69-2.533 1.354-3.895 1.998-9.24 4.37-21.462 7.88-36.37 10.86-2.93.587-5.99 1.142-9.116 1.68 5.27 16.954 9.544 34.033 12.953 51.22 16.26-2.983 32.412-6.568 48.424-10.754-4.617-23-9.175-43.017-11.996-55.004zm-67.4 17.238c-23.065 2.982-49.9 4.803-78.768 5.117v54.198c30.885-.445 61.603-3.05 91.975-7.773-3.45-17.334-7.805-34.523-13.207-51.543zm-175.475.008c-4.647 17.345-8.416 34.67-11.426 51.98 30.062 4.54 60.16 6.967 90.133 7.354V104.95c-28.842-.314-55.656-2.133-78.707-5.11zm-84.38 55.277l-5.518 30.088c128.542 30.936 239.89 29.948 353.384.137l-4.98-30.172c-110.776 28.798-228.035 29.785-342.886-.053zm350.634 48.176c-16.95 4.406-33.876 8.174-50.83 11.312 3.656 47.603 1.776 95.87-3.55 144.49 18.6-3.803 36.796-8.527 54.468-14.17C439.592 314.762 439 291.606 439 256c0-14.915-1.77-33.334-4.453-52.707zm-357.13.256C74.758 222.827 73 241.15 73 256c0 23.794 4.678 57.228 10.424 89.404 16.604 4.828 33.386 8.97 50.27 12.418-4.532-47.516-6.03-95.247-2.577-143.222-17.624-3.063-35.507-6.74-53.7-11.05zm71.546 13.944c-3.336 47.978-1.63 95.883 3.164 143.813 31.553 5.49 63.348 8.592 94.873 9.33V225.94c-31.995-.576-64.57-3.38-98.037-8.446zm216.902.19c-33.303 5.275-66.792 8.068-100.865 8.34V370.8c32.816-.174 65.224-2.93 96.64-8.25 5.61-49.032 7.722-97.417 4.225-144.866zM86.66 364.93l8.29 31.9c104.15 32.39 225.75 32.428 326.077.733l8.272-32.264c-106.024 31.367-228.01 31.34-342.64-.37zm11.236 51.666c3.816 16.945 6.585 28.183 6.704 28.662.792 2.185 4.694 6.427 12.96 10.37 7.587 3.616 18.215 6.947 30.77 9.704-2.132-12.566-4.142-25.147-6.016-37.74-15.03-3.066-29.865-6.733-44.418-10.996zm318.366 1.31c-14.934 4.36-30.254 8.052-45.852 11.086-2.007 12.08-4.16 24.172-6.43 36.272 12.422-2.745 22.935-6.05 30.46-9.637 8.376-3.994 12.302-8.315 13.02-10.473 3.26-9.78 6.178-18.815 8.802-27.248zm-255.217 13.18c1.917 12.574 3.97 25.154 6.144 37.74 23.637 3.684 51.525 5.748 79.81 6.11V439.24c-28.815-.644-57.66-3.36-85.955-8.154zm190.55 1.223c-28.306 4.484-57.373 6.847-86.595 7.07v35.556c28.358-.363 56.317-2.437 79.994-6.14 2.33-12.19 4.538-24.353 6.602-36.487z"></path>
-                </svg>
+@switch (Model.Type) {
+    @* Type - Link - Specific *@
+    case "link-brand":
+        <a class="@(c ?? c)" href=@Model.URL>
+            <div class="relative grow invert brightness-200">
+                <img class="grow" src="~/assets/logo_waka_daiko.png" alt="Waka Daiko logo" width="32" height="32" />
+            </div>
+            <div class="shrink text-nowrap text-4xl mt-1">
                 @Html.Raw(Model.Body)
-                break;
-            case "fancy-link":
-                <span class="underline decoration-blue-500 group-hover:decoration-blue-400">
-                    @Html.Raw(Model.Body)
-                </span>
-                <span class="transition-transform group-hover:translate-x-1 ms-2">-&gt;</span>
-                break;
-            @* case "message-1":
-                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
-                </svg>
-                break;
-            case "message-2":
-                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.309 189.836L184.313 37.851C199.719 24.546 224 35.347 224 56.015v80.053c160.629 1.839 288 34.032 288 186.258 0 61.441-39.581 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 45.344-145.012-21.507-183.51-176.59-185.742V360c0 20.7-24.3 31.453-39.687 18.164l-176.004-152c-11.071-9.562-11.086-26.753 0-36.328z"></path>
-                </svg>
-                break; *@
-            default:
+            </div>
+        </a>
+        break;
+    case "link-nav-dropdown-item":
+        <a class="@(c ?? c)" href=@Model.URL target="@(Model.ExternalSite == true ? "_blank" : "_self")">
+            @Html.Raw(Model.Body)
+        </a>
+        break;
+    case "link-nav-workshops":
+        <a class="@(c ?? c)" href=@Model.URL>
+            <svg class="hidden lg:block" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" width="32px" height="32px" xmlns="http://www.w3.org/2000/svg">
+                <path d="M256 41c-43.696 0-83.28 3.58-111.37 9.197-14.047 2.81-25.26 6.196-32.21 9.483-3.476 1.643-5.842 3.293-6.88 4.306l-.013.014.014.014c1.038 1.013 3.404 2.663 6.88 4.306 6.95 3.287 18.163 6.674 32.21 9.483C172.72 83.42 212.303 87 256 87s83.28-3.58 111.37-9.197c14.047-2.81 25.26-6.196 32.21-9.483 3.476-1.643 5.842-3.293 6.88-4.306l.013-.014-.014-.014c-1.038-1.013-3.404-2.663-6.88-4.306-6.95-3.287-18.163-6.674-32.21-9.483C339.28 44.58 299.697 41 256 41zm-80 15a32 8 0 0 1 32 8 32 8 0 0 1-32 8 32 8 0 0 1-32-8 32 8 0 0 1 32-8zm-75.168 26.594c-2.832 12.035-7.414 32.162-12.05 55.28 16.735 4.338 33.52 7.99 50.327 10.995 2.988-17.203 6.707-34.438 11.27-51.708-3.186-.547-6.3-1.113-9.282-1.71-14.91-2.98-27.13-6.49-36.37-10.86-1.363-.644-2.656-1.307-3.896-1.998zm310.336 0c-1.24.69-2.533 1.354-3.895 1.998-9.24 4.37-21.462 7.88-36.37 10.86-2.93.587-5.99 1.142-9.116 1.68 5.27 16.954 9.544 34.033 12.953 51.22 16.26-2.983 32.412-6.568 48.424-10.754-4.617-23-9.175-43.017-11.996-55.004zm-67.4 17.238c-23.065 2.982-49.9 4.803-78.768 5.117v54.198c30.885-.445 61.603-3.05 91.975-7.773-3.45-17.334-7.805-34.523-13.207-51.543zm-175.475.008c-4.647 17.345-8.416 34.67-11.426 51.98 30.062 4.54 60.16 6.967 90.133 7.354V104.95c-28.842-.314-55.656-2.133-78.707-5.11zm-84.38 55.277l-5.518 30.088c128.542 30.936 239.89 29.948 353.384.137l-4.98-30.172c-110.776 28.798-228.035 29.785-342.886-.053zm350.634 48.176c-16.95 4.406-33.876 8.174-50.83 11.312 3.656 47.603 1.776 95.87-3.55 144.49 18.6-3.803 36.796-8.527 54.468-14.17C439.592 314.762 439 291.606 439 256c0-14.915-1.77-33.334-4.453-52.707zm-357.13.256C74.758 222.827 73 241.15 73 256c0 23.794 4.678 57.228 10.424 89.404 16.604 4.828 33.386 8.97 50.27 12.418-4.532-47.516-6.03-95.247-2.577-143.222-17.624-3.063-35.507-6.74-53.7-11.05zm71.546 13.944c-3.336 47.978-1.63 95.883 3.164 143.813 31.553 5.49 63.348 8.592 94.873 9.33V225.94c-31.995-.576-64.57-3.38-98.037-8.446zm216.902.19c-33.303 5.275-66.792 8.068-100.865 8.34V370.8c32.816-.174 65.224-2.93 96.64-8.25 5.61-49.032 7.722-97.417 4.225-144.866zM86.66 364.93l8.29 31.9c104.15 32.39 225.75 32.428 326.077.733l8.272-32.264c-106.024 31.367-228.01 31.34-342.64-.37zm11.236 51.666c3.816 16.945 6.585 28.183 6.704 28.662.792 2.185 4.694 6.427 12.96 10.37 7.587 3.616 18.215 6.947 30.77 9.704-2.132-12.566-4.142-25.147-6.016-37.74-15.03-3.066-29.865-6.733-44.418-10.996zm318.366 1.31c-14.934 4.36-30.254 8.052-45.852 11.086-2.007 12.08-4.16 24.172-6.43 36.272 12.422-2.745 22.935-6.05 30.46-9.637 8.376-3.994 12.302-8.315 13.02-10.473 3.26-9.78 6.178-18.815 8.802-27.248zm-255.217 13.18c1.917 12.574 3.97 25.154 6.144 37.74 23.637 3.684 51.525 5.748 79.81 6.11V439.24c-28.815-.644-57.66-3.36-85.955-8.154zm190.55 1.223c-28.306 4.484-57.373 6.847-86.595 7.07v35.556c28.358-.363 56.317-2.437 79.994-6.14 2.33-12.19 4.538-24.353 6.602-36.487z"></path>
+            </svg>
+            @Html.Raw(Model.Body)
+        </a>
+        break;
+    case "link-events-pagination-left":
+        <a class="@(c ?? c)" href=@Model.URL>
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path>
+            </svg>
+        </a>
+        break;
+    case "link-events-pagination-middle":
+        <a class="@(c ?? c)" href=@Model.URL>
+            @Html.Raw(Model.Body)
+        </a>
+        break;
+    case "link-events-pagination-right":
+        <a class="@(c ?? c)" href=@Model.URL>
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
+                <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path>
+            </svg>
+        </a>
+        break;
+    case "link-events-pin-btn":
+        <a class="@(c ?? c)" href=@Model.URL>
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+                <path d="M235.33,104l-53.47,53.65c4.56,12.67,6.45,33.89-13.19,60A15.93,15.93,0,0,1,157,224c-.38,0-.75,0-1.13,0a16,16,0,0,1-11.32-4.69L96.29,171,53.66,213.66a8,8,0,0,1-11.32-11.32L85,159.71l-48.3-48.3A16,16,0,0,1,38,87.63c25.42-20.51,49.75-16.48,60.4-13.14L152,20.7a16,16,0,0,1,22.63,0l60.69,60.68A16,16,0,0,1,235.33,104Z"></path>
+            </svg>
+        </a>
+        break;
+    @* case "fancy-link":
+        <a class="@(c ?? c)" href=@Model.URL>
+            <span class="underline decoration-[rgb(75%,75%,75%)] group-hover:decoration-white">
+            <span class="group-hover:decoration-white">
                 @Html.Raw(Model.Body)
-                break;
-        }
-    }
-</a>
+            </span>
+            <span class="transition-transform group-hover:translate-x-1 ms-2">-&gt;</span>
+            <span class="transition-transform group-hover:translate-x-1 flex justify-center text-4xl ms-2 -mt-[1px]">→</span>
+        </a>
+        break; *@
+    case "link-navbar":
+    case "link-dialog":
+    case "link-account":
+    case "link-events-filters":
+    case "link-privacy":
+    case "link-footer":
+    case "btn-primary":
+    case "btn-secondary":
+        <a class="@(c ?? c)" href=@Model.URL target="@(Model.ExternalSite == true ? "_blank" : "_self")">
+            @Html.Raw(Model.Body)
+        </a>
+        break;
+    @* Type - Buttons *@
+    case "btn-dialog":
+        <button class="@(c ?? c)" onclick="removeDisclaimer();">
+            @Html.Raw(Model.Body)
+        </button>
+        break;
+    case "btn-scroll-to-top":
+        <button id="buttonScrollToTop" class="@(c)" onclick="scrollToTop();" type="button">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="2" viewBox="0 0 16 16" height="16px" width="16px"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z">
+                </path>
+            </svg>
+        </button>
+        break;
+    case "btn-account":
+    case "btn-events":
+        <button class="@(c ?? c)">
+            @Html.Raw(Model.Body)
+        </button>
+        break;
+}

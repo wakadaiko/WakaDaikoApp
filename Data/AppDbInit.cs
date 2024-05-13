@@ -14,9 +14,9 @@ namespace WakaDaikoApp
 
                 var userManager = provider.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
-                const string ROLE_SITE_ADMIN = "Admin";
+                const string ROLE_SITE_ADMIN = "Site_Admin";
                 const string ROLE_TEAM_LEAD = "Team_Lead";
-                const string ROLE_TEAM_MEMBER = "User";
+                const string ROLE_TEAM_MEMBER = "Team_Member";
                 const string SECRET_PASSWORD = "Secret!123";
                 bool isSuccessSiteAdmin = true;
                 bool isSuccessTeamLead = true;

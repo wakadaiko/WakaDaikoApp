@@ -7,7 +7,7 @@ CALL ECHO ----------------
 SET /P input="ENTER: "
 
 IF %input% == 1 (
-    SET ASPNETCORE_ENVIRONMENT=Staging
+    SET ASPNETCORE_ENVIRONMENT=Trung_Staging
 
     CALL dotnet ef database drop --force
 

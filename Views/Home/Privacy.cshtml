@@ -4,16 +4,23 @@
     ViewBag.Link_cookies = "https://smarterasp.net/cookies";
 }
 
-<div class="flex flex-col items-center gap-5 container mx-auto my-10 lg:my-20 p-5">
-    <h1 class="font-black text-3xl lg:text-5xl">@ViewBag.Title.ToUpper()</h1>
-    <ul class="flex flex-col gap-3 text-[rgb(37.5%,37.5%,37.5%)]">
-        <li>
-            <partial name="~/views/shared/htmllink.cshtml"
-                model='new HtmlLinkVM { URL=@ViewBag.Link_privacy.ToString(), Body=@ViewBag.Link_privacy.ToString() }' />
-        </li>
-        <li>
-            <partial name="~/views/shared/htmllink.cshtml"
-                model='new HtmlLinkVM { URL=@ViewBag.Link_cookies.ToString(), Body=@ViewBag.Link_cookies.ToString() }' />
-        </li>
-    </ul>
+<div class='flex flex-col items-center justify-center gap-4 bg-[rgb(6.25%,6.25%,6.25%)]
+min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]
+lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]'>
+    <div class="flex flex-col gap-4 items-center">
+        <h1 class="w-max font-['Bebas_Neue'] font-black tracking-wider text-nowrap text-6xl lg:text-8xl"
+            style="line-height: 0.8;">
+            PRIVACY
+        </h1>
+        <ul class='w-full flex flex-col justify-center gap-2 font-medium text-xs lg:text-xl mx-auto lg:mx-0'>
+            <li>
+                <partial name="~/views/shared/htmllink.cshtml"
+                    model='new HtmlLinkVM { Type="link-privacy", URL=@ViewBag.Link_privacy.ToString(), Body=@ViewBag.Link_privacy.ToString(), ExternalSite=true }' />
+            </li>
+            <li>
+                <partial name="~/views/shared/htmllink.cshtml"
+                    model='new HtmlLinkVM { Type="link-privacy", URL=@ViewBag.Link_cookies.ToString(), Body=@ViewBag.Link_cookies.ToString(), ExternalSite=true }' />
+            </li>
+        </ul>
+    </div>
 </div>
