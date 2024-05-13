@@ -1,11 +1,11 @@
 /*-- Bacgrounds---*/
 #MetronomeBackground {
-    min-height: 500px;
+    min-height: 600px;
     padding-top: 100px;
     background-image: url(../images/DrumImage.png);
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-position: center;
 }
 
@@ -113,16 +113,26 @@
 
 /*Metronome Area*/
 .mCard {
+    display: flex;
+    flex-direction:column;
     padding: 1.25%;
     margin: 1.20% 15% 1.20% 15%;
     border-radius: 8px;
     background-color: #faf6f094;
     box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
 }
-
-.rCard {
+.aCard {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    //padding: 1.25%;
+    //margin: 1.20% 15% 1.20% 15%;
+    border-radius: 50%;
+    background-color: #faf6f094;
+    box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
+}
+.rCard {
+  /*  display: flex;
+    flex-direction: row*/;
     padding: 1.25%;
     margin: 1.20% 15% 1.20% 15%;
     //border-radius: 8px;
@@ -134,8 +144,8 @@
 }
 
 .cCard {
-    display: flex;
-    flex-direction: column;
+    //display: flex;
+    //flex-direction: row;
     padding: 1.25%;
     margin: 1.20% 15% 1.20% 15%;
     background-color: #faf6f094;
@@ -184,14 +194,24 @@ body {
 }
 
 .plus-icon {
-    font-size: 32px;
-    color: #000;
+    background-color: #EBBA01;
+    color: white;
+    border: none;
+    padding: 5px;
+    //font-size: 31px;
+    //min-height: 5%;
+    //min-width: 5%;
+    box-shadow: 0 2px 4px darkslategray;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .flex-row-3 {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    padding:2em;
+    //justify-content: space-around;
 }
 
 .flex-row-3>* {
@@ -240,22 +260,22 @@ input {
 
 /*-----5/3/24 kg-------*/
 button.round {
-    background-color: #48abe0;
+    background-color: #EBBA01;
     color: white;
     border: none;
     padding: 5px;
-    font-size: 31px;
-    height: 130px;
-    width: 130px;
+    //font-size: 31px;
+    //min-height: 5%;
+    //min-width: 5%;
     box-shadow: 0 2px 4px darkslategray;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-button.round:hover {
-    background-color: #65b9e6;
-}
+    button.round:hover {
+        background-color: #6B5F36;
+    }
 
 button.round:active {
     box-shadow: 0 0 2px darkslategray;
@@ -267,5 +287,16 @@ button:active {
     /*box-shadow: 0 0 2px darkslategray;*/
     transform: translateY(2px);
 }
+.flicker {
+    animation: flicker 1ms linear 0s 1 normal forwards;
+}
+@keyframes flicker {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
 
+    25%, 75% {
+        opacity: 0;
+    }
+}
 /*-----------*/

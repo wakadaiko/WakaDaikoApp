@@ -12,6 +12,7 @@ const bpmToSave = (document.getElementById('bpmToStore') != null) ? document.get
 const metronomeField = document.getElementById('metronomeField');
 const preferenceField = document.getElementById('preferenceField');
 const bpmPrefValue = document.getElementById('bpmPrefValue');
+const tempoItem = document.getElementById('tempoItem');
 
 let seconds = 0;
 let beat = 0;
@@ -20,8 +21,8 @@ let timerInterval = null;
 let intervalId = null;
 let timeSignature = 4;
 bpmToSave.value = bpm;
-metronomeField.hidden = true;
-preferenceField.hidden = true;
+metronomeField.hidden = false;
+preferenceField.hidden = false;
 function calculateInterval() {
     return 60000 / bpm; // Convert BPM to milliseconds
 }
@@ -79,12 +80,10 @@ function decreaseBPM() {
 function updateBPMField() {
     bpmInput.value = bpm;
     bpmToSave.value = bpm;
-    console.log(bpm);
-    bpmDisplay.textContent = `${bpm} BPM`;
+    bpmDisplay.value = `${bpm} BPM`;
 }
 async function updateBpm(bpmToSet) {
     bpm = await bpmToSet;
-    console.log(bpmToSet);
     updateBPMField();
 }
 
@@ -109,7 +108,8 @@ function parseSeconds(seconds) {
     let secs = seconds % 60;
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
-const handleSetBpm = () => { updateBpm(Number(bpmPrefValue.textContent.slice(0, 2))); console.log(bpmPrefValue.textContent.slice(0, 2)); };
+//bpmPrefValue.textContent.slice(0, 2))
+const handleSetBpm = (event) => { updateBpm(Number(event.target.textContent.slice(0, 2))); };
 const toggleSettings = () => {
     (metronomeField.hidden = !metronomeField.hidden, preferenceField.hidden = !preferenceField.hidden);
 }
