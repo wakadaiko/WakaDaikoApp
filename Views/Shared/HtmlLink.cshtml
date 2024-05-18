@@ -18,10 +18,13 @@
             c = "w-full h-full flex items-center font-medium text-white lg:text-inherit p-4 lg:px-4 lg:py-0";
             break;
         case "link-nav-workshops":
-            c = $"rounded-md lg:rounded-none {buttonSolid} m-4 lg:m-0";
+            c = $"rounded-md lg:rounded-none {buttonSolid} m-4 mt-2 lg:m-0";
             break;
         case "link-dialog":
             c = "flex justify-center items-center font-black tracking-wider text-black p-4 -m-3";
+            break;
+        case "btn-logout":
+            c = $"lg:min-w-full rounded-md lg:rounded-none {buttonSolid} m-4 mb-2 lg:m-0";
             break;
         case "btn-secondary":
             c = "flex justify-center items-center rounded-md tracking-wider font-black hover:bg-white text-white hover:text-black p-4";
@@ -36,7 +39,7 @@
             c = $"w-full flex justify-center {colorDefault1} p-4";
             break;
         case "link-events-pin-btn":
-            c = $"z-20 {(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden ")}absolute top-0 right-0 {(Model.Body == "True" ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400")} text-black m-3 p-3";
+            c = $"z-20 {(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden ")}absolute top-0 right-0 rounded-md {(Model.Body == "True" ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400")} text-black m-3 p-3";
             break;
         case "btn-events":
             c = $"w-full flex justify-center items-center rounded-md {bgBtnSolid} whitespace-nowrap tracking-wider font-black text-black p-4";
@@ -69,7 +72,7 @@
     case "link-brand":
         <a class="@(c ?? c)" href=@Model.URL>
             <div class="relative grow invert brightness-200">
-                <img class="grow" src="~/assets/logo_waka_daiko.png" alt="Waka Daiko logo" width="32" height="32" />
+                <img class="grow" src="~/images/logo_waka_daiko.png" alt="Waka Daiko logo" width="32" height="32" />
             </div>
             <div class="shrink text-nowrap text-4xl mt-1">
                 @Html.Raw(Model.Body)
@@ -153,6 +156,7 @@
             </svg>
         </button>
         break;
+    case "btn-logout":
     case "btn-account":
     case "btn-events":
         <button class="@(c ?? c)">

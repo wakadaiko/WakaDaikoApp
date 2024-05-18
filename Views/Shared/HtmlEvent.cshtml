@@ -1,3 +1,27 @@
+@{
+    string abc = "";
+
+    switch (DateTime.Parse(Model.Date.ToString()).Day)
+    {
+        case 1:
+        case 21:
+        case 31:
+            abc = "st";
+            break;
+        case 2:
+        case 22:
+            abc = "nd";
+            break;
+        case 3:
+        case 23:
+            abc = "rd";
+            break;
+        default:
+            abc = "th";
+            break;
+    }
+}
+
 <li class="eEvents relative">
     @* <a class='@(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden
     ")absolute top-0 right-0 @(Model.Pinned ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400") text-black
@@ -22,7 +46,7 @@
                 class="z-10 absolute top-0 left-0 size-full bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]">
             </div>
             <img class="w-full h-[192px] object-cover saturate-[75%] brightness-[125%] contrast-[75%] shadow-lg"
-                src="~/assets/@Model.Image" alt="Screenshot for event number: @Model.EventId" />
+                src="~/images/@Model.Image" alt="Screenshot for event number: @Model.EventId" />
         </div>
         <h1
             class="h-full flex items-center break-all tracking-wider font-black text-2xl text-center border-[1px] border-[rgb(25%,25%,25%)] p-4">
@@ -40,9 +64,7 @@
                     </small> *@
                     @* <span class="font-black">Date:</span> @formattedDate *@
                     <small>
-                        @(Model.Date.Day % 2 == 1 ?
-                            DateTime.Parse(Model.Date.ToString()).ToString("MMMM d\"rd\", yyyy") :
-                            DateTime.Parse(Model.Date.ToString()).ToString("MMMM d\"th\", yyyy"))
+                        @DateTime.Parse(Model.Date.ToString()).ToString($"MMMM d\"{abc}\", yyyy")
                     </small>
                     @* <small>
                     <span class="font-black">Authored by:</span> @Model.Author
