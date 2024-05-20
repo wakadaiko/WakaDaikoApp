@@ -17,22 +17,18 @@ namespace WakaDaikoApp
                 const string ROLE_SITE_ADMIN = "Site_Admin";
                 const string ROLE_TEAM_LEAD = "Team_Lead";
                 const string ROLE_TEAM_MEMBER = "Team_Member";
-                const string ROLE_GUEST = "Guest";
                 const string SECRET_PASSWORD = "Secret!123";
                 bool isSuccessSiteAdmin = true;
                 bool isSuccessTeamLead = true;
                 bool isSuccessTeamMember = true;
-                bool isSuccessGuest = true;
 
                 if (roleManager.FindByNameAsync(ROLE_SITE_ADMIN).Result == null) isSuccessSiteAdmin = roleManager.CreateAsync(new IdentityRole(ROLE_SITE_ADMIN)).Result.Succeeded;
                 if (roleManager.FindByNameAsync(ROLE_TEAM_LEAD).Result == null) isSuccessTeamLead = roleManager.CreateAsync(new IdentityRole(ROLE_TEAM_LEAD)).Result.Succeeded;
                 if (roleManager.FindByNameAsync(ROLE_TEAM_MEMBER).Result == null) isSuccessTeamMember = roleManager.CreateAsync(new IdentityRole(ROLE_TEAM_MEMBER)).Result.Succeeded;
-                if (roleManager.FindByNameAsync(ROLE_GUEST).Result == null) isSuccessGuest = roleManager.CreateAsync(new IdentityRole(ROLE_GUEST)).Result.Succeeded;
 
                 var user1 = new AppUser { Name = "SITE ADMIN", UserName = "SiteAdmin" };
                 var user2 = new AppUser { Name = "TEAM LEAD", UserName = "TeamLead" };
                 var user3 = new AppUser { Name = "TEAM MEMBER", UserName = "TeamMember" };
-                var user4 = new AppUser { Name = "GUEST", UserName = "Guest" };
 
                 isSuccessSiteAdmin &= userManager.CreateAsync(user1, SECRET_PASSWORD).Result.Succeeded;
                 if (isSuccessSiteAdmin) isSuccessSiteAdmin &= userManager.AddToRoleAsync(user1, ROLE_SITE_ADMIN).Result.Succeeded;
@@ -43,12 +39,9 @@ namespace WakaDaikoApp
                 isSuccessTeamMember &= userManager.CreateAsync(user3, SECRET_PASSWORD).Result.Succeeded;
                 if (isSuccessTeamMember) isSuccessTeamMember &= userManager.AddToRoleAsync(user3, ROLE_TEAM_MEMBER).Result.Succeeded;
 
-                isSuccessGuest &= userManager.CreateAsync(user4, SECRET_PASSWORD).Result.Succeeded;
-                if (isSuccessGuest) isSuccessGuest &= userManager.AddToRoleAsync(user4, ROLE_GUEST).Result.Succeeded;
-
                 // Create - Events
 
-                if (isSuccessSiteAdmin)
+                if (isSuccessTeamLead)
                 {
                     Random random = new();
 
