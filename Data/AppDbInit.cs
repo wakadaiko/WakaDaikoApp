@@ -41,7 +41,7 @@ namespace WakaDaikoApp
 
                 // Create - Events
 
-                if (isSuccessSiteAdmin)
+                if (isSuccessTeamLead)
                 {
                     Random random = new();
 

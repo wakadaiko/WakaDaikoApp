@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Waka Daiko - @ViewBag.Title</title>
-    <link rel="icon" href="~/assets/favicon.jpg">
+    <link rel="icon" href="~/images/favicon.jpg">
     <link href="~/css/site.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,7 @@
                 <div class="flex flex-col lg:flex-row text-[rgb(75%,75%,75%)] lg:me-auto">
                     @* Section - Brand + Mobile *@
                     @* <div class="h-16 flex items-center border-b-[0px] border-[rgb(90%,90%,90%)] lg:border-0"> *@
-                    <div class="h-16 flex items-center border-b-[0px] border-[rgb(25%,25%,25%)] lg:border-0">
+                    <div class="h-16 flex items-center border-b-[1px] border-[rgb(25%,25%,25%)] lg:border-0">
                         <div class="h-16 flex items-center lg:border-0">
                             <partial name="~/views/shared/htmllink.cshtml"
                                 model='new HtmlLinkVM { Type="link-brand", URL="/", Body="WAKA DAIKO" }' />
@@ -177,10 +177,10 @@
                         }
                     </div>
                 </div>
-                <hr />
+                <hr class="eMobiles hidden border-[rgb(25%,25%,25%)]" />
                 @* Section - Navbar - Right *@
                 <div class="flex flex-col lg:flex-row text-[rgb(75%,75%,75%)]">
-                    <div class="eMobiles hidden lg:flex flex-col lg:flex-row justify-center">
+                    <div class="eMobiles hidden lg:flex justify-center">
                         @* Section - Dropdown - Account *@
                         <div
                             class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
@@ -207,17 +207,21 @@
                                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                                 {
                                     <li>
-                                        <div
-                                            class="flex justify-center items-center bg-white font-medium text-black mx-5 my-3 lg:m-0 p-4">
+                                        <div class="flex justify-center items-center bg-white font-medium text-black p-4">
                                             Hello&nbsp;<span class="tracking-wider font-black">@User.Identity.Name</span>
                                         </div>
                                     </li>
                                     <li>
-                                        <form class="flex items-center text-blue-400 mx-5 lg:mx-0" action="/account/logout"
-                                            method="POST">
-                                            <button
-                                                class="w-full bg-amber-300 hover:bg-amber-200 tracking-wider font-black text-black p-4"
-                                                type="submit">LOGOUT</button>
+                                        @* <form class="flex items-center text-blue-400 mx-5 lg:mx-0"
+                                    action="/account/logout"
+                                    method="POST"> *@
+                                        <form class="flex" action="/account/logout" method="POST">
+                                            @* <button
+                                        class="w-full bg-amber-300 hover:bg-amber-200 tracking-wider font-black
+                                        text-black p-4"
+                                        type="submit">LOGOUT</button> *@
+                                            <partial name="~/views/shared/htmllink.cshtml"
+                                                model='new HtmlLinkVM { Type="btn-logout", Body="LOGOUT" }' />
                                         </form>
                                     </li>
                                 }
@@ -231,10 +235,14 @@
                                         <partial name="~/views/shared/htmllink.cshtml"
                                             model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/account/register", Body="Register" }' />
                                     </li>
+                                    <li>
+                                        <partial name="~/views/shared/htmllink.cshtml"
+                                            model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://sites.google.com/view/wakadaikowebsite/home", Body="Team Sign In" }' />
+                                    </li>
                                 }
                             </ul>
                         </div>
-                        <div class="flex">
+                        <div class="flex text-sm">
                             @* Section - Button - Workshops *@
                             <partial name="~/views/shared/htmllink.cshtml"
                                 model='new HtmlLinkVM { Type="link-nav-workshops", URL="/workshops", Body="WORKSHOPS" }' />

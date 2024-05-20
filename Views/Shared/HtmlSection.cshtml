@@ -1,7 +1,29 @@
 @{
+    // Dynamic image
+
     string[] words = Model.Type.Split('-');
 
     for (int i = 0; i < words.Length; i++) words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
+
+    // Dynamic image filters
+
+    string classes = "";
+
+    switch (Model.Type)
+    {
+        case "who-we-are":
+            classes = " saturate-[87.5%] brightness-[137.5%] contrast-[87.5%]";
+            break;
+        case "performances":
+            classes = " saturate-[87.5%] brightness-[125%] contrast-[75%]";
+            break;
+        case "community":
+            classes = " saturate-[67.5%] brightness-[150%] contrast-[75%]";
+            break;
+        case "culture":
+            classes = " saturate-[50%]";
+            break;
+    }
 }
 
 <div class="relative bg-[rgb(6.25%,6.25%,6.25%)]">
@@ -12,7 +34,7 @@
     <div id=@Model.Type class='flex flex-col lg:@(Model.Flip ? "flex-row-reverse" : "flex-row")'>
         @* <div class="z-0 relative w-full flex grow justify-center items-center overflow-hidden text-white"> *@
         @* bg-[url('/img/hero-pattern.svg')] *@
-        @* class="w-full bg-center bg-cover bg-[url('/assets/@(Model.Type).jpg')] bg-amber-300/25 bg-blend-multiply
+        @* class="w-full bg-center bg-cover bg-[url('/images/@(Model.Type).jpg')] bg-amber-300/25 bg-blend-multiply
         saturate-[75%] contrast-[125%] text-white"> *@
         <div class="relative w-full">
             @* <div class="z-20 absolute top-0 left-0 size-full bg-gradient-to-t from-[rgba(12.5%,25%,50%,0.25)] from-0%
@@ -21,19 +43,23 @@
             </div> *@
             @* class="z-10 absolute top-0 left-0 size-full bg-[radial-gradient(transparent,rgba(12.5,12.5,12.5,0.5))]">
             *@
-            <div
-                class="z-10 absolute top-0 left-0 size-full bg-gradient-to-t from-[rgb(30,30,30)] from-0% via-transparent via-50% to-[rgb(30,30,30)] to-100%">
-            </div>
-            <div
-                class="z-10 absolute top-0 left-0 size-full bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]">
-            </div>
+            @if (Model.Type != "culture")
+            {
+                <div
+                    class="z-10 absolute top-0 left-0 size-full bg-gradient-to-t from-[rgb(30,30,30)] from-0% via-transparent via-50% to-[rgb(30,30,30)] to-100%">
+                </div>
+            }
+            @* <div
+            class="z-10 absolute top-0 left-0 size-full
+            bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]">
+            </div> *@
             @* <div
             class="z-20 size-full min-h-[calc(100vh-64px)] flex flex-col
             bg-[radial-gradient(transparent,rgba(0,0,0,0.5))]">
             </div> *@
             @* alt=$"@(char.ToUpper(Model.Type[0]))@(Model.Type.Substring(1)).Split("-") screenshot" /> *@
-            <img class="w-full h-[540px] min-h-full object-cover saturate-[75%] brightness-[125%]
-        contrast-[75%] shadow-lg" src="~/assets/@(Model.Type).jpg" alt='@(string.Join(" ", words)) screenshot' />
+            <img class="w-full h-[540px] min-h-full object-cover@(classes ?? classes)" src="~/images/@(Model.Type).jpg"
+                alt='@(string.Join(" ", words)) screenshot' />
             @* <div class="z-20 absolute w-full h-full bg-[rgb(0,0,0,0.5)]"></div> *@
             @* <div class="z-20 absolute w-full h-full bg-[linear-gradient(to_bottom,black,transparent)]"></div> *@
             @* <div class="z-20 absolute w-full h-full bg-[radial-gradient(transparent,rgba(0,0,255,0.5))]"></div> *@
