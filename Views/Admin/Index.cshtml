@@ -12,100 +12,98 @@
         <script>setTimeout(() => { document.getElementById("Console").hidden = true; }, 3000)</script>
     }
 }
-<div class="special2 col-7 adminCard">
+<div class="special2 col-7 mCard" style="background: linear-gradient(90deg, rgba(48,48,46,1) 7%, rgba(75,73,82,1) 42%, rgba(48,48,46,1) 90%);">
+            <h2 class="text-start">Create Team Area</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* Team Name *@
+            <div id="createTeamField" class="">
+                <form class="" method="POST" asp-action="CreateTeam">
+                    @* Name *@
+                    <div class="row mb-2">
+                        <label class="col-form-label col-md-4">Team Name:</label>
+                        <div class="col-md-6">
+                    <input name="Name" class=" form-control" style="background-color:#1F2024;" />
+                        </div>
+                    </div>
+                    @* TeamLead *@
+                    <div class="row mb-2">
+                        <label class="col-form-label col-md-4">Team Lead:</label>
+                        <div class="col-md-6">
+                    <input name="TeamLead" class=" form-control" style="background-color:#1F2024;" />
+                        </div>
+                    </div>
+                    @* Description *@
+                    <div class="row mb-2">
+                        <label class="col-form-label col-md-4">Description:</label>
+                        <div class="col-md-6">
+                            <input name="Description" class=" form-control" />
+                        </div>
+                    </div>
+                    @* Instruments *@
+                    <div class="row mb-2">
+                        <div>Enter the instruments played separated by a comma ( , )</div>
+                        <label class="col-form-label col-md-4">Instruments:</label>
+                        <div class="col-md-6">
+                            <input name="Instruments" class=" form-control" />
+                        </div>
+                    </div>
+                    @* Members *@
+                    <div class="row mb-2">
+                        <div>Enter the member user names separated by a comma ( , )</div>
+                        <label class="col-form-label col-md-4">Members:</label>
+                        <div class="col-md-6">
+                            <input name="Members" class=" form-control" />
+                        </div>
+                    </div>
 
-    <h2 class="text-start">Create Team Area</h2>
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    @* Team Name *@
-    <div id="createTeamField" class="">
-        <form class="" method="POST" asp-action="CreateTeam">
-            @* Name *@
+                    <button type="submit" class="">Submit</button>
+                </form>
+            </div>
+    </div>
+
+<div class="special2 col-7 mCard" style="background: linear-gradient(90deg, rgba(48,48,46,1) 7%, rgba(75,73,82,1) 42%, rgba(48,48,46,1) 90%);">
+        <h2 class="text-start">Create User Area</h2>
+
+        <form class="" method="POST" asp-action="CreateUser">
+            @* UserName *@
             <div class="row mb-2">
-                <label class="col-form-label col-md-4">Team Name:</label>
+                <label class="col-form-label col-md-4">User Name:</label>
                 <div class="col-md-6">
-                    <input name="Name" class="special1 form-control" />
+                    <input name="UserName" class=" form-control" />
                 </div>
             </div>
-            @* TeamLead *@
+            @* UserPassword *@
             <div class="row mb-2">
-                <label class="col-form-label col-md-4">Team Lead:</label>
+                <label class="col-form-label col-md-4">Password:</label>
                 <div class="col-md-6">
-                    <input name="TeamLead" class="special1 form-control" />
-                </div>
-            </div>
-            @* Description *@
-            <div class="row mb-2">
-                <label class="col-form-label col-md-4">Description:</label>
-                <div class="col-md-6">
-                    <input name="Description" class="special1 form-control" />
+                    <input name="UserPassword" class=" form-control" />
                 </div>
             </div>
             @* Instruments *@
             <div class="row mb-2">
-                <div>Enter the instruments played separated by a comma ( , )</div>
+                <div>Enter the instruments played delimenated by a comma ( , )</div>
                 <label class="col-form-label col-md-4">Instruments:</label>
                 <div class="col-md-6">
-                    <input name="Instruments" class="special1 form-control" />
+                    <input placeholder="Drums,Symbol,Hands" name="Instruments" class=" form-control" />
                 </div>
             </div>
-            @* Members *@
+            @* Positions *@
             <div class="row mb-2">
-                <div>Enter the member user names separated by a comma ( , )</div>
-                <label class="col-form-label col-md-4">Members:</label>
+                <div>Enter the positions played separated by a comma ( , )</div>
+                <label class="col-form-label col-md-4">Positions:</label>
                 <div class="col-md-6">
-                    <input name="Members" class="special1 form-control" />
+                    <input name="Positions" class=" form-control" />
                 </div>
             </div>
+            @* RollNames *@
+            <div class="row mb-2">
+                <div>Enter the role names to add user to delimenated by a comma ( , )</div>
 
+                <label class="col-form-label col-md-4">Roll Names:</label>
+                <div class="col-md-6">
+                    <input name="RollNames" class="form-control" />
+                </div>
+            </div>
             <button type="submit" class="">Submit</button>
         </form>
-    </div>
-</div>
-
-
-<div class="special2 col-7 adminCard">
-    <h2 class="text-start">Create User Area</h2>
-
-    <form class="" method="POST" asp-action="CreateUser">
-        @* UserName *@
-        <div class="row mb-2">
-            <label class="col-form-label col-md-4">User Name:</label>
-            <div class="col-md-6">
-                <input name="UserName" class="special1 form-control" />
-            </div>
-        </div>
-        @* UserPassword *@
-        <div class="row mb-2">
-            <label class="col-form-label col-md-4">Password:</label>
-            <div class="col-md-6">
-                <input name="UserPassword" class="special1 form-control" />
-            </div>
-        </div>
-        @* Instruments *@
-        <div class="row mb-2">
-            <div>Enter the instruments played delimenated by a comma ( , )</div>
-            <label class="col-form-label col-md-4">Instruments:</label>
-            <div class="col-md-6">
-                <input placeholder="Drums,Symbol,Hands" name="Instruments" class="special1 form-control" />
-            </div>
-        </div>
-        @* Positions *@
-        <div class="row mb-2">
-            <div>Enter the positions played separated by a comma ( , )</div>
-            <label class="col-form-label col-md-4">Positions:</label>
-            <div class="col-md-6">
-                <input name="Positions" class="special1 form-control" />
-            </div>
-        </div>
-        @* RollNames *@
-        <div class="row mb-2">
-            <div>Enter the role names to add user to delimenated by a comma ( , )</div>
-
-            <label class="col-form-label col-md-4">Roll Names:</label>
-            <div class="col-md-6">
-                <input name="RollNames" class="special1 form-control" />
-            </div>
-        </div>
-        <button type="submit" class="">Submit</button>
-    </form>
 </div>

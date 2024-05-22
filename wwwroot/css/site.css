@@ -34,6 +34,10 @@
 }
 
 /*Admin Stles*/
+.form-control {
+    background-color:#1F2024;
+    border-radius:.2em;
+}
 .center {
     display: flex;
     justify-content: center;
@@ -55,8 +59,8 @@
 .aCard {
     display: flex;
     flex-direction: column;
-    //padding: 1.25%;
-    //margin: 1.20% 15% 1.20% 15%;
+/*   padding: 1.25%;
+    margin: 1.20% 15% 1.20% 15%;*/
     border-radius: 50%;
     background-color: #faf6f094;
     box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
@@ -75,8 +79,8 @@
 }
 
 .cCard {
-    //display: flex;
-    //flex-direction: row;
+/*    display: flex;
+    flex-direction: row;*/
     padding: 1.25%;
     margin: 1.20% 15% 1.20% 15%;
     background-color: #faf6f094;
@@ -130,9 +134,9 @@
     color: white;
     border: none;
     padding: 5px;
-    //font-size: 31px;
-    //min-height: 5%;
-    //min-width: 5%;
+/*  font-size: 31px;
+    min-height: 5%;
+    min-width: 5%; */
     box-shadow: 0 2px 4px darkslategray;
     border-radius: 50%;
     cursor: pointer;
@@ -143,7 +147,7 @@
     display: flex;
     flex-direction: row;
     padding:2em;
-    //justify-content: space-around;
+    /*justify-content: space-around;*/
 }
 
 .flex-row-3>* {
@@ -196,9 +200,9 @@ button.round {
     color: white;
     border: none;
     padding: 5px;
-    //font-size: 31px;
-    //min-height: 5%;
-    //min-width: 5%;
+   /*font-size: 31px;
+    min-height: 5%;
+    min-width: 5%;*/
     box-shadow: 0 2px 4px darkslategray;
     border-radius: 50%;
     cursor: pointer;

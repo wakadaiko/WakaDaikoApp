@@ -14,7 +14,7 @@
                 <button id="stop" class="round" style="font-size: 2em;">Stop</button>
                 </div>
             </div>  
-            <div id="preferenceField" class="" hidden>
+            <div id="preferenceField" class="mCard" style="border-radius:50%; width:40%; margin:auto;" hidden>
                 @{
                     if (Model.Any())
                     {
@@ -26,7 +26,7 @@
                         </form>
                         for (int i = 0; i < Model.Count; i++)
                         {
-                            <div class=" " style="display:flex;justify-content:center;">
+                        <div class="" style="display:flex;flex-direction:row;justify-content:center;border-radius:50%;margin:.25em;">
                                 <form asp-action="Delete" method="post">
                                     <input name="bpmToDelete" value="@i" hidden />
                                     <input id="two" type="submit" class="" style="border: 0;" value="Del" />
@@ -40,4 +40,4 @@
         <button style="width:3em;left:10px;top:10%; position:absolute; font-size:2em;" class="round" onclick="toggleSettings()">&#9778;</button>
     <script src="./js/Metronome.js"></script>
     </div>
-</di>
+</div>
