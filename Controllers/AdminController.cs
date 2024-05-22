@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WakaDaikoApp.Controllers
 {
-    [Authorize(Roles = "Site_Admin")]
+    [Authorize(/*Roles = "Site_Admin"*/)]
     public class AdminController(IRepository _r, AppDbContext _c, UserManager<AppUser> _um, RoleManager<IdentityRole> _rm) : Controller
     {
         // Functions
@@ -114,45 +114,32 @@ namespace WakaDaikoApp.Controllers
             {
                 List<string> validRoleNames = [];
 
-                var appUser = new AppUser { UserName = form.UserName?.Trim(), Email = form.UserEmail, };
+                var appUser = new AppUser { Name = form.UserName?.Trim(), UserName = form.UserName?.Trim(), Email = form.UserEmail, };
                 var _Dependents = form.Dependents?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
                 var _Teams = form.Teams?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
                 var _roles = form.RollNames?.ToUpper().Split(',').Select(r => r.Trim()).ToList();
-
-                // var teamOBJs = "";
-                // if (_Teams != null) await _r.GetTeamsByNameAsync(_Teams);
-
                 var _Instruments = form.Instruments?.ToUpper().Split(',').Select(d => d.Trim()).ToList();
-
-                // The lambda should work here, but it has its drawbacks
-                //_roles.ForEach(async r => { if ( await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); } });
-
-                if (_roles != null) foreach (var r in _roles) if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
-
-                /* foreach (var t in teamOBJs) if (t != null) appUser.Teams.Add(t); */
-
-                if (_Dependents != null)
+                foreach (var r in _roles)
                 {
-                    foreach (var d in _Dependents)
-                    {
-                        var dependentUser = await _um.FindByNameAsync(d);
-
-                        if (dependentUser != null) appUser.Family?.Add(dependentUser);
-                    }
+                    if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
                 }
-                if (_Instruments != null) foreach (var i in _Instruments) appUser.Instruments?.Add(i);
-                if (form.UserPassword != null) await _um.CreateAsync(appUser, form.UserPassword);
-
+                foreach (var d in _Dependents)
+                {
+                    var dependentUser = await _um.FindByNameAsync(d);
+                    if (dependentUser != null) appUser.Family?.Add(dependentUser);
+                }
+                foreach (var i in _Instruments) { appUser.Instruments?.Add(i); }
+                await _um.CreateAsync(appUser, form.UserPassword);
                 await _um.AddToRolesAsync(appUser, validRoleNames);
-
                 TempData["Message"] = "Success";
+                return RedirectToAction("index");
 
+            }
+            else
+            {
+                TempData["Message"] = "Fail";
                 return RedirectToAction("index");
             }
-
-            TempData["Message"] = "Fail";
-
-            return RedirectToAction("index");
         }
     }
 }
