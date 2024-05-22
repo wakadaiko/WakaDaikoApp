@@ -51,7 +51,7 @@ namespace WakaDaikoApp
 
                     // Test - Search, Date, and Alphabet
 
-                    for (int i = 0; i < 14; i++)
+                    for (int i = 0; i < 50; i++)
                     {
                         // Variable - Title
                         var randomTitle = new string(Enumerable.Repeat(randomLowerAndUpperChars, 20).Select(s => s[random.Next(s.Length)]).ToArray());

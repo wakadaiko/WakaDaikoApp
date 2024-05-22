@@ -47,7 +47,7 @@
                     Events, Teamwork, Community, Culture
                 </h3>
                 <p class="font-medium text-xs lg:text-xl mb-2">
-                    Youth, taiko drumming group based in Eugene, Oregon. All youth, ages 8-22, are welcome.
+                    Youth taiko drumming group based in Eugene, Oregon. All youth ages 8-22 are welcome.
                 </p>
                 <div class='w-max flex flex-col lg:flex-row gap-2 mx-auto lg:mx-0'>
                     <partial name="~/views/shared/htmllink.cshtml"
@@ -67,13 +67,13 @@ This browser doesn&#39;t support MP4. Try using a different browser.
 </video> *@
 @* Who We Are *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="who-we-are", URL1="/home#who-we-are", Heading="WHO WE ARE" }' />
+    model='new HtmlSectionVM { Type="who-we-are", URL1="/home#who-we-are", Heading="WHO WE ARE", Subheading="Ages 8-22", Body="Waka Daiko is a fun, diverse, Taiko drumming group that encourages team building and instructor-student mentorships." }' />
 @* Performances *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="performances", URL1="/home#performances", Heading="PERFORMANCES", Flip=true }' />
+    model='new HtmlSectionVM { Type="performances", URL1="/home#performances", Heading="PERFORMANCES", Subheading="Proudly Performed At:", Flip=true }' />
 @* Community *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="community", URL1="/home#community", Heading="COMMUNITY", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by our community booth at the annual Asian Celebration." }' />
+    model='new HtmlSectionVM { Type="community", URL1="/home#community", Heading="COMMUNITY", Subheading="Giving Back", Body="Waka Daiko enjoys contributing back to the local community, whether it&#39;s by requested performances, or by their community booth at the annual Asian Celebration." }' />
 @* Culture *@
 <partial name="~/views/shared/htmlsection.cshtml"
-    model='new HtmlSectionVM { Type="culture", URL1="/home#culture", Heading="CULTURE", Body="The history of Taiko and its song origins play a key part in making Waka Daiko what it&#39;s to this very day.", Flip=true }' />
+    model='new HtmlSectionVM { Type="culture", URL1="/home#culture", Heading="CULTURE", Subheading="Origin of Taiko", Body="The history of Taiko and how its song origins play a key part in making Waka Daiko what it&#39;s to this very day.", Flip=true }' />
