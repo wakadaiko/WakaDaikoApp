@@ -1,4 +1,4 @@
-@ECHO off
+@ECHO OFF
 
 CALL ECHO ----------------
 CALL ECHO 1 - [ staging - database and migrations ]
