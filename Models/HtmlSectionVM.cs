@@ -8,6 +8,8 @@ namespace WakaDaikoApp.Models
 
         public string? Heading { get; set; } = string.Empty;
 
+        public string? Subheading { get; set; } = string.Empty;
+
         public string? Body { get; set; } = string.Empty;
 
         public string? URL1 { get; set; } = string.Empty;

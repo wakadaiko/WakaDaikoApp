@@ -3,8 +3,9 @@
 
     _ = int.TryParse(ViewBag.paginationId, out int paginationId2);
 
-    int nextPagination = paginationId2 + 1 > ViewBag.paginationCount ? 1 : paginationId2 + 1;
-    int previousPagination = paginationId2 - 1 < 1 ? ViewBag.PaginationCount : paginationId2 - 1;
+    int nextPagination = paginationId2 - 1 < 1 ? ViewBag.paginationCount : paginationId2 - 1;
+    int previousPagination = paginationId2 + 1 > ViewBag.paginationCount ? 1 : paginationId2 + 1;
+
 }
 @model List<Event>
 
@@ -93,12 +94,9 @@
                                 model='new HtmlLinkVM { Type="link-events-pagination-left", URL=$"/events/page/{nextPagination}" }' />
                         </li>
                         @* Section - Links *@
-                        @for (var i = @ViewBag.PaginationCount; i > 0; i--)
+                        @for (var i = 1; i <= @ViewBag.PaginationCount; i++)
                         {
                             <li>
-                                @* <partial name="~/views/shared/htmlpagination.cshtml"
-                            model='new HtmlPaginationVM { Id=i.ToString(), Selected=i.ToString()==ViewBag.PaginationId
-                            }' /> *@
                                 <partial name="~/views/shared/htmllink.cshtml"
                                     model='new HtmlLinkVM { Type="link-events-pagination-middle", Body=i.ToString(), URL=$"/events/page/{i.ToString()}"  }' />
                             </li>

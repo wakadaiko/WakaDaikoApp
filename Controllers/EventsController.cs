@@ -150,7 +150,7 @@ namespace WakaDaikoApp.Controllers
         {
             // Variables
 
-            int EVENTS_PER_PAGE = 3;
+            int EVENTS_PER_PAGE = 9;
 
             _ = int.TryParse(paginationId, out int paginationId2);
 
@@ -165,18 +165,16 @@ namespace WakaDaikoApp.Controllers
             // Pagination
 
             ViewBag.PaginationCount = events.Count / EVENTS_PER_PAGE;
-            ViewBag.PaginationId = ViewBag.PaginationCount.ToString();
+            ViewBag.PaginationId = ViewBag.PaginationCount > 0 ? "1" : "0";
 
             if (paginationId != "")
             {
                 if (paginationId2 < 1 || paginationId2 > ViewBag.PaginationCount) events = [];
                 else
                 {
-                    events.Reverse();
                     events = events
                     .Skip((paginationId2 - 1) * EVENTS_PER_PAGE)
                     .Take(EVENTS_PER_PAGE)
-                    .Reverse()
                     .ToList();
 
                     ViewBag.PaginationId = paginationId;

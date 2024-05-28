@@ -1,7 +1,7 @@
 @{
     // Dynamic image
 
-    string[] words = Model.Type.Split('-');
+    string[] words = Model.Type.Split("-");
 
     for (int i = 0; i < words.Length; i++) words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
 
@@ -59,7 +59,7 @@
             </div> *@
             @* alt=$"@(char.ToUpper(Model.Type[0]))@(Model.Type.Substring(1)).Split("-") screenshot" /> *@
             <img class="w-full h-[540px] min-h-full object-cover@(classes ?? classes)" src="~/images/@(Model.Type).jpg"
-                alt='@(string.Join(" ", words)) screenshot' />
+                alt="@(string.Join(" ", words)) screenshot" />
             @* <div class="z-20 absolute w-full h-full bg-[rgb(0,0,0,0.5)]"></div> *@
             @* <div class="z-20 absolute w-full h-full bg-[linear-gradient(to_bottom,black,transparent)]"></div> *@
             @* <div class="z-20 absolute w-full h-full bg-[radial-gradient(transparent,rgba(0,0,255,0.5))]"></div> *@
@@ -83,35 +83,15 @@
                 <div class="w-full flex flex-col gap-4">
                     <h3 class="w-max font-['Bebas_Neue'] font-bold tracking-wider text-2xl lg:text-5xl"
                         style="line-height: 0.8;">
-                        @* Html.Raw() requires extra @ symbol *@
-                        @switch (Model.Type)
-                        {
-                            case "who-we-are":
-                                @Html.Raw("Ages 8-22")
-                                break;
-                            case "performances":
-                                @Html.Raw("Proudly Performed at:")
-                                break;
-                            case "community":
-                                @Html.Raw("Giving Back")
-                                break;
-                            case "culture":
-                                @Html.Raw("Origin of Taiko")
-                                break;
-                        }
+                        @Html.Raw(Model.Subheading)
                     </h3>
                     @switch (Model.Type)
                     {
                         case "who-we-are":
                             <ul class="list-disc list-inside flex flex-col gap-2 lg:text-xl text-[rgb(75%,75%,75%)]">
-                                Waka Daiko is a fun, diverse, Taiko drumming group, that encourages team building and
-                                instructor-student
-                                mentorships.
-                                @* <li class="ms-3">
-                        All youth, ages 8-22, are welcome.
-                        </li> *@
+                                @Model.Body
                             </ul>
-                            <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
+                            <div class="flex flex-col lg:flex-row gap-1 lg:gap-4">
                                 <partial name="~/views/shared/htmllink.cshtml"
                                     model='new HtmlLinkVM { Type="btn-primary", URL="https://forms.gle/8s4ffwbx5hCoF3AV8", Body="SIGN UP", ExternalSite=true }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
@@ -120,13 +100,6 @@
                             break;
                         case "performances":
                             <ul class="list-disc list-inside flex flex-col gap-2 lg:text-xl text-[rgb(75%,75%,75%)]">
-                                @* <li class="list-none">
-                        <ul class="font-black text-lg text-white">
-                        <li>
-                        Waka Daiko has proudly performed live at:
-                        </li>
-                        </ul>
-                        </li> *@
                                 <li class="list-none">
                                     <ul class="list-disc list-inside ms-3">
                                         <li>
@@ -154,12 +127,12 @@
                                             Kite Festival
                                         </li>
                                         <li>
-                                            Many; many, more places...
+                                            And more...
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
-                            <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
+                            <div class="flex flex-col lg:flex-row gap-1 lg:gap-4">
                                 <partial name="~/views/shared/htmllink.cshtml"
                                     model='new HtmlLinkVM { Type="btn-primary", URL="/events", Body="UPCOMING EVENTS" }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
@@ -171,7 +144,7 @@
                                 @* Parse HTML entities *@
                                 @Html.Raw(Model.Body)
                             </p>
-                            <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
+                            <div class="flex flex-col lg:flex-row gap-1 lg:gap-4">
                                 <partial name="~/views/shared/htmllink.cshtml"
                                     model='new HtmlLinkVM { Type="btn-primary", URL="https://asiancelebration.org", Body="ASIAN CELEBRATION", ExternalSite=true }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
@@ -183,7 +156,7 @@
                                 @* Parse HTML entities *@
                                 @Html.Raw(Model.Body)
                             </p>
-                            <div class='flex flex-col lg:flex-row gap-1 lg:gap-4'>
+                            <div class="flex flex-col lg:flex-row gap-1 lg:gap-4">
                                 <partial name="~/views/shared/htmllink.cshtml"
                                     model='new HtmlLinkVM { Type="btn-primary", URL="https://en.wikipedia.org/wiki/Taiko#History", Body="HISTORY OF TAIKO", ExternalSite=true }' />
                                 <partial name="~/views/shared/htmllink.cshtml"
