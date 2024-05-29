@@ -1,7 +1,7 @@
 <div
     class="group peer relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] text-sm">
     <button
-        class="group hidden w-full h-full lg:flex lg:items-center lg:justify-center font-medium@(Model.ParentType == "account" && User.Identity != null && User.Identity.IsAuthenticated ? " text-sky-400 group-hover:text-sky-300 " : " ")@(Model.ParentType == "account" ? "border-l-[1px] border-[rgb(25%,25%,25%)] p-8 lg:px-8" : "p-6 lg:px-4")">
+        class="group hidden w-full h-full lg:flex lg:items-center lg:justify-center font-medium@(Model.ParentType == "account" && (User.Identity != null && User.Identity.IsAuthenticated) ? " text-sky-400 group-hover:text-sky-300 " : " ")@(Model.ParentType == "account" ? "border-l-[1px] border-[rgb(25%,25%,25%)] p-8 lg:px-8" : "p-6 lg:px-4")">
         @switch (Model.ParentType)
         {
             case "performances":
@@ -19,16 +19,16 @@
                 </svg>
                 break;
         }
-        <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2" stroke="currentColor"
-            fill="currentColor" stroke-width="0" viewBox="0 0 16 16" width="12" height="12"
+        <svg class="duration-200 ease-in-out hidden lg:block lg:block group-hover:rotate-[-180deg] ms-2"
+            stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 320 512" width="12" height="12"
             xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+            <path
+                d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z">
             </path>
         </svg>
     </button>
     <ul
-        class="z-30 eDropdowns duration-[400ms] ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-max lg:grid@(Model.ParentType == "account" && User.Identity != null && User.Identity.IsAuthenticated ? "  " : " lg:grid-cols-2 ")lg:rounded-b-md bg-[rgb(6.25%,6.25%,6.25%)] lg:border-[1px] lg:border-t-0 lg:border-[rgb(25%,25%,25%)] @(Model.ParentType == "account" ? "lg:right-0 lg:translate-x-[12.5%]" : "lg:left-0 lg:translate-x-[-12.5%]")">
+        class="z-30 eDropdowns duration-[400ms] ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-max lg:grid@(Model.ParentType == "account" && (User.Identity != null && User.Identity.IsAuthenticated) ? "  " : " lg:grid-cols-2 ")lg:rounded-b-md bg-[rgb(6.25%,6.25%,6.25%)] lg:border-[1px] lg:border-t-0 lg:border-[rgb(25%,25%,25%)] @(Model.ParentType == "account" ? "lg:right-0" : "lg:left-0")">
         @switch (Model.ParentType)
         {
             case "performances":
