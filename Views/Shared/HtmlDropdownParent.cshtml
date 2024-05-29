@@ -1,0 +1,81 @@
+<div
+    class="group peer relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] text-sm">
+    <button
+        class="group hidden w-full h-full lg:flex lg:items-center lg:justify-center font-medium@(Model.ParentType == "account" && User.Identity != null && User.Identity.IsAuthenticated ? " text-sky-400 group-hover:text-sky-300 " : " ")@(Model.ParentType == "account" ? "border-l-[1px] border-[rgb(25%,25%,25%)] p-8 lg:px-8" : "p-6 lg:px-4")">
+        @switch (Model.ParentType)
+        {
+            case "performances":
+            case "resources":
+            case "contact":
+                @Html.Raw(Model.ParentBody)
+                break;
+            case "account":
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" width="24" height="24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
+                    <path fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1">
+                    </path>
+                </svg>
+                break;
+        }
+        <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2" stroke="currentColor"
+            fill="currentColor" stroke-width="0" viewBox="0 0 16 16" width="12" height="12"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+            </path>
+        </svg>
+    </button>
+    <ul
+        class="z-30 eDropdowns duration-[400ms] ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-max lg:grid lg:grid-cols-1 lg:grid-cols-2 lg:rounded-b-md bg-[rgb(6.25%,6.25%,6.25%)] lg:border-[1px] lg:border-t-0 lg:border-[rgb(25%,25%,25%)] @(Model.ParentType == "account" ? "lg:right-0 lg:translate-x-[12.5%]" : "lg:left-0 lg:translate-x-[-12.5%]")">
+        @switch (Model.ParentType)
+        {
+            case "performances":
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="/events", Icon="performances", Heading="Events", Body="View upcoming or past performances for Waka Daiko." }' />
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="https://forms.gle/MGAFa9UH7JnGpK8V7", ExternalSite=true, Icon="request-performance", Heading="Request", Body="Share an idea for a Waka Daiko performance.", LastItem=true }' />
+                break;
+            case "resources":
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="/resources/tutorials", Icon="tutorials", Heading="Tutorials", Body="View Taiko tutorials." }' />
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="/resources/soundtracks", Icon="soundtracks", Heading="Soundtracks", Body="View Taiko audio files." }' />
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="/metronome", Icon="metronome", Heading="Metronome", Body="View custom metronome app.", LastItem=true }' />
+                break;
+            case "contact":
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="mailto:wakadaiko@gmail.com", ExternalSite=true, Icon="email", Heading="Email", Body="Waka Daiko contact email." }' />
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="https://facebook.com/youthtaiko", ExternalSite=true, Icon="facebook", Heading="Facebook", Body="Waka Daiko Facebook group." }' />
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="https://forms.gle/8s4ffwbx5hCoF3AV8", ExternalSite=true, Icon="sign-up", Heading="Sign Up", Body="Apply to join Waka Daiko." }' />
+                <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                    model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="https://forms.gle/KW9GXVysD6gdFaKm9", ExternalSite=true, Icon="general-inquiries", Heading="General Inquiries", Body="Ask a general question about Waka Daiko.", LastItem=true }' />
+                break;
+            case "account":
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <div class="flex justify-center items-center bg-white font-medium text-black p-4">
+                        Hello&nbsp;<span class="tracking-wider font-black">@User.Identity.Name</span>
+                    </div>
+                    <form class="flex" action="/account/logout" method="POST">
+                        <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                            model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="buttons", URL="/account/logout", Icon="logout", Heading="Logout", Body="Logout of the current account." }' />
+                    </form>
+                }
+                else
+                {
+                    <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                        model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="/account/login", Icon="login", Heading="Login", Body="Login to an existing account on this site." }' />
+                    <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                        model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="/account/register", Icon="register", Heading="Register", Body="Register a new account." }' />
+                    <partial name="~/views/shared/htmldropdownchildren.cshtml"
+                        model='new HtmlDropdownChildrenVM { ParentType=Model.ParentType, Type="links", URL="https://sites.google.com/view/wakadaikowebsite/home", ExternalSite=true, Icon="private-site", Heading="Team Sign In", Body="Login to an existing account on the team site." }' />
+                }
+                break;
+        }
+    </ul>
+</div>

@@ -1,0 +1,19 @@
+<li>
+    @switch (Model.Type)
+    {
+        case "links":
+            <a class="group/2 flex items-center gap-4 lg:hover:bg-[rgb(12.5%,12.5%,12.5%)] p-4@(Model.LastItem ? " lg:rounded-b-md" : "")"
+                href="@Model.URL" target="@(Model.ExternalSite == true ? "_blank" : "_self")">
+                <partial name="~/views/shared/htmldropdownchild.cshtml"
+                    model='new HtmlDropdownChildVM { Icon=Model.Icon, Heading=Model.Heading, Body=Model.Body }' />
+            </a>
+            break;
+        case "buttons":
+            <button
+                class="group/2 flex items-center gap-4 lg:hover:bg-[rgb(12.5%,12.5%,12.5%)] p-4@(Model.LastItem ? " lg:rounded-b-md" : "")">
+                <partial name="~/views/shared/htmldropdownchild.cshtml"
+                    model='new HtmlDropdownChildVM { Icon=Model.Icon, Heading=Model.Heading, Body=Model.Body }' />
+            </button>
+            break;
+    }
+</li>
