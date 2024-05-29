@@ -28,7 +28,7 @@
         </svg>
     </button>
     <ul
-        class="z-30 eDropdowns duration-[400ms] ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-max lg:grid lg:grid-cols-1 lg:grid-cols-2 lg:rounded-b-md bg-[rgb(6.25%,6.25%,6.25%)] lg:border-[1px] lg:border-t-0 lg:border-[rgb(25%,25%,25%)] @(Model.ParentType == "account" ? "lg:right-0 lg:translate-x-[12.5%]" : "lg:left-0 lg:translate-x-[-12.5%]")">
+        class="z-30 eDropdowns duration-[400ms] ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-max lg:grid@(Model.ParentType == "account" && User.Identity != null && User.Identity.IsAuthenticated ? "  " : " lg:grid-cols-2 ")lg:rounded-b-md bg-[rgb(6.25%,6.25%,6.25%)] lg:border-[1px] lg:border-t-0 lg:border-[rgb(25%,25%,25%)] @(Model.ParentType == "account" ? "lg:right-0 lg:translate-x-[12.5%]" : "lg:left-0 lg:translate-x-[-12.5%]")">
         @switch (Model.ParentType)
         {
             case "performances":
