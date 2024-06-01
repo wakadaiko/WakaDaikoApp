@@ -12,7 +12,8 @@
 <div class="bg-[rgb(6.25%,6.25%,6.25%)]">
     <div class="flex flex-col xl:flex-row">
         @* Section - Left *@
-        <form class="flex gap-4 border-b-[1px] lg:border-r-[1px] border-[rgb(25%,25%,25%)] shadow-md p-3">
+        <form
+            class="@(Model.Count > 1 ? "" : "hidden ")flex gap-4 border-b-[1px] lg:border-r-[1px] border-[rgb(25%,25%,25%)] shadow-md p-3">
             @* Section - Pagination *@
             <div class="w-full flex flex-col items-center lg:items-start">
                 @* Section - Filters - Search *@
@@ -83,38 +84,51 @@
         </form>
         @* Section - Right *@
         <div class="w-full flex flex-col items-center">
-            @* Section - Pagination *@
-            <ul class="w-full flex justify-center p-4 lg:p-8">
-                <li>
-                    <ul
-                        class="grid grid-cols-[repeat(@((ViewBag.PaginationCount / 2) + 2),minmax(0,1fr))] lg:grid-cols-[repeat(@(ViewBag.PaginationCount + 2),minmax(0,1fr))] gap-2">
-                        @* Section - Button - Left *@
-                        <li>
-                            <partial name="~/views/shared/htmllink.cshtml"
-                                model='new HtmlLinkVM { Type="link-events-pagination-left", URL=$"/events/page/{nextPagination}" }' />
-                        </li>
-                        @* Section - Links *@
-                        @for (var i = 1; i <= @ViewBag.PaginationCount; i++)
-                        {
+            <div class="w-full flex flex-col-reverse lg:flex-row items-center p-4 lg:p-8">
+                @* Breadcrumb *@
+                <div
+                    class="@(Model.Count > 1 ? "hidden " : "")flex items-center gap-2 font-black text-[rgb(75%,75%,75%)]">
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-events-breadcrumb", URL="/events", Body="EVENTS" }' />
+                    /
+                    <div class="p-2">
+                        @Model[0].EventId
+                    </div>
+                </div>
+                @* Section - Pagination *@
+                <ul class="@(Model.Count > 1 ? "" : "hidden ")w-full flex justify-center">
+                    <li>
+                        <ul
+                            class="grid grid-cols-[repeat(@((ViewBag.PaginationCount / 2) + 2),minmax(0,1fr))] lg:grid-cols-[repeat(@(ViewBag.PaginationCount + 2),minmax(0,1fr))] gap-2">
+                            @* Section - Button - Left *@
                             <li>
                                 <partial name="~/views/shared/htmllink.cshtml"
-                                    model='new HtmlLinkVM { Type="link-events-pagination-middle", Body=i.ToString(), URL=$"/events/page/{i.ToString()}"  }' />
+                                    model='new HtmlLinkVM { Type="link-events-pagination-left", URL=$"/events/page/{nextPagination}" }' />
                             </li>
-                        }
-                        @* Section - Button - Right *@
-                        <li>
-                            <partial name="~/views/shared/htmllink.cshtml"
-                                model='new HtmlLinkVM { Type="link-events-pagination-right", URL=$"/events/page/{previousPagination}" }' />
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            @* Section - Links *@
+                            @for (var i = 1; i <= @ViewBag.PaginationCount; i++)
+                            {
+                                <li>
+                                    <partial name="~/views/shared/htmllink.cshtml"
+                                        model='new HtmlLinkVM { Type="link-events-pagination-middle", Body=i.ToString(), URL=$"/events/page/{i.ToString()}"  }' />
+                                </li>
+                            }
+                            @* Section - Button - Right *@
+                            <li>
+                                <partial name="~/views/shared/htmllink.cshtml"
+                                    model='new HtmlLinkVM { Type="link-events-pagination-right", URL=$"/events/page/{previousPagination}" }' />
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
             @* Section - Events *@
             @if (Model != null)
             {
                 if (Model.Count > 0)
                 {
-                    <ul id="eEvent" class="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 pt-0 lg:p-8 lg:pt-0">
+                    <ul id="eEvent"
+                        class="w-full grid grid-cols-1 lg:grid-cols-[repeat(@(Model.Count > 3 ? "3" : Model.Count),minmax(0,1fr))] gap-4 p-4 pt-0 lg:p-8 lg:pt-0">
                         @foreach (var _event in Model)
                         {
                             <partial name="~/views/shared/htmlevent.cshtml"
@@ -124,9 +138,14 @@
                 }
                 else
                 {
-                    <div class="size-full flex flex-col justify-center items-center text-center">
-                        <h1 class="font-black italic text-5xl lg:text-7xl tracking-wider mb-5">OOPS...</h1>
-                        <div class="text-[rgb(37.5%,37.5%,37.5%)]">We couldn't find any events with the given parameters.</div>
+                    <div class="size-full flex flex-col justify-center items-center gap-4 text-center p-4 lg:p-8">
+                        <h1 class="w-max font-['Bebas_Neue'] font-black tracking-wider text-nowrap text-6xl lg:text-8xl"
+                            style="line-height: 0.8;">
+                            OOPS...
+                        </h1>
+                        <p class="font-medium text-center text-xs lg:text-xl">
+                            We couldn't find any events with the given parameters.
+                        </p>
                     </div>
                 }
             }

@@ -45,14 +45,15 @@
             <div
                 class="z-10 absolute top-0 left-0 size-full bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]">
             </div>
-            <img class="w-full h-[192px] object-cover saturate-[75%] brightness-[125%] contrast-[75%] shadow-lg"
-                src="~/images/@Model.Image" alt="Screenshot for event number: @Model.EventId" />
+            <img class="w-full h-[192px] object-cover shadow-lg" src="~/images/@Model.Image"
+                alt="Screenshot for event number: @Model.EventId" />
         </div>
         <h1
-            class="h-full flex items-center break-all tracking-wider font-black text-2xl text-center border-[1px] border-[rgb(25%,25%,25%)] p-4">
-            @Html.Raw(Model.Title)</h1>
+            class="h-full flex items-center truncate break-all tracking-wider font-black text-2xl text-center border-[1px] border-[rgb(25%,25%,25%)] p-4">
+            @Html.Raw(Model.Title)
+        </h1>
         <div class="h-full rounded-b-md text-[rgb(75%,75%,75%)] border-[1px] border-t-0 border-[rgb(25%,25%,25%)]">
-            <p class="p-4">
+            <p class="@(ViewBag.IndividualEvent ? "" : "truncate ")break-all p-4">
                 @Html.Raw(Model.Text)
             </p>
             <div class="flex flex-col-reverse lg:flex-row items-center gap-4 lg:gap-0 p-4">
@@ -63,7 +64,7 @@
                     <span class="font-black">ID:</span> @Model.EventId
                     </small> *@
                     @* <span class="font-black">Date:</span> @formattedDate *@
-                    <small>
+                    <small class="text-white">
                         @DateTime.Parse(Model.Date.ToString()).ToString($"MMMM d\"{abc}\", yyyy")
                     </small>
                     @* <small>
