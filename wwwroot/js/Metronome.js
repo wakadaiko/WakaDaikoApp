@@ -13,18 +13,30 @@ const metronomeField = document.getElementById('metronomeField');
 const preferenceField = document.getElementById('preferenceField');
 const bpmPrefValue = document.getElementById('bpmPrefValue');
 const tempoItem = document.getElementById('tempoItem');
+const bouncer = document.getElementById('bouncer');
 
 let seconds = 0;
 let beat = 0;
 let bpm = 60;
 let timerInterval = null;
 let intervalId = null;
+let bouncerInterval = null;
 let timeSignature = 4;
 bpmToSave.value = bpm;
 metronomeField.hidden = false;
 preferenceField.hidden = false;
 function calculateInterval() {
     return 60000 / bpm; // Convert BPM to milliseconds
+}
+function startBouncer(interval) {
+    bouncerInterval = setInterval(() => {
+        console.log(bouncer.hidden);
+        bouncer.hidden = !bouncer.hidden;
+    }, interval);
+}
+function stopBouncer() {
+    clearInterval(bouncerInterval);
+    bouncer.hidden = false;
 }
 function updateTimeSignature() {
     // Get the time signature from the input field
@@ -52,6 +64,7 @@ function startMetronome() {
     const interval = calculateInterval();
     startButton.disabled = true;
     startElapesedTime();
+    startBouncer(interval);
     stopButton.disabled = false;
 
     intervalId = setInterval(() => {
@@ -64,6 +77,7 @@ function stopMetronome() {
     intervalId = null;
     stopButton.disabled = true;
     stopTimer();
+    stopBouncer();
     startButton.disabled = false;
     beat = 0;
 }
@@ -106,10 +120,13 @@ document.addEventListener('input', (event) => {
 function parseSeconds(seconds) {
     let mins = Math.floor(seconds / 60);
     let secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    return `${(mins < 10) ?0:''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 //bpmPrefValue.textContent.slice(0, 2))
 const handleSetBpm = (event) => { updateBpm(Number(event.target.textContent.slice(0, 2))); };
 const toggleSettings = () => {
     (metronomeField.hidden = !metronomeField.hidden, preferenceField.hidden = !preferenceField.hidden);
 }
+
+   
+

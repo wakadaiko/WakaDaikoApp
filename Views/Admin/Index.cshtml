@@ -15,7 +15,14 @@
         <script>setTimeout(() => { document.getElementById("Console").hidden = true; }, 3000)</script>
     }
 }
-<div
+<div id="BtnControlArea">
+    <button id="TeamToggle" class="round"></button>
+    <button id="UserToggle" class="round"></button>
+    <button id="VideoToggle" class="round"></button>
+    <button id="AudioToggle" class="round"></button>
+    <button id="TextToggle" class="round"></button>
+</div>
+<div id="Team"
     class="special2 col-7 mCard"
     style="background: linear-gradient(90deg, rgba(48,48,46,1) 7%, rgba(75,73,82,1) 42%, rgba(48,48,46,1) 90%);"
 >
@@ -97,7 +104,7 @@
     </div>
 </div>
 
-<div
+<div id="User"
     class="special2 col-7 mCard"
     style="background: linear-gradient(90deg, rgba(48,48,46,1) 7%, rgba(75,73,82,1) 42%, rgba(48,48,46,1) 90%);"
 >
@@ -168,4 +175,59 @@
             class=""
         >Submit</button>
     </form>
+
 </div>
+
+<div id="Video"
+     class="special2 col-7 mCard"
+     style="background: linear-gradient(90deg, rgba(48,48,46,1) 7%, rgba(75,73,82,1) 42%, rgba(48,48,46,1) 90%);">
+    <h2 class="text-start">Video Resource Creation Area</h2>
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger"></div>
+    <div id="createTeamField"class="">
+        <form class="" method="POST" asp-action="CreateTeam">
+            @* Title *@
+            <div class="row mb-2">
+                <label class="col-form-label col-md-4">Title:</label>
+                <div class="col-md-6">
+                    <input name="title"
+                           class=" form-control"
+                           style="background-color:#1F2024;" />
+                </div>
+            </div>
+            @* Type *@
+            <div class="row mb-2">
+                <label class="col-form-label col-md-4">Type:</label>
+                <div class="col-md-6">
+                    <input name="type"
+                           class=" form-control"
+                           style="background-color:#1F2024;" />
+                </div>
+            </div>
+            @* Text *@
+            <div class="row mb-2">
+                <label class="col-form-label col-md-4">Desc:</label>
+                <div class="col-md-6">
+                    <input name="text"
+                           class=" form-control"
+                           style="background-color:#1F2024;" />
+                </div>
+            </div>
+            @* Url *@
+            <div class="row mb-2">
+                <label class="col-form-label col-md-4">Url:</label>
+                <div class="col-md-6">
+                    <input name="url"
+                           class=" form-control"
+                           style="background-color:#1F2024;" />
+                </div>
+            </div>
+            <button type="submit"class="">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<script src="./js/Admin.js"></script>
