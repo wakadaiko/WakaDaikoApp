@@ -5,7 +5,7 @@ CALL ECHO 1 - [ development - run ]
 CALL ECHO 2 - [ development - database and migrations ]
 CALL ECHO 3 - [ development - build ]
 CALL ECHO 4 - [ development - test ]
-CALL ECHO 10 - [ git - merge branches - main to Kamau ]
+CALL ECHO 10 - [ git - merge branches - main to kamaug ]
 CALL ECHO 11 - [ git - merge branches - main to Trung ]
 CALL ECHO 12 - [ git - remove - last commit ]
 CALL ECHO ----------------
@@ -33,11 +33,12 @@ IF %input% == 3 (
 )
 
 IF %input% == 4 (
-    CALL dotnet test
+    CD %CD%\Tests\Unit
+    dotnet test
 )
 
 IF %input% == 10 (
-    CALL git checkout Kamau
+    CALL git checkout kamaug
     CALL git merge main
 )
 
