@@ -1,7 +1,7 @@
 ﻿@model List<int>?
 <div class="metronome-body">
     <div id="MetronomeBackground">
-        <button class="round" hidden></button>            
+        <button id="bouncer" class="bouncer round"></button>            
             <div id="metronomeField" class="" style="border-radius:50%; justify-content:center;">
                 <div class="flex-row-3" style="">
                 <button id="increase" class="round" style="font-size:2em;">&plus;</button>
@@ -9,9 +9,9 @@
                 <button id="decrease" class="round" style="font-size:2em;">&minus;</button>
                 </div>
                 <div class="flex-row-3">
-                <button id="start" class="round" style="font-size:2em;">Start</button>
+                <button id="start" class="round" style="font-size:2em;" value="1">Start</button>
                 <div id="timer" class="mCard" style="border-radius:50%; width:120px; font-size:2em;">00:00</div>
-                <button id="stop" class="round" style="font-size: 2em;">Stop</button>
+                <button id="stop" class="round" style="font-size: 2em;">Pause</button>
                 </div>
             </div>  
             <div id="preferenceField" class="" hidden>

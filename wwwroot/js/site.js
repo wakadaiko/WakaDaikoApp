@@ -50,15 +50,3 @@ window.addEventListener('load', () => {
 window.addEventListener('resize', resetMobile);
 window.addEventListener('scroll', checkScroll);
 window.addEventListener('touchmove', checkScroll);
-
-
-/*function Metronome(){
-    let count = 0;
-   // '../../wwwroot/js/Metronome.js'
-    var worker = new Worker('./MetronomeWorker.js');
-    worker.onmessage = function (event) {
-        console.log(`Called back by the worker!\n ${event.data}`);
-        count = event.data;
-    }
-    worker.postMessage(0);
-}*/

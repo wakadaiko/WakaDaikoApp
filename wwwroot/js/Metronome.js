@@ -13,18 +13,31 @@ const metronomeField = document.getElementById('metronomeField');
 const preferenceField = document.getElementById('preferenceField');
 const bpmPrefValue = document.getElementById('bpmPrefValue');
 const tempoItem = document.getElementById('tempoItem');
+const bouncer = document.getElementById('bouncer');
 
+let isTimerPaused = false;
 let seconds = 0;
 let beat = 0;
 let bpm = 60;
 let timerInterval = null;
 let intervalId = null;
+let bouncerInterval = null;
 let timeSignature = 4;
 bpmToSave.value = bpm;
 metronomeField.hidden = false;
 preferenceField.hidden = false;
 function calculateInterval() {
     return 60000 / bpm; // Convert BPM to milliseconds
+}
+function startBouncer(interval) {
+    bouncerInterval = setInterval(() => {
+        console.log(bouncer.hidden);
+        bouncer.hidden = !bouncer.hidden;
+    }, interval);
+}
+function stopBouncer() {
+    clearInterval(bouncerInterval);
+    bouncer.hidden = false;
 }
 function updateTimeSignature() {
     // Get the time signature from the input field
@@ -44,16 +57,16 @@ function startElapesedTime() {
 function stopTimer() {
     //set the initial time to 00:00
     clearInterval(timerInterval);
-    seconds = 0;
+    seconds = (isTimerPaused)?seconds:0;
     timer.textContent = parseSeconds(seconds);
 
 }
-function startMetronome() {
-    const interval = calculateInterval();
-    startButton.disabled = true;
-    startElapesedTime();
-    stopButton.disabled = false;
 
+function startMetronome() {
+    clearInterval(timerInterval);
+    const interval = calculateInterval();
+    startElapesedTime();
+    startBouncer(interval);
     intervalId = setInterval(() => {
         clap.play();
     }, interval);
@@ -62,10 +75,18 @@ function startMetronome() {
 function stopMetronome() {
     clearInterval(intervalId);
     intervalId = null;
-    stopButton.disabled = true;
     stopTimer();
-    startButton.disabled = false;
+    stopBouncer();
     beat = 0;
+}
+function handleStartStopBtn() {
+    if (startButton.textContent == 'Start') {
+        updateStartButtonToStop();
+        startMetronome();
+    } else {
+        updateStartButtonToStop();
+        stopMetronome();
+    }
 }
 function increaseBPM() {
     bpm++;
@@ -86,10 +107,19 @@ async function updateBpm(bpmToSet) {
     bpm = await bpmToSet;
     updateBPMField();
 }
+function updateStartButtonToStop() {
+    startButton.textContent = (startButton.textContent == 'Start' )?'Stop':'Start';
+    //startButton.classList.remove('btn-success');
+    //startButton.classList.add('btn-danger');
+}
 
+function pauseTimer() {
+    isTimerPaused = !isTimerPaused;
 
-startButton.addEventListener('click', startMetronome);
-stopButton.addEventListener('click', stopMetronome);
+}
+
+startButton.addEventListener('click', handleStartStopBtn);
+stopButton.addEventListener('click', pauseTimer);
 increaseButton.addEventListener('click', increaseBPM);
 decreaseButton.addEventListener('click', decreaseBPM);
 
@@ -106,10 +136,13 @@ document.addEventListener('input', (event) => {
 function parseSeconds(seconds) {
     let mins = Math.floor(seconds / 60);
     let secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    return `${(mins < 10) ?0:''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 //bpmPrefValue.textContent.slice(0, 2))
 const handleSetBpm = (event) => { updateBpm(Number(event.target.textContent.slice(0, 2))); };
 const toggleSettings = () => {
     (metronomeField.hidden = !metronomeField.hidden, preferenceField.hidden = !preferenceField.hidden);
 }
+
+   
+
