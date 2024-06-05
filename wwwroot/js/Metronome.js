@@ -15,6 +15,7 @@ const bpmPrefValue = document.getElementById('bpmPrefValue');
 const tempoItem = document.getElementById('tempoItem');
 const bouncer = document.getElementById('bouncer');
 
+let isTimerPaused = false;
 let seconds = 0;
 let beat = 0;
 let bpm = 60;
@@ -56,17 +57,16 @@ function startElapesedTime() {
 function stopTimer() {
     //set the initial time to 00:00
     clearInterval(timerInterval);
-    seconds = 0;
+    seconds = (isTimerPaused)?seconds:0;
     timer.textContent = parseSeconds(seconds);
 
 }
+
 function startMetronome() {
+    clearInterval(timerInterval);
     const interval = calculateInterval();
-    startButton.disabled = true;
     startElapesedTime();
     startBouncer(interval);
-    stopButton.disabled = false;
-
     intervalId = setInterval(() => {
         clap.play();
     }, interval);
@@ -75,11 +75,18 @@ function startMetronome() {
 function stopMetronome() {
     clearInterval(intervalId);
     intervalId = null;
-    stopButton.disabled = true;
     stopTimer();
     stopBouncer();
-    startButton.disabled = false;
     beat = 0;
+}
+function handleStartStopBtn() {
+    if (startButton.textContent == 'Start') {
+        updateStartButtonToStop();
+        startMetronome();
+    } else {
+        updateStartButtonToStop();
+        stopMetronome();
+    }
 }
 function increaseBPM() {
     bpm++;
@@ -100,10 +107,19 @@ async function updateBpm(bpmToSet) {
     bpm = await bpmToSet;
     updateBPMField();
 }
+function updateStartButtonToStop() {
+    startButton.textContent = (startButton.textContent == 'Start' )?'Stop':'Start';
+    //startButton.classList.remove('btn-success');
+    //startButton.classList.add('btn-danger');
+}
 
+function pauseTimer() {
+    isTimerPaused = !isTimerPaused;
 
-startButton.addEventListener('click', startMetronome);
-stopButton.addEventListener('click', stopMetronome);
+}
+
+startButton.addEventListener('click', handleStartStopBtn);
+stopButton.addEventListener('click', pauseTimer);
 increaseButton.addEventListener('click', increaseBPM);
 decreaseButton.addEventListener('click', decreaseBPM);
 

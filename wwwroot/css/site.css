@@ -23,11 +23,14 @@
 /*-------------*/
 .shadow-hack {
     /* Flip vertical direction	*/
-    /* --tw-shadow: 0 -25px 50px -12px rgb(0 0 0 / 0.25);
+    /*
+        --tw-shadow: 0 -25px 50px -12px rgb(0 0 0 / 0.25);
     --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
     --tw-ring-offset-shadow: 0 0 #0000;
     --tw-ring-shadow: 0 0 #0000;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); */
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
+    */
     --tw-shadow: 0 -10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -71,7 +74,6 @@
 .rCard {
     /*  display: flex;
     flex-direction: row*/
-    ;
     padding: 1.25%;
     margin: 1.20% 15% 1.20% 15%;
     border-radius: 8px;
@@ -84,7 +86,9 @@
 
 .cCard {
     /*    display: flex;
-    flex-direction: row;*/
+    flex-direction: row;
+
+    */
     padding: 1.25%;
     margin: 1.20% 15% 1.20% 15%;
     background-color: #faf6f094;
