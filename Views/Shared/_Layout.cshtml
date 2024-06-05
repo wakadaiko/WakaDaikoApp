@@ -42,7 +42,7 @@
                     @ViewBag.BannerDate
                 </div>
                 @* <span class="text-lg transition-transform group-hover:translate-x-1">-&gt;</span> *@
-                <span class="text-lg transition-transform group-hover:translate-x-1 mb-[4px]">→</span>
+                <div class="text-lg transition-transform group-hover:translate-x-1 mb-[4px]">→</div>
             </a>
         }
         @* Section - Navbar *@
@@ -61,7 +61,7 @@
                         <button id="eMobileButton" class="lg:hidden h-full flex items-center ms-auto p-6" type="button"
                             onclick="toggleMobile();">
                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
-                                width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
+                                width="16" height="16" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0
                             113.7 0
                             96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7
@@ -70,7 +70,7 @@
                                 </path>
                             </svg>
                             <svg class="hidden" stroke="currentColor" fill="currentColor" stroke-width="0"
-                                viewBox="0 0 384 512" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
+                                viewBox="0 0 384 512" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9
                             25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8
                             9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256
@@ -81,92 +81,14 @@
                     </div>
                     <div class="eMobiles hidden lg:flex flex-col lg:flex-row">
                         @* Section - Dropdown - Performances *@
-                        <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
-                            <button class="group hidden w-full lg:flex font-medium p-6 lg:px-4">
-                                Performances
-                                <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2 my-auto"
-                                    stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
-                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <ul
-                                class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/events", Body="Events" }' />
-                                </li>
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://forms.gle/MGAFa9UH7JnGpK8V7", Body="Requests", ExternalSite=true }' />
-                                </li>
-                            </ul>
-                        </div>
+                        <partial name="~/views/shared/htmldropdownparent.cshtml"
+                            model='new HtmlDropdownParentVM { ParentType="performances", ParentBody="Performances" }' />
                         @* Section - Dropdown - Resources *@
-                        <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
-                            <button class="hidden w-full lg:flex font-medium p-6 lg:px-4">
-                                Resources
-                                <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2 my-auto"
-                                    stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
-                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <ul
-                                class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/resources/tutorials", Body="Tutorials" }' />
-                                </li>
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/resources/soundtracks", Body="Soundtracks" }' />
-                                </li>
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/metronome", Body="Metronome" }' />
-                                </li>
-                            </ul>
-                        </div>
+                        <partial name="~/views/shared/htmldropdownparent.cshtml"
+                            model='new HtmlDropdownParentVM { ParentType="resources", ParentBody="Resources" }' />
                         @* Section - Dropdown - Contact *@
-                        <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
-                            <button class="hidden w-full lg:flex font-medium p-6 lg:px-4">
-                                Contact
-                                <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2 my-auto"
-                                    stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
-                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <ul
-                                class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="mailto:wakadaiko@gmail.com", Body="Email" }' />
-                                </li>
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://facebook.com/youthtaiko", Body="Facebook", ExternalSite=true }' />
-                                </li>
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://forms.gle/8s4ffwbx5hCoF3AV8", Body="Sign Up", ExternalSite=true }' />
-                                </li>
-                                <li>
-                                    <partial name="~/views/shared/htmllink.cshtml"
-                                        model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://forms.gle/KW9GXVysD6gdFaKm9", Body="General Inquiries", ExternalSite=true }' />
-                                </li>
-                            </ul>
-                        </div>
+                        <partial name="~/views/shared/htmldropdownparent.cshtml"
+                            model='new HtmlDropdownParentVM { ParentType="contact", ParentBody="Contact" }' />
                         @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin"))
                         {
                             <div
@@ -182,66 +104,8 @@
                 <div class="flex flex-col lg:flex-row text-[rgb(75%,75%,75%)]">
                     <div class="eMobiles hidden lg:flex justify-center">
                         @* Section - Dropdown - Account *@
-                        <div
-                            class="group relative flex flex-col lg:flex-row items-start lg:items-center focus-within:bg-[rgb(12.5%,12.5%,12.5%)] hover:bg-[rgb(12.5%,12.5%,12.5%)] tracking-wider text-sm hover:text-white">
-                            <button class='group hidden w-full h-full lg:flex lg:items-center lg:justify-center@(User.Identity != null && User.Identity.IsAuthenticated ? " text-sky-400 hover:text-sky-300 "
-                                    : " ")border-l-[1px] border-[rgb(25%,25%,25%)] p-8 lg:px-8'>
-                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
-                                    width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468
-                                11.37C3.242 11.226 4.805 10 8
-                                10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1">
-                                    </path>
-                                </svg>
-                                <svg class="duration-200 ease-in-out hidden lg:block group-hover:rotate-[-180deg] ms-2"
-                                    stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
-                                    width="12px" height="12px" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <ul
-                                class="z-30 eDropdowns duration-200 ease-in-out lg:opacity-0 lg:group-hover:opacity-100 lg:invisible lg:group-focus-within:visible lg:group-focus-within:invisible lg:group-hover:visible lg:absolute lg:top-full w-full lg:w-[150%] lg:start-[-25%] lg:bg-white text-[rgb(37.5%,37.5%,37.5%)] lg:shadow-lg">
-                                @if (User.Identity != null && User.Identity.IsAuthenticated)
-                                {
-                                    <li>
-                                        <div class="flex justify-center items-center bg-white font-medium text-black p-4">
-                                            Hello&nbsp;<span class="tracking-wider font-black">@User.Identity.Name</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        @* <form class="flex items-center text-blue-400 mx-5 lg:mx-0"
-                                    action="/account/logout"
-                                    method="POST"> *@
-                                        <form class="flex" action="/account/logout" method="POST">
-                                            @* <button
-                                        class="w-full bg-amber-300 hover:bg-amber-200 tracking-wider font-black
-                                        text-black p-4"
-                                        type="submit">LOGOUT</button> *@
-                                            <partial name="~/views/shared/htmllink.cshtml"
-                                                model='new HtmlLinkVM { Type="btn-logout", Body="LOGOUT" }' />
-                                        </form>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li>
-                                        <partial name="~/views/shared/htmllink.cshtml"
-                                            model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/account/login", Body="Login" }' />
-                                    </li>
-                                    <li>
-                                        <partial name="~/views/shared/htmllink.cshtml"
-                                            model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="/account/register", Body="Register" }' />
-                                    </li>
-                                    <li>
-                                        <partial name="~/views/shared/htmllink.cshtml"
-                                            model='new HtmlLinkVM { Type="link-nav-dropdown-item", URL="https://sites.google.com/view/wakadaikowebsite/home", Body="Team Sign In" }' />
-                                    </li>
-                                }
-                            </ul>
-                        </div>
+                        <partial name="~/views/shared/htmldropdownparent.cshtml"
+                            model='new HtmlDropdownParentVM { ParentType="account" }' />
                         <div class="flex text-sm">
                             @* Section - Button - Workshops *@
                             <partial name="~/views/shared/htmllink.cshtml"

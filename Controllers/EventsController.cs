@@ -220,6 +220,8 @@ namespace WakaDaikoApp.Controllers
                     break;
             }
 
+            ViewBag.IndividualEvent = events.Count == 1;
+
             // Remember Selected Filters
 
             ViewBag.Search = search;
