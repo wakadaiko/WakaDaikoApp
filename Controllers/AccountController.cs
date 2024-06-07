@@ -84,7 +84,7 @@ namespace WakaDaikoApp.Controllers
 
         public async Task<IActionResult> Login(string returnURL = "")
         {
-            await GetPinnedBanner();
+            // await GetPinnedBanner();
 
             var model = new LoginVM { ReturnUrl = returnURL };
 
@@ -94,7 +94,7 @@ namespace WakaDaikoApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
         {
-            await GetPinnedBanner();
+            // await GetPinnedBanner();
 
             if (ModelState.IsValid)
             {
@@ -113,7 +113,7 @@ namespace WakaDaikoApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await GetPinnedBanner();
+            // await GetPinnedBanner();
 
             await _sm.SignOutAsync();
 
