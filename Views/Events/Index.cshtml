@@ -5,7 +5,6 @@
 
     int nextPagination = paginationId2 - 1 < 1 ? ViewBag.paginationCount : paginationId2 - 1;
     int previousPagination = paginationId2 + 1 > ViewBag.paginationCount ? 1 : paginationId2 + 1;
-
 }
 @model List<Event>
 
