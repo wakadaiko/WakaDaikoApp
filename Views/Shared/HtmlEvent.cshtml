@@ -23,9 +23,9 @@
 }
 
 <li class="eEvents relative">
-    @* <a class='@(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden
+    @* <a class="@(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Site_Admin") ? "" : "hidden
     ")absolute top-0 right-0 @(Model.Pinned ? "bg-sky-400 hover:bg-sky-300" : "bg-sky-600 hover:bg-sky-400") text-black
-    m-3 p-4'
+    m-3 p-4"
     href="/events/pin/@Model.EventId">
     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" width="20" height="20"
     xmlns="http://www.w3.org/2000/svg">

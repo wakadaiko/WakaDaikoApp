@@ -54,6 +54,9 @@
         case "link-events-pagination-middle":
             c = $"w-full h-full flex justify-center items-center font-black{(Model.Body == ViewBag.PaginationId ? $" rounded-md {bgBtnSolid} text-black" : " text-[rgb(75%,75%,75%)] hover:text-white")}";
             break;
+        case "link-sitemap":
+            c = $"{colorDefault1} -mx-4 p-4";
+            break;
         case "btn-scroll-to-top":
             c = $"z-10 duration-200 ease-in-out scale-0 fixed bottom-4 right-4 rounded-md {bgBtnSolid} text-black shadow-lg p-4";
             break;
@@ -135,6 +138,7 @@
     case "link-events-filters":
     case "link-events-breadcrumb":
     case "link-privacy":
+    case "link-sitemap":
     case "link-footer":
     case "btn-primary":
     case "btn-secondary":

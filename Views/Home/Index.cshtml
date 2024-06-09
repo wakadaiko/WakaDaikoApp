@@ -24,11 +24,11 @@
 @* Homepage *@
 <div class="z-0 relative flex grow justify-center items-center overflow-hidden text-white">
     <div
-        class='relative z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-gradient-to-t from-[rgb(30,30,30)] from-0% via-transparent via-50% to-[rgb(30,30,30)] to-100%'>
+        class="relative z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-gradient-to-t from-[rgb(30,30,30)] from-0% via-transparent via-50% to-[rgb(30,30,30)] to-100%">
         <div class="z-10 absolute top-0 left-0 size-full bg-[linear-gradient(to_right,rgba(0,0,0,0.5),transparent)]">
         </div>
         <div
-            class='z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]'>
+            class="z-20 size-full min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] flex flex-col bg-[linear-gradient(rgba(5%,5%,15%,0.25),rgba(5%,5%,15%,0.25))]">
             <div
                 class="w-min flex flex-col gap-2 items-center lg:items-start rounded-[128px] text-center lg:text-start m-auto lg:ms-[12.5vw] p-10">
                 @* Inline style for TailwindCSS *@
@@ -49,7 +49,7 @@
                 <p class="font-medium text-xs lg:text-xl mb-2">
                     Youth taiko drumming group based in Eugene, Oregon. All youth ages 8-22 are welcome.
                 </p>
-                <div class='w-max flex flex-col lg:flex-row gap-2 mx-auto lg:mx-0'>
+                <div class="w-max flex flex-col lg:flex-row gap-2 mx-auto lg:mx-0">
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="btn-primary", URL="/events?search=&status=eStatusPast", Body="PAST EVENTS" }' />
                     <partial name="~/views/shared/htmllink.cshtml"
