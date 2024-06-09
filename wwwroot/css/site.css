@@ -74,14 +74,15 @@
 .rCard {
     /*  display: flex;
     flex-direction: row*/
-    padding: 1.25%;
-    margin: 1.20% 15% 1.20% 15%;
+    width: 50%;
+    padding: 1.25% 1.25% 1.25% 1.25%;
+    /*margin: 1.20% 15% 1.20% 15%;*/
     border-radius: 8px;
     background-color: #faf6f094;
     box-shadow: 1px 1.75px 2.5px .5px #6e6c65;
-    bottom: 25em;
+    /* bottom: 25em;
     left: -14%;
-    position: fixed;
+    position: fixed;*/
 }
 
 .cCard {
@@ -93,7 +94,6 @@
     margin: 1.20% 15% 1.20% 15%;
     background-color: #faf6f094;
     border: none;
-    padding: 5px;
     font-size: 31px;
     height: 130px;
     width: 130px;
@@ -230,6 +230,9 @@ button.round:active {
     filter: drop-shadow(5px 5px 20px #000000);
     /*box-shadow: 0 0 2px darkslategray;*/
     transform: translateY(2px);
+}
+button:disabled {
+    background-color: #ebba016e;
 }
 
 .flicker {

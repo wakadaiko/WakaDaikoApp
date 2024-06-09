@@ -1,11 +1,12 @@
 ﻿const bpmDisplay = document.querySelector('.metronome-display');
 const startButton = document.getElementById('start');
-const stopButton = document.getElementById('stop');
+const pauseBtn = document.getElementById('pause');
 const bpmInput = document.getElementById('bpmField');
 const increaseButton = document.getElementById('increase');
 const decreaseButton = document.getElementById('decrease');
 const clap = new Audio('../assets/click.wav');
 const bing = new Audio('../assets/bing.wav');
+const tick = new Audio('../assets/SoftTick.wav');
 const timer = document.getElementById('timer');
 const bpmToSave = (document.getElementById('bpmToStore') != null) ? document.getElementById('bpmToStore') : {value:0};
 //const timeSignatureInput = document.getElementById('timeSignature');
@@ -14,7 +15,10 @@ const preferenceField = document.getElementById('preferenceField');
 const bpmPrefValue = document.getElementById('bpmPrefValue');
 const tempoItem = document.getElementById('tempoItem');
 const bouncer = document.getElementById('bouncer');
+const muteBtn = document.getElementById('muteBtn');
 
+
+let isMuted = true;
 let isTimerPaused = false;
 let seconds = 0;
 let beat = 0;
@@ -31,7 +35,6 @@ function calculateInterval() {
 }
 function startBouncer(interval) {
     bouncerInterval = setInterval(() => {
-        console.log(bouncer.hidden);
         bouncer.hidden = !bouncer.hidden;
     }, interval);
 }
@@ -67,8 +70,9 @@ function startMetronome() {
     const interval = calculateInterval();
     startElapesedTime();
     startBouncer(interval);
+    pauseBtn.textContent = 'Pause';
     intervalId = setInterval(() => {
-        clap.play();
+        if (!isMuted) { tick.play(); }
     }, interval);
 }
 
@@ -115,13 +119,38 @@ function updateStartButtonToStop() {
 
 function pauseTimer() {
     isTimerPaused = !isTimerPaused;
+    stopMetronome();
+    updateStartButtonToStop();
+    pauseBtn.textContent = (isTimerPaused) ? 'Resume' : 'Pause';
 
 }
+function handlePauseBtn() {
+    if (seconds > 0) {
+        if (pauseBtn.textContent == 'Resume') {
+            isTimerPaused = !isTimerPaused;
+            startMetronome();
+            startButton.disabled = false;
+            startButton.textContent = 'Stop';
+        } else {
+            pauseTimer();
+            startButton.disabled = true;
+        }
+    }
+}
 
+function handleMuteBtn() {
+    isMuted = !isMuted;
+    if (isMuted) {
+        muteBtn.style.color = 'red';
+    } else {
+        muteBtn.style.color = 'white';
+    }
+}
 startButton.addEventListener('click', handleStartStopBtn);
-stopButton.addEventListener('click', pauseTimer);
+pauseBtn.addEventListener('click', handlePauseBtn);
 increaseButton.addEventListener('click', increaseBPM);
 decreaseButton.addEventListener('click', decreaseBPM);
+muteBtn.addEventListener('click', handleMuteBtn);
 
 // Update BPM display on input change
 document.addEventListener('input', (event) => {
