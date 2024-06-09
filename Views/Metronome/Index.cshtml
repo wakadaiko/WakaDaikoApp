@@ -1,43 +1,50 @@
 ﻿@model List<int>?
 <div class="metronome-body">
     <div id="MetronomeBackground">
-        <button id="bouncer" class="bouncer round"></button>            
-            <div id="metronomeField" class="" style="border-radius:50%; justify-content:center;">
+        <button id="bouncer" class="bouncer round" style="background-color:#265d4f; min-width:3em; min-height:3em;"></button>
+        <button id="bouncer" class="bouncer round" style="background-color:#a43d34;min-width:3em; min-height:3em;"></button>
+        <div id="metronomeField" class="" style="border-radius:50%; justify-content:center;">
                 <div class="flex-row-3" style="">
-                <button id="increase" class="round" style="font-size:2em;">&plus;</button>
+                <button id="increase" class="round" style="font-size:2em;width:5em; height:5em">&plus;</button>
                     <input id="bpmField" class="metronome-display cCard" style="text-align:center;" value="60 BPM"/>
                 <button id="decrease" class="round" style="font-size:2em;">&minus;</button>
                 </div>
                 <div class="flex-row-3">
                 <button id="start" class="round" style="font-size:2em;" value="1">Start</button>
                 <div id="timer" class="mCard" style="border-radius:50%; width:120px; font-size:2em;">00:00</div>
-                <button id="stop" class="round" style="font-size: 2em;">Pause</button>
+                <button id="pause" class="round" style="font-size: 2em;">Pause</button>
                 </div>
             </div>  
             <div id="preferenceField" class="" hidden>
                 @{
                     if (Model.Any())
                     {
-                        <div>Pre-Sets</div>
+                     <div class="rCard" style="min-width:15em;">
+                        <h1>Pre-Sets</h1>
                         <form asp-action="Set" method="post">
                             <input id="bpmToStore" name="bpmToSave" value="" hidden />
                             <input id="one" type="submit" class="" style="border: 0;" value="Add" />
 
                         </form>
-                        for (int i = 0; i < Model.Count; i++)
+
+                        @{for (int i = 0; i < Model.Count; i++)
                         {
-                            <div class=" " style="display:flex;justify-content:center;">
-                                <form asp-action="Delete" method="post">
+                                <div class=" " style="display:flex; flex-direction:row; justify-content:center;">
+                                    <form class="rCard" asp-action="Delete" method="post" style=" margin-right:2em;">
                                     <input name="bpmToDelete" value="@i" hidden />
                                     <input id="two" type="submit" class="" style="border: 0;" value="Del" />
                                 </form>
-                                <button style="padding-left:1em" id="" class="" onclick="handleSetBpm(event)">@Model[i] BPM</button>
+                                    <button style="padding-left:1em" id="" class="rCard" onclick="handleSetBpm(event)">@Model[i] BPM</button>
                             </div>
                         }
+                        }
+                    </div>
+
                     }
                 }
             </div>
         <button style="width:3em;left:10px;top:10%; position:absolute; font-size:2em;" class="round" onclick="toggleSettings()">&#9778;</button>
-    <script src="./js/Metronome.js"></script>
+        <button id="muteBtn" style="width:3em;left:5em;top:10%; position:absolute; font-size:2em;color:red;" class="round">&#127897;</button>
+        <script src="./js/Metronome.js"></script>
     </div>
 </di>
