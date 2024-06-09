@@ -33,8 +33,9 @@ IF %input% == 3 (
 )
 
 IF %input% == 4 (
-    CD %CD%\Tests\Unit
-    dotnet test
+     CALL CD %CD%\Tests\Unit
+    @REM CALL dotnet test
+     CALL dotnet watch test --logger:"console;verbosity=detailed"
 )
 
 IF %input% == 10 (

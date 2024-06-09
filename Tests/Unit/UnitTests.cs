@@ -1,32 +1,20 @@
-// using Xunit;
-// using WakaDaikoApp.Controllers;
-// using WakaDaikoApp.Data;
-// using WakaDaikoApp.Models;
-// using Microsoft.AspNetCore.Identity;
-
-using System;
-using System.Threading.Tasks;
+using Xunit;
 using WakaDaikoApp.Controllers;
 using WakaDaikoApp.Data;
 using WakaDaikoApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Xunit;
 
 namespace WakaDaikoApp.Tests.Unit
 {
     public class UnitTests
     {
-        public readonly IRepository _r;
+        // public readonly AppUser au;
 
-        public readonly AppDbContext _c;
+        // public readonly IRepository _r;
 
-        public readonly UserManager<AppUser> _um;
+        // public readonly AppDbContext _c;
 
-        public readonly SignInManager<AppUser> _sm;
+        // public readonly UserManager<AppUser> _um;
 
         [Fact]
         public void CheckBasic()
@@ -36,32 +24,20 @@ namespace WakaDaikoApp.Tests.Unit
         }
 
         [Fact]
-        public async Task CheckLogin()
+        public void CheckCreateUser()
         {
-            // var controller = new AccountController(_r, _c, _um, _sm);
-            // var model = new LoginVM()
-            // {
-            //     Username = "A",
-            //     Password = "Secret!123"
-            // };
+            var repo = new FakeRepository();
+            var controller = new AdminController(repo, null!, null!, null!);
+            var modelGuardian = new AppUser();
+            var modelWard = new AppUser()
+            {
+                Name = "JohnSmith",
+                Instruments = new List<string> { "MainDrums", "BaseBeat" },
+                Family = new List<AppUser> { modelGuardian },
+                RoleNames = new List<string> { "Team_Member" }
+            };
 
-            // var abc = controller.Login(model);
-
-            // Assert.True(abc);
-
-            // var controller = new AccountController(null, null, _um, _sm);
-            var controller = new AccountController(_r, _c, _um, _sm);
-            // var model = new LoginVM { Username = "validuser", Password = "validpassword" };
-            var model = new LoginVM { Username = "SiteAdmin", Password = "Secret!123" };
-            // var model = new LoginVM { Username = "SiteAdmin", Password = "Secret!123" };
-
-            // Act
-            var result = await controller.Login(model);
-
-            // Assert
-            // var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            // Assert.Equal("Index", redirectToActionResult.ActionName);
-            // Assert.Equal("Home", redirectToActionResult.ControllerName);
+            Assert.True(modelGuardian);
         }
     }
 }
