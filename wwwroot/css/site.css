@@ -252,3 +252,6 @@ button:disabled {
         opacity: 0;
     }
 }
+#id {
+    background-color: #265d4f
+}
