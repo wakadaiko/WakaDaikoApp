@@ -104,10 +104,15 @@
                     class="@(Model.Count > 1 ? "hidden " : "")flex items-center gap-2 font-black text-[rgb(75%,75%,75%)]">
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="link-events-breadcrumb", URL="/events", Body="EVENTS" }' />
-                    /
-                    <div class="p-2">
-                        @Model[0].EventId
-                    </div>
+                    @if (Model.Count == 1)
+                    {
+                        <div>
+                            /
+                        </div>
+                        <div class="p-2">
+                            @Model[0].EventId
+                        </div>
+                    }
                 </div>
                 @* Section - Pagination *@
                 <ul class="@(Model.Count > 1 ? "" : "hidden ")w-full flex justify-center">
