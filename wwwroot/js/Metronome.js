@@ -16,7 +16,7 @@ const bpmPrefValue = document.getElementById('bpmPrefValue');
 const tempoItem = document.getElementById('tempoItem');
 const bouncer = document.getElementById('bouncer');
 const muteBtn = document.getElementById('muteBtn');
-
+const deleteBtn = document.getElementById('deleteBtn');
 
 let isMuted = true;
 let isTimerPaused = false;
@@ -151,6 +151,10 @@ pauseBtn.addEventListener('click', handlePauseBtn);
 increaseButton.addEventListener('click', increaseBPM);
 decreaseButton.addEventListener('click', decreaseBPM);
 muteBtn.addEventListener('click', handleMuteBtn);
+deleteBtn.addEventListener('click', () => {
+    deleteBtn.disabled = true;
+    setTimeout(() => { deleteBtn.disabled = false; }, 4000);
+});
 
 // Update BPM display on input change
 document.addEventListener('input', (event) => {

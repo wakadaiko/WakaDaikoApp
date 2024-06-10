@@ -61,13 +61,13 @@ namespace WakaDaikoApp.Controllers
                 // TeamMembers.ForEach((async m => { team.Members.Add( _um.FindByNameAsync(m).Result); }));
                 // Devices.ForEach((async d => { team.Instruments.Add(d); }));
                 // foreach (var m in teamMembers) if (await _um.FindByNameAsync(m) != null) team.Members.Add(await _um.FindByNameAsync(m));
-                foreach (var m in teamMembers)
+                foreach (var m in teamMembers ??= new List<string>())
                 {
                     var memberUser = await _um.FindByNameAsync(m);
 
                     if (memberUser != null) team.Members?.Add(memberUser);
                 }
-                foreach (var d in devices) team.Instruments?.Add(d);
+                foreach (var d in devices ??= new List<string>()) team.Instruments?.Add(d);
 
                 var results = await _r.AddTeamAsync(team);
 
@@ -80,7 +80,7 @@ namespace WakaDaikoApp.Controllers
             }
             else
             {
-                TempData["Message"] = "Fail";
+                TempData["Message"] = "Action Failed: All fields must be complete";
 
                 return RedirectToAction("index");
             }
@@ -101,13 +101,13 @@ namespace WakaDaikoApp.Controllers
                 {
                     if (await _rm.FindByNameAsync(r) != null) { validRoleNames.Add(r); }
                 }
-                foreach (var d in _Dependents!)
+                foreach (var d in _Dependents??=new List<string>())
                 {
                     var dependentUser = await _um.FindByNameAsync(d);
                     if (dependentUser != null) appUser.Family?.Add(dependentUser);
                 }
-                foreach (var i in _Instruments!) { appUser.Instruments?.Add(i); }
-                await _um.CreateAsync(appUser, form.UserPassword!);
+                foreach (var i in _Instruments ??= new List<string>()) { appUser.Instruments?.Add(i); }
+                await _um.CreateAsync(appUser, form.UserPassword ??= String.Empty);
                 await _um.AddToRolesAsync(appUser, validRoleNames);
                 TempData["Message"] = "Success";
                 return RedirectToAction("index");

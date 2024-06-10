@@ -19,22 +19,22 @@
                 @{
                     if (Model.Any())
                     {
-                     <div class="rCard" style="min-width:15em;">
+                     <div class="mCard" style="max-width:20em;">
                         <h1>Pre-Sets</h1>
-                        <form asp-action="Set" method="post">
+                        <form asp-action="Set" method="post" class="mCard">
                             <input id="bpmToStore" name="bpmToSave" value="" hidden />
-                            <input id="one" type="submit" class="" style="border: 0;" value="Add" />
+                            <input id="one" type="submit" class="" style="cursor: pointer;" value="Add" />
 
                         </form>
 
                         @{for (int i = 0; i < Model.Count; i++)
                         {
-                                <div class=" " style="display:flex; flex-direction:row; justify-content:center;">
-                                    <form class="rCard" asp-action="Delete" method="post" style=" margin-right:2em;">
+                                <div class="mCard " style="display:flex; flex-direction:row; justify-content:center;">
+                                    <form class="" asp-action="Delete" method="post" style=" margin-right:2em;">
                                     <input name="bpmToDelete" value="@i" hidden />
-                                    <input id="two" type="submit" class="" style="border: 0;" value="Del" />
+                                        <input id="deleteBtn" type="submit" class="" style="border: 0;cursor: pointer;" value="Del" />
                                 </form>
-                                    <button style="padding-left:1em" id="" class="rCard" onclick="handleSetBpm(event)">@Model[i] BPM</button>
+                                    <button style="padding-left:1em" id="" class="" onclick="handleSetBpm(event)">@Model[i] BPM</button>
                             </div>
                         }
                         }
