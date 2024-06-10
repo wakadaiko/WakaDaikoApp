@@ -5,7 +5,7 @@ ECHO 1 - [ development - run ]
 ECHO 2 - [ development - database and migrations ]
 ECHO 3 - [ development - build ]
 ECHO 4 - [ development - test ]
-ECHO 10 - [ git - merge branches - main to kamaug ]
+ECHO 10 - [ git - merge branches - main to kamau ]
 ECHO 11 - [ git - merge branches - main to Trung ]
 ECHO 12 - [ git - remove - last commit ]
 ECHO ----------------
@@ -38,7 +38,7 @@ IF %input% == 4 (
 )
 
 IF %input% == 10 (
-    git checkout kamaug
+    git checkout kamau
     git merge main
 )
 
