@@ -18,9 +18,8 @@ lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != nul
                 @* Home *@
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
-                        model='new HtmlLinkVM { Type="link-sitemap", URL="/", Body="HOMEPAGE" }' /> - A
-                    default
-                    landing page for site visitors.
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/", Body="HOMEPAGE" }' />
+                    - A default landing page for site visitors.
                 </li>
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
@@ -35,31 +34,30 @@ lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != nul
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="link-sitemap", URL="/events", Body="EVENTS" }' />
-                    - A place for site visitors to view existing products with or without applied filters.
+                    - A place for site visitors to view existing events with or without applied filters.
                 </li>
                     @* Metronome *@
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="link-sitemap", URL="/metronome", Body="METRONOME" }' />
-                    - A place for authorized admin users to: view all of the existing products; edit existing products;
-                    and delete existing products.
+                    - A place for site visitors to use a metronome web application.
                 </li>
                     @* Admin *@
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="link-sitemap", URL="/admin", Body="ADMIN" }' />
-                    - A place for authorized users to view products that are placed in a virtual cart.
+                    - A place for authorized users to create a team area or a user area.
                 </li>
                     @* Account *@
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="link-sitemap", URL="/account/register", Body="REGISTER" }' />
-                    - A place for site visitors to create new users.
+                    - A place for site visitors to create new account users.
                 </li>
                 <li>
                     <partial name="~/views/shared/htmllink.cshtml"
                         model='new HtmlLinkVM { Type="link-sitemap", URL="/account/login", Body="LOGIN" }' />
-                    - A place for site visitors to login to an existing authorized user.
+                    - A place for site visitors to login to an existing authorized user account.
                 </li>
             </ul>
         </li>
