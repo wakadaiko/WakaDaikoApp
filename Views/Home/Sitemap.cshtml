@@ -2,4 +2,66 @@
     ViewBag.Title = "Sitemap";
 }
 
-<partial name="~/views/shared/wip.cshtml" model='new HtmlLinkVM { }' />
+<div class="flex flex-col items-center justify-center gap-4 bg-[rgb(6.25%,6.25%,6.25%)]
+min-h-[calc(100vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)]
+lg:min-h-[calc(87.5vh-@(ViewBag.BannerTitle != null && ViewBag.BannerDate != null ? "96" : "64")px)] px-4 lg:px-0">
+    <ul class="list-inside">
+        <li>
+            <div class="lg:w-max flex flex-col gap-1">
+                <h1 class="lg:w-max font-['Bebas_Neue'] font-black tracking-wider text-nowrap text-center lg:text-start text-6xl lg:text-8xl mb-3"
+                    style="line-height: 0.8;">
+                    SITE PAGES
+                </h1>
+                <hr class="border-4 border-white mb-4" />
+            </div>
+            <ul class="flex flex-col gap-4 list-disc list-inside text-[rgb(75%,75%,75%)]">
+                @* Home *@
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/", Body="HOMEPAGE" }' /> - A
+                    default
+                    landing page for site visitors.
+                </li>
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/home/privacy", Body="PRIVACY" }' />
+                    - A place for site visitors to view privacy disclaimers surrounding used data.
+                </li>
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/home/sitemap", Body="SITEMAP" }' />
+                    - A place for site visitors to view descriptions for each of the accessible site pages.
+                    @* Events *@
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/events", Body="EVENTS" }' />
+                    - A place for site visitors to view existing products with or without applied filters.
+                </li>
+                    @* Metronome *@
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/metronome", Body="METRONOME" }' />
+                    - A place for authorized admin users to: view all of the existing products; edit existing products;
+                    and delete existing products.
+                </li>
+                    @* Admin *@
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/admin", Body="ADMIN" }' />
+                    - A place for authorized users to view products that are placed in a virtual cart.
+                </li>
+                    @* Account *@
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/account/register", Body="REGISTER" }' />
+                    - A place for site visitors to create new users.
+                </li>
+                <li>
+                    <partial name="~/views/shared/htmllink.cshtml"
+                        model='new HtmlLinkVM { Type="link-sitemap", URL="/account/login", Body="LOGIN" }' />
+                    - A place for site visitors to login to an existing authorized user.
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WakaDaikoApp", "WakaDaikoApp.csproj", "{EE8A9EF8-414C-4D76-B26E-DB7689B985A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unit", "Unit.csproj", "{FE6B3604-EFEA-4834-B0C7-01D417750003}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE8A9EF8-414C-4D76-B26E-DB7689B985A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE8A9EF8-414C-4D76-B26E-DB7689B985A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE8A9EF8-414C-4D76-B26E-DB7689B985A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE8A9EF8-414C-4D76-B26E-DB7689B985A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE6B3604-EFEA-4834-B0C7-01D417750003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE6B3604-EFEA-4834-B0C7-01D417750003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE6B3604-EFEA-4834-B0C7-01D417750003}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -24,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5E343A76-52DF-4A3A-912B-CCC2F9674BF9}
+		SolutionGuid = {27DC3F0A-ADF6-42E7-802E-5602F30FA1C3}
 	EndGlobalSection
 EndGlobal

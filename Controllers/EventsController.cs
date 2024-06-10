@@ -148,90 +148,94 @@ namespace WakaDaikoApp.Controllers
 
         public List<Event> GetEvents(string paginationId = "", string descriptionText = "", string search = "", string status = "", string alphabet = "", string date = "")
         {
-            // Variables
-
-            int EVENTS_PER_PAGE = 9;
-
-            _ = int.TryParse(paginationId, out int paginationId2);
-
-            // Load initial events
-
-            List<Event> events = [
-                .. _r
-                .GetEvents()
-                .OrderByDescending(e => e.Date)
-            ];
-
-            // Pagination
-
-            ViewBag.PaginationCount = events.Count / EVENTS_PER_PAGE;
-            ViewBag.PaginationId = ViewBag.PaginationCount > 0 ? "1" : "0";
-
-            if (paginationId != "")
+            if (_c != null)
             {
-                if (paginationId2 < 1 || paginationId2 > ViewBag.PaginationCount) events = [];
-                else
+                // Variables
+
+                int EVENTS_PER_PAGE = 9;
+
+                _ = int.TryParse(paginationId, out int paginationId2);
+
+                // Load initial events
+
+                List<Event> events = [
+                    .._r
+                    .GetEvents()
+                    .OrderByDescending(e => e.Date)
+                ];
+
+                // Pagination
+
+                ViewBag.PaginationCount = events.Count / EVENTS_PER_PAGE;
+                ViewBag.PaginationId = ViewBag.PaginationCount > 0 ? "1" : "0";
+
+                if (paginationId != "")
                 {
-                    events = events
-                    .Skip((paginationId2 - 1) * EVENTS_PER_PAGE)
-                    .Take(EVENTS_PER_PAGE)
-                    .ToList();
+                    if (paginationId2 < 1 || paginationId2 > ViewBag.PaginationCount) events = [];
+                    else
+                    {
+                        events = events
+                        .Skip((paginationId2 - 1) * EVENTS_PER_PAGE)
+                        .Take(EVENTS_PER_PAGE)
+                        .ToList();
 
-                    ViewBag.PaginationId = paginationId;
+                        ViewBag.PaginationId = paginationId;
+                    }
                 }
+                else if (paginationId == "" && descriptionText == "") events = events.Take(EVENTS_PER_PAGE).ToList();
+
+                // Description
+
+                if (descriptionText.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == descriptionText)];
+
+                // Search
+
+                if (search != "") events = [.. events.Where(e => e.Title != null && e.Title.Contains(search, StringComparison.CurrentCultureIgnoreCase) || (e.Text != null && e.Text.Contains(search, StringComparison.CurrentCultureIgnoreCase)))];
+
+                // Status
+
+                switch (status)
+                {
+                    case "eStatusUpcoming":
+                        events = [.. events.Where(e => e.Date > DateOnly.FromDateTime(DateTime.Now))];
+                        break;
+
+                    case "eStatusPast":
+                        events = [.. events.Where(e => e.Date < DateOnly.FromDateTime(DateTime.Now))];
+                        break;
+                }
+
+                // Date
+
+                if (date == "eDateOldest") events = [.. events.OrderBy(e => e.Date)];
+
+                // Alphabet
+
+                switch (alphabet)
+                {
+                    case "eAlphabetAZ":
+                        events = [.. events.OrderBy(e => e.Title)];
+                        break;
+
+                    case "eAlphabetZA":
+                        events = [.. events.OrderByDescending(e => e.Title)];
+                        break;
+                }
+
+                ViewBag.IndividualEvent = events.Count == 1;
+
+                // Remember Selected Filters
+
+                ViewBag.Search = search;
+                ViewBag.Status = status;
+                ViewBag.Date = date;
+                ViewBag.Alphabet = alphabet;
+
+                // Return
+
+                return events;
             }
-            else if (paginationId == "" && descriptionText == "") events = events.Take(EVENTS_PER_PAGE).ToList();
-
-            // Description
-
-            if (descriptionText.Length > 0) events = [.. events.Where(e => e.Title != null && e.Description == descriptionText)];
-
-            // Search
-
-            if (search != "") events = [.. events.Where(e => e.Title != null && e.Title.Contains(search, StringComparison.CurrentCultureIgnoreCase) || (e.Text != null && e.Text.Contains(search, StringComparison.CurrentCultureIgnoreCase)))];
-
-            // Status
-
-            switch (status)
-            {
-                case "eStatusUpcoming":
-                    events = [.. events.Where(e => e.Date > DateOnly.FromDateTime(DateTime.Now))];
-                    break;
-
-                case "eStatusPast":
-                    events = [.. events.Where(e => e.Date < DateOnly.FromDateTime(DateTime.Now))];
-                    break;
-            }
-
-            // Date
-
-            if (date == "eDateOldest") events = [.. events.OrderBy(e => e.Date)];
-
-            // Alphabet
-
-            switch (alphabet)
-            {
-                case "eAlphabetAZ":
-                    events = [.. events.OrderBy(e => e.Title)];
-                    break;
-
-                case "eAlphabetZA":
-                    events = [.. events.OrderByDescending(e => e.Title)];
-                    break;
-            }
-
-            ViewBag.IndividualEvent = events.Count == 1;
-
-            // Remember Selected Filters
-
-            ViewBag.Search = search;
-            ViewBag.Status = status;
-            ViewBag.Date = date;
-            ViewBag.Alphabet = alphabet;
-
-            // Return
-
-            return events;
+            else return new List<Event>();
         }
     }
 }

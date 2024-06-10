@@ -1,57 +1,58 @@
 @ECHO OFF
 
-CALL ECHO ----------------
-CALL ECHO 1 - [ development - run ]
-CALL ECHO 2 - [ development - database and migrations ]
-CALL ECHO 3 - [ development - build ]
-CALL ECHO 4 - [ development - test ]
-CALL ECHO 10 - [ git - merge branches - main to Kamau ]
-CALL ECHO 11 - [ git - merge branches - main to Trung ]
-CALL ECHO 12 - [ git - remove - last commit ]
-CALL ECHO ----------------
+ECHO ----------------
+ECHO 1 - [ development - run ]
+ECHO 2 - [ development - database and migrations ]
+ECHO 3 - [ development - build ]
+ECHO 4 - [ development - test ]
+ECHO 10 - [ git - merge branches - main to kamau ]
+ECHO 11 - [ git - merge branches - main to Trung ]
+ECHO 12 - [ git - remove - last commit ]
+ECHO ----------------
 
 SET /P input="ENTER: "
 
 IF %input% == 1 (
-	CALL dotnet watch run
+	dotnet watch run
 )
 
 IF %input% == 2 (
     SET ASPNETCORE_ENVIRONMENT=Development
 
-    CALL dotnet ef database drop --force
+    dotnet ef database drop --force
 
-    CALL dotnet ef migrations remove
+    dotnet ef migrations remove
 
-    CALL dotnet ef migrations add MySQL
+    dotnet ef migrations add MySQL
 
-    CALL dotnet ef database update
+    dotnet ef database update
 )
 
 IF %input% == 3 (
-    CALL dotnet build
+    dotnet build
 )
 
 IF %input% == 4 (
-    CALL dotnet test
+    CD %CD%\Tests\Unit
+    dotnet test
 )
 
 IF %input% == 10 (
-    CALL git checkout Kamau
-    CALL git merge main
+    git checkout kamau
+    git merge main
 )
 
 IF %input% == 11 (
-    CALL git checkout Trung
-    CALL git merge main
+    git checkout Trung
+    git merge main
 )
 
 IF %input% == 12 (
-	CALL git reset --soft HEAD~1
+	git reset --soft HEAD~1
 )
 
-CALL ECHO ----------------
+ECHO ----------------
 
-CALL ECHO FINISHED
+ECHO FINISHED
 
 PAUSE

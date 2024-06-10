@@ -2,6 +2,7 @@ const eMobileBorder = document.getElementById('eMobileBorder');
 const eMobiles = document.getElementsByClassName('eMobiles');
 const eDropdowns = document.getElementsByClassName('eDropdowns');
 const eMobileButton = document.getElementById('eMobileButton');
+const eSidebars = document.getElementsByClassName('eSidebars');
 
 function toggleMobile() {
     Array.from(eMobiles).forEach(e => e.classList.contains('hidden') ? (eMobileBorder.classList.add('border-b-[1px]'), e.classList.remove('hidden'), (eMobileButton.children[0].classList.add('hidden'), eMobileButton.children[1].classList.remove('hidden'))) : (e.classList.add('hidden'), (eMobileBorder.classList.remove('border-b-[1px]'), eMobileButton.children[0].classList.remove('hidden'), eMobileButton.children[1].classList.add('hidden'))));
@@ -20,6 +21,10 @@ function resetMobile() {
 
 function removeDisclaimer() {
     document.getElementById('disclaimer').classList.replace('scale-1', 'scale-0');
+}
+
+function toggleSidebar() {
+    Array.from(eSidebars).forEach(e => e.classList.contains('hidden') ? e.classList.remove('hidden') : e.classList.add('hidden'));
 }
 
 function checkScroll() {
