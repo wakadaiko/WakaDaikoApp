@@ -28,6 +28,7 @@ else app.UseExceptionHandler("/Home/Error");
 app.Use(async (context, next) =>
 {
     context.Response.Headers.Append("X-Frame-Options", "DENY");
+    context.Response.Headers.Append("X-Robots-Tag", "noindex, nofollow");
     context.Response.Headers.Append("Content-Security-Policy", "form-action 'self'");
 
     await next();
